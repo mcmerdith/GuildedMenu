@@ -442,7 +442,9 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/ipvp/canvas/1.7.0-SNAPSHOT/canvas-1.7.0-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/../Canvas/canvas/src/main/java" />
+      </SOURCES>
     </library>
     <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.7.21" type="kotlin.common">
       <CLASSES>

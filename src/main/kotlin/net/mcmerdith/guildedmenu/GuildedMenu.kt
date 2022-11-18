@@ -2,12 +2,10 @@ package net.mcmerdith.guildedmenu
 
 import net.mcmerdith.guildedmenu.components.BusinessManager
 import net.mcmerdith.guildedmenu.configuration.PluginConfig
-import net.mcmerdith.guildedmenu.events.EventHandler
 import net.mcmerdith.guildedmenu.util.Globals
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.util.GMLogger
 import org.bukkit.plugin.java.JavaPlugin
-import java.io.IOException
 
 class GuildedMenu : JavaPlugin() {
     init {
@@ -35,9 +33,6 @@ class GuildedMenu : JavaPlugin() {
 
         // Load the configuration
         configuration = PluginConfig.getNewConfig(dataFolder)
-
-        // Register the event system
-        server.pluginManager.registerEvents(EventHandler(), this)
 
         // Set up our integrations
         IntegrationManager.enable()

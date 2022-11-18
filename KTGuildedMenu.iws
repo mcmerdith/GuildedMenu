@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="" />
+    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="Initial Commit">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/EconomyMenu.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/GuiUtil.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MenuSize.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/PlayerSelectMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KTGuildedMenu.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/KTGuildedMenu.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KTGuildedMenu.iws" beforeDir="false" afterPath="$PROJECT_DIR$/KTGuildedMenu.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/GuildedMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/GuildedMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/events/EventHandler.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/GuiTemplates.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MainMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MainMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/panels/PanelEconomy.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/panels/PanelPlayerSelect.kt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,6 +84,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Object" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -108,6 +122,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Dev Environments/Spigot Plugins/Canvas/canvas",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -192,8 +207,16 @@
       <workItem from="1668364892461" duration="9622000" />
       <workItem from="1668461657289" duration="739000" />
       <workItem from="1668540726014" duration="101000" />
-      <workItem from="1668541140127" duration="1668000" />
+      <workItem from="1668541140127" duration="8892000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <created>1668738917626</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668738917626</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,6 +235,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <MESSAGE value="Initial Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
