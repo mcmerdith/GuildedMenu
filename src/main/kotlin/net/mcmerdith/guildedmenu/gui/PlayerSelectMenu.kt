@@ -35,7 +35,6 @@ class PlayerSelectMenu(previous: Menu?, online: Boolean = false, callback: BiCon
                 if (online) players = players.filter { it.isOnline }
 
                 players.forEach { player ->
-                    GMLogger.MAIN.info("Adding player " + player.name)
                     addItem(SlotSettings.builder()
                         .clickHandler { clickPlayer, _ -> callback.accept(clickPlayer, player) }
                         .item(SkullCreator.itemFromUuid(player.uniqueId)).build())
