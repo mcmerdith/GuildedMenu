@@ -7,11 +7,10 @@ import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import org.bukkit.Bukkit
 import org.ipvp.canvas.type.ChestMenu
 
-class MainMenu : ChestMenu(
+class MainMenu(val admin: Boolean = false) : BaseMenu(
     "GuildedCraft Menu",
-    MenuSize(6).area,
-    null,
-    true
+    MenuSize(6),
+    null
 ) {
     init {
         if (IntegrationManager.has(VaultIntegration::class.java)) {
@@ -34,6 +33,7 @@ class MainMenu : ChestMenu(
                 } else {
                     player.sendErrorMessage("Could not TPA! (is the target online?)")
                 }
+                player.closeInventory()
             }.get())
 
             // TPA HERE
@@ -46,6 +46,7 @@ class MainMenu : ChestMenu(
                 } else {
                     player.sendErrorMessage("Could not TPA! (is the target online?)")
                 }
+                player.closeInventory()
             }.get())
         }
     }

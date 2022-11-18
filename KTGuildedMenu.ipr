@@ -578,9 +578,9 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.snakeyaml/snakeyaml-engine/2.3/6961995bb27d77692c23a003a212801d328f61cc/snakeyaml-engine-2.3-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT">
+    <library name="Gradle: org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/spigotmc/spigot-api/1.18.2-R0.1-SNAPSHOT/spigot-api-1.18.2-R0.1-SNAPSHOT.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/spigotmc/spigot-api/1.19.2-R0.1-SNAPSHOT/spigot-api-1.19.2-R0.1-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -594,15 +594,15 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/wargamer2010/SignShop/3.6.1/SignShop-3.6.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.yaml:snakeyaml:1.30">
+    <library name="Gradle: org.yaml:snakeyaml:1.33">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.30/8fde7fe2586328ac3c68db92045e1c8759125000/snakeyaml-1.30.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.33/2cd0a87ff7df953f810c344bdf2fe3340b954c69/snakeyaml-1.33.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.30/9445bc81714b2844c7caffe2e2597e67ede7a68f/snakeyaml-1.30-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.33/b549b1a24f434486e2dff251e3184792e60ddc58/snakeyaml-1.33-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.30/2fa17b2e1e6edc10ce8dec15df18a844efd8318b/snakeyaml-1.30-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.33/97257a0e34679175cc00444a64fa42d6bb53e23f/snakeyaml-1.33-sources.jar!/" />
       </SOURCES>
     </library>
   </component>

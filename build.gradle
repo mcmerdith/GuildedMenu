@@ -39,7 +39,7 @@ dependencies {
     // Plugin dependencies
     implementation 'org.ipvp:canvas:1.7.0-SNAPSHOT'
     implementation 'dev.dbassett:skullcreator:3.0.1'
-    compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT'
     compileOnly 'org.wargamer2010:SignShop:3.6.1'
     compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
     compileOnly 'com.palmergames.bukkit.towny:towny:0.98.1.0'

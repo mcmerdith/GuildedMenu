@@ -2,10 +2,13 @@ package net.mcmerdith.guildedmenu
 
 import net.mcmerdith.guildedmenu.components.BusinessManager
 import net.mcmerdith.guildedmenu.configuration.PluginConfig
+import net.mcmerdith.guildedmenu.gui.GuiUtil
 import net.mcmerdith.guildedmenu.util.Globals
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.util.GMLogger
+import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
+import org.ipvp.canvas.MenuFunctionListener
 
 class GuildedMenu : JavaPlugin() {
     init {
@@ -39,5 +42,9 @@ class GuildedMenu : JavaPlugin() {
 
         // Business manager
         getCommand("business")!!.setExecutor(BusinessManager)
+        getCommand("guildedmenu")!!.setExecutor(GuiUtil)
+
+        // GUI
+        Bukkit.getPluginManager().registerEvents(MenuFunctionListener(), this)
     }
 }

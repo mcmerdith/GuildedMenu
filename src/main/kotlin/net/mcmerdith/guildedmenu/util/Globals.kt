@@ -1,12 +1,8 @@
 package net.mcmerdith.guildedmenu.util
 
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.stream.JsonReader
-import com.google.gson.stream.JsonWriter
 import net.mcmerdith.guildedmenu.GuildedMenu
 import net.mcmerdith.guildedmenu.integration.Integration
-import net.mcmerdith.guildedmenu.panels.builders.CPItemBuilder
 import java.io.File
 import java.io.FilenameFilter
 import java.io.IOException
@@ -16,43 +12,13 @@ import java.util.stream.Collectors
 object Globals {
     private lateinit var configDir: File
 
-    val gson: Gson = GsonBuilder()
-        .registerTypeAdapter(IPlayerInputReceiver::class.java, IPlayerInputReceiver.Companion.GsonSerializer())
-        .registerTypeAdapter(IPlayerSelectReceiver::class.java, IPlayerSelectReceiver.Companion.GsonSerializer())
-        .create()
+    val PERMISSION_ADMIN = "guildedmenu.admin"
+
+    val gson = Gson()
 
     fun init(main: GuildedMenu) {
         configDir = main.dataFolder
         if (!configDir.exists()) configDir.mkdir()
-    }
-
-    /**
-     * Set an [item] to execute an [event] when clicked.
-     * If [event] is an instance of [IPlayerInputReceiver] the event will be called as a player-input command
-     */
-    fun applyEventCommand(item: CPItemBuilder, event: PanelEvent) {
-        val eventString = event.getEventString()
-
-        if (event is IPlayerInputReceiver) {
-            item.addCommand("msg= " + event.playerInputMessage)
-                .setCustomAttribute("player-input", listOf<String?>(eventString))
-        } else {
-            item.addCommand(eventString)
-        }
-    }
-
-    fun <T> gsonEncodeInterface(jsonWriter: JsonWriter, value: T, type: Class<out T>) {
-        jsonWriter.name("reflectiveClass")?.value(type.name)
-        jsonWriter.jsonValue(IPlayerSelectReceiver.gson.toJson(value))
-    }
-
-    @Suppress("unchecked_cast")
-    fun <T> gsonDecodeInterface(jsonReader: JsonReader): T {
-        val className = jsonReader.nextString()
-
-        val eventClass = Class.forName(className) as Class<out T>
-
-        return PanelEvent.fromJson(jsonReader, eventClass)
     }
 
     // Integrations
