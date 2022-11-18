@@ -1,0 +1,48 @@
+package net.mcmerdith.guildedmenu
+
+import net.mcmerdith.guildedmenu.components.BusinessManager
+import net.mcmerdith.guildedmenu.configuration.PluginConfig
+import net.mcmerdith.guildedmenu.events.EventHandler
+import net.mcmerdith.guildedmenu.util.Globals
+import net.mcmerdith.guildedmenu.integration.IntegrationManager
+import net.mcmerdith.guildedmenu.util.GMLogger
+import org.bukkit.plugin.java.JavaPlugin
+import java.io.IOException
+
+class GuildedMenu : JavaPlugin() {
+    init {
+        plugin = this
+    }
+
+    companion object {
+        lateinit var plugin: GuildedMenu
+    }
+
+    lateinit var configuration: PluginConfig
+
+    override fun onLoad() {
+        GMLogger.init(logger)
+
+        Globals.init(this);
+        IntegrationManager.setup()
+        BusinessManager.init()
+
+        super.onLoad()
+    }
+
+    override fun onEnable() {
+        super.onEnable()
+
+        // Load the configuration
+        configuration = PluginConfig.getNewConfig(dataFolder)
+
+        // Register the event system
+        server.pluginManager.registerEvents(EventHandler(), this)
+
+        // Set up our integrations
+        IntegrationManager.enable()
+
+        // Business manager
+        getCommand("business")!!.setExecutor(BusinessManager)
+    }
+}

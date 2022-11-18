@@ -1,0 +1,76 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.7.21'
+    id 'java'
+    id 'idea'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'io.freefair.lombok' version '6.5.0.3'
+}
+
+group 'net.mcmerdith.guildedmenu'
+version '0.1-dev'
+
+sourceCompatibility = 17
+targetCompatibility = 17
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+    maven { url "https://jitpack.io" }
+    maven { url "https://repo.glaremasters.me/repository/towny/" }
+    maven { url "https://github.com/deanveloper/SkullCreator/raw/mvn-repo/"}
+    maven {
+        name "essentialsx-releases"
+        url "https://repo.essentialsx.net/releases/"
+    }
+    maven {
+        name "papermc"
+        url "https://papermc.io/repo/repository/maven-public/"
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+
+    // Plugin dependencies
+    implementation 'org.ipvp:canvas:1.7.0-SNAPSHOT'
+    implementation 'dev.dbassett:skullcreator:3.0.1'
+    compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
+    compileOnly 'org.wargamer2010:SignShop:3.6.1'
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+    compileOnly 'com.palmergames.bukkit.towny:towny:0.98.1.0'
+    compileOnly 'net.essentialsx:EssentialsX:2.19.0'
+
+    // DOPE config
+    implementation 'com.github.Exlll.ConfigLib:configlib-yaml:v4.2.0'
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+processResources {
+    duplicatesStrategy = 'include'
+    from (sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "17"
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "17"
+}
+
+test {
+    useJUnitPlatform()
+}

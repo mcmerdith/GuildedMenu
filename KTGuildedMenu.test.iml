@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="KTGuildedMenu:test" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="net.mcmerdith.guildedmenu" external.system.module.type="sourceSet" external.system.module.version="0.1-dev" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="4" platform="JVM 17" allPlatforms="JVM [17]" useProjectSettings="false">
+        <compilerSettings>
+          <option name="additionalArguments" value="-Xallow-no-source-files" />
+        </compilerSettings>
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/build/classes/kotlin/test" />
+          <option name="classpath" value="$MODULE_DIR$/build/classes/kotlin/main;D:/Dev Environments/Spigot Plugins/KTGuildedMenuV2/build/resources/main;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.7.21/5407c3593c58860cec5ee3f66c468396b42f4c2b/kotlin-stdlib-jdk8-1.7.21.jar;C:/Users/lordm/.m2/repository/org/ipvp/canvas/1.7.0-SNAPSHOT/canvas-1.7.0-SNAPSHOT.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/dev.dbassett/skullcreator/3.0.1/2eda77a6ee553b49d12e0693c32e326903b3cd49/skullcreator-3.0.1.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/com.github.Exlll.ConfigLib/configlib-yaml/v4.2.0/bed41c59189b1906d92a8881c65a6180d65a7b75/configlib-yaml-v4.2.0.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.24/13a394eed5c4f9efb2a6d956e2086f1d81e857d9/lombok-1.18.24.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.9.0/b727889107fc28c7460b21d1083212f8ce7602c6/junit-platform-commons-1.9.0.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.9.0/a44f7eba3ea214f6ec87ad9fccd3b2ac4681a4/junit-jupiter-api-5.9.0.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.7.21/a0ba09615c2213d580315e234b3febfea25b757e/kotlin-stdlib-jdk7-1.7.21.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.7.21/1a2eaf898a0dda83037034b10a42053cf8a7caf8/kotlin-stdlib-1.7.21.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/com.github.Exlll.ConfigLib/configlib-core/v4.2.0/4ab3409581f279435b9a0ab1422201eaaa10af3/configlib-core-v4.2.0.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/28c11eb91f9b6d8e200631d46e20a7f407f2a046/opentest4j-1.2.0.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.2/a231e0d844d2721b0fa1b238006d15c6ded6842a/apiguardian-api-1.1.2.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.7.21/cb02257de8e13e8498f8e2f69f742f2d438e794d/kotlin-stdlib-common-1.7.21.jar;C:/Users/lordm/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="KTGuildedMenu" />
+          <option name="jvmTarget" value="17" />
+          <option name="friendPaths">
+            <array>
+              <option value="$MODULE_DIR$/build/classes/java/main" />
+              <option value="$MODULE_DIR$/build/classes/kotlin/main" />
+              <option value="$MODULE_DIR$/build/libs/KTGuildedMenu-0.1-dev.jar" />
+            </array>
+          </option>
+          <option name="languageVersion" value="1.7" />
+          <option name="apiVersion" value="1.7" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array>
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.7.21/1f327341aebabf8de86dbc1ead1f5ef63c8774ec/kotlin-scripting-jvm-1.7.21.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.7.21/f237334a26a2215304a7c78e1bbd9510a88b3459/kotlin-scripting-common-1.7.21.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.7.21/1a2eaf898a0dda83037034b10a42053cf8a7caf8/kotlin-stdlib-1.7.21.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.7.21/cb02257de8e13e8498f8e2f69f742f2d438e794d/kotlin-stdlib-common-1.7.21.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.7.21/b06d5c58297dccce2a0f69b0636804b0a73b3b9/kotlin-script-runtime-1.7.21.jar" />
+            </array>
+          </option>
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output-test url="file://$MODULE_DIR$/build/classes/java/test" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/src/test" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="KTGuildedMenu.main" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.21" level="project" />
+    <orderEntry type="library" name="Gradle: org.ipvp:canvas:1.7.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Gradle: dev.dbassett:skullcreator:3.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.Exlll.ConfigLib:configlib-yaml:v4.2.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.projectlombok:lombok:1.18.24" level="project" />
+    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.9.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.21" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.7.21" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.Exlll.ConfigLib:configlib-core:v4.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-commons:1.9.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.opentest4j:opentest4j:1.2.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.apiguardian:apiguardian-api:1.1.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.7.21" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.9.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.snakeyaml:snakeyaml-engine:2.3" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.platform:junit-platform-engine:1.9.0" level="project" />
+  </component>
+  <component name="TestModuleProperties" production-module="KTGuildedMenu.main" />
+</module>
