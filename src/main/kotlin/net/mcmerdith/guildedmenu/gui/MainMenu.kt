@@ -33,7 +33,7 @@ class MainMenu(val admin: Boolean = false) : BaseMenu(
                 } else {
                     player.sendErrorMessage("Could not TPA! (is the target online?)")
                 }
-                player.closeInventory()
+                close()
             }.get())
 
             // TPA HERE
@@ -46,7 +46,7 @@ class MainMenu(val admin: Boolean = false) : BaseMenu(
                 } else {
                     player.sendErrorMessage("Could not TPA! (is the target online?)")
                 }
-                player.closeInventory()
+                close()
             }.get())
         }
     }
