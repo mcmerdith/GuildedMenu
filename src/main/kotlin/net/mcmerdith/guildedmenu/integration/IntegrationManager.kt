@@ -1,6 +1,7 @@
 package net.mcmerdith.guildedmenu.integration
 
 import net.mcmerdith.guildedmenu.GuildedMenu
+import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
 
 object IntegrationManager {
     private val integrations: MutableMap<Class<out Integration>, Integration> = HashMap()

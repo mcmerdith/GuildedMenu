@@ -1,4 +1,4 @@
-package net.mcmerdith.guildedmenu.components
+package net.mcmerdith.guildedmenu.integration.vault
 
 data class BalanceTop(val balances: List<PlayerBalance>) {
     val offset = balances.lastOrNull()?.balance ?: 0.0

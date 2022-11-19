@@ -1,9 +1,8 @@
-package net.mcmerdith.guildedmenu.integration
+package net.mcmerdith.guildedmenu.integration.vault
 
 import net.mcmerdith.guildedmenu.GuildedMenu
-import net.mcmerdith.guildedmenu.components.BalanceTop
-import net.mcmerdith.guildedmenu.components.PlayerBalance
 import net.mcmerdith.guildedmenu.gui.framework.PlayerHeadItemTemplate
+import net.mcmerdith.guildedmenu.integration.Integration
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
 import net.mcmerdith.guildedmenu.util.Extensions.setLore

@@ -1,4 +1,4 @@
-package net.mcmerdith.guildedmenu.components
+package net.mcmerdith.guildedmenu.integration.vault
 
 import org.bukkit.OfflinePlayer
 

@@ -6,7 +6,7 @@ import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
 import net.mcmerdith.guildedmenu.gui.framework.PlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.gui.util.*
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
-import net.mcmerdith.guildedmenu.integration.VaultIntegration
+import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
 import net.mcmerdith.guildedmenu.util.Extensions.setLore
 import net.mcmerdith.guildedmenu.util.Extensions.setName
 import net.mcmerdith.guildedmenu.util.GMLogger

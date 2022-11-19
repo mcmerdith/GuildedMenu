@@ -8,7 +8,7 @@ import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.gui.framework.MenuSize
 import net.mcmerdith.guildedmenu.integration.EssentialsIntegration
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
-import net.mcmerdith.guildedmenu.integration.VaultIntegration
+import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
 
 class MainMenu(val admin: Boolean = false) : BaseMenu(
     GuildedMenu.plugin.menuConfig.title,
