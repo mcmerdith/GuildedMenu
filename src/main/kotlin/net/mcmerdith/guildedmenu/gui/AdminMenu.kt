@@ -20,7 +20,7 @@ class AdminMenu(main: MainMenu) : BaseMenu(
 
     init {
         val home = getSlot(config.admin.mainButton.index)
-        home.item = ItemTemplates.HOME.setLore("Switch to player view")
+        home.item = ItemTemplates.EXCLAMATION.setName("Player View")
         GuiUtil.openScreenOnClick(home, main)
 
         getSlot(2, 5).item = ItemTemplates.EXCLAMATION.setName("Coming Soon!")

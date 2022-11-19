@@ -10,6 +10,7 @@ import net.mcmerdith.guildedmenu.integration.EssentialsIntegration
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
 import net.mcmerdith.guildedmenu.util.Extensions.setLore
+import net.mcmerdith.guildedmenu.util.Extensions.setName
 
 class MainMenu(admin: Boolean = false) : BaseMenu(
     GuildedMenu.plugin.menuConfig.title,
@@ -21,7 +22,7 @@ class MainMenu(admin: Boolean = false) : BaseMenu(
     init {
         if (admin) {
             val home = getSlot(config.admin.mainButton.index)
-            home.item = ItemTemplates.EXCLAMATION.setLore("Switch to admin view")
+            home.item = ItemTemplates.EXCLAMATION.setName("Admin View")
             GuiUtil.openScreenOnClick(home, AdminMenu(this))
         }
 
