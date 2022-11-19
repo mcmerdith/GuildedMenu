@@ -2,6 +2,7 @@ package net.mcmerdith.guildedmenu.gui.util
 
 import net.mcmerdith.guildedmenu.GuildedMenu
 import net.mcmerdith.guildedmenu.gui.MainMenu
+import net.mcmerdith.guildedmenu.gui.framework.MenuSize
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.Globals
 import net.wesjd.anvilgui.AnvilGUI

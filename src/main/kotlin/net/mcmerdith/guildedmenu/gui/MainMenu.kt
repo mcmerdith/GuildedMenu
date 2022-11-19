@@ -2,10 +2,10 @@ package net.mcmerdith.guildedmenu.gui
 
 import PlayerBalanceMenu
 import net.mcmerdith.guildedmenu.GuildedMenu
-import net.mcmerdith.guildedmenu.gui.util.BaseMenu
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
-import net.mcmerdith.guildedmenu.gui.util.MenuSize
+import net.mcmerdith.guildedmenu.gui.framework.MenuSize
 import net.mcmerdith.guildedmenu.integration.EssentialsIntegration
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.VaultIntegration

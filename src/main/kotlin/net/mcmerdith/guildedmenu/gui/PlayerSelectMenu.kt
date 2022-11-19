@@ -1,9 +1,9 @@
 package net.mcmerdith.guildedmenu.gui
 
-import net.mcmerdith.guildedmenu.gui.util.BaseMenu
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
-import net.mcmerdith.guildedmenu.gui.util.PaginatedMenu
-import net.mcmerdith.guildedmenu.gui.util.PlayerHeadItemTemplate
+import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
+import net.mcmerdith.guildedmenu.gui.framework.PlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.util.Globals
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer

@@ -3,7 +3,7 @@ package net.mcmerdith.guildedmenu.integration
 import net.mcmerdith.guildedmenu.GuildedMenu
 import net.mcmerdith.guildedmenu.components.BalanceTop
 import net.mcmerdith.guildedmenu.components.PlayerBalance
-import net.mcmerdith.guildedmenu.gui.util.PlayerHeadItemTemplate
+import net.mcmerdith.guildedmenu.gui.framework.PlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
 import net.mcmerdith.guildedmenu.util.Extensions.setLore

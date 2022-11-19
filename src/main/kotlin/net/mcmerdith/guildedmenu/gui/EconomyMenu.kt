@@ -1,6 +1,9 @@
 package net.mcmerdith.guildedmenu.gui
 
 import PlayerBalanceMenu
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
+import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
+import net.mcmerdith.guildedmenu.gui.framework.PlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.gui.util.*
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.VaultIntegration

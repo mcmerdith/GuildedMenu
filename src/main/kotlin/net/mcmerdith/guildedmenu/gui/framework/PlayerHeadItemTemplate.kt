@@ -1,4 +1,4 @@
-package net.mcmerdith.guildedmenu.gui.util
+package net.mcmerdith.guildedmenu.gui.framework
 
 import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.util.Extensions.setName

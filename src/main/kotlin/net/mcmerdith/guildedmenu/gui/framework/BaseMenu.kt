@@ -1,4 +1,4 @@
-package net.mcmerdith.guildedmenu.gui.util
+package net.mcmerdith.guildedmenu.gui.framework
 
 import net.mcmerdith.guildedmenu.GuildedMenu
 import org.bukkit.Bukkit

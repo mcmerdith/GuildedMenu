@@ -1,7 +1,7 @@
-import net.mcmerdith.guildedmenu.gui.util.BaseMenu
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
-import net.mcmerdith.guildedmenu.gui.util.MenuSize
+import net.mcmerdith.guildedmenu.gui.framework.MenuSize
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.VaultIntegration
 import net.mcmerdith.guildedmenu.util.Extensions.setLore
