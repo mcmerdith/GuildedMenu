@@ -14,11 +14,9 @@ class MenuConfig : BaseConfiguration() {
     companion object {
         fun create(dataFolder: File) = Factory("menu.yml", MenuConfig::class.java)
             .header(
-                """
-                    ######## Main Menu ########                    
+                """######## Main Menu ########                    
                     - Row   : 1-6
-                    - Column: 1-9
-                """.trimIndent()
+                    - Column: 1-9""".trimIndent()
             ).create(dataFolder)
     }
 

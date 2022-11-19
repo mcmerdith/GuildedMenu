@@ -7,11 +7,7 @@ class PluginConfig : BaseConfiguration() {
     companion object {
         fun create(dataFolder: File) = Factory("config.yml", PluginConfig::class.java)
             .header(
-                """
-                    ######## Guilded Menu ########
-                           v0.1 - mcmerdith
-                    
-                """.trimIndent()
+                "######## Guilded Menu ########".trimIndent()
             ).create(dataFolder)
     }
 
