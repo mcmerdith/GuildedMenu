@@ -22,7 +22,9 @@ open class BaseMenu(title: String, size: Dimension, parent: Menu?, redraw: Boole
             if (viewer != null && triggerCloseHandler) {
                 Bukkit.getScheduler().runTask(GuildedMenu.plugin) { ->
                     // Only reopen parent inventory if player does not have another open inventory
-                    if (viewer.openInventory.type == InventoryType.CRAFTING || viewer.openInventory.type == InventoryType.CREATIVE) it.open(viewer)
+                    if (viewer.openInventory.type == InventoryType.CRAFTING || viewer.openInventory.type == InventoryType.CREATIVE) it.open(
+                        viewer
+                    )
                 }
             }
         }

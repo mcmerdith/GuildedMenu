@@ -1,11 +1,9 @@
 package net.mcmerdith.guildedmenu.components
 
 import net.mcmerdith.guildedmenu.GuildedMenu
-import net.mcmerdith.guildedmenu.util.ChatUtils
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
 import net.mcmerdith.guildedmenu.util.Globals
-import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -41,6 +39,7 @@ object BusinessManager : CommandExecutor {
                     commandSender.sendErrorMessage("Failed to register '$name'")
                 }
             }
+
             "delete" -> {
             }
         }

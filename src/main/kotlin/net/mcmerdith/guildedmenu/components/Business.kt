@@ -1,15 +1,14 @@
 package net.mcmerdith.guildedmenu.components
 
-import java.util.UUID
-import java.io.File
-import net.mcmerdith.guildedmenu.util.Globals
-import java.io.IOException
 import com.google.gson.JsonSyntaxException
 import net.mcmerdith.guildedmenu.GuildedMenu
 import net.mcmerdith.guildedmenu.configuration.FileHandler
+import net.mcmerdith.guildedmenu.util.Globals
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
-import java.util.ArrayList
+import java.io.File
+import java.io.IOException
+import java.util.*
 
 class Business {
     var name: String? = null

@@ -1,6 +1,5 @@
 package net.mcmerdith.guildedmenu.util
 
-import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import org.bukkit.ChatColor
 import org.bukkit.command.CommandSender
 
