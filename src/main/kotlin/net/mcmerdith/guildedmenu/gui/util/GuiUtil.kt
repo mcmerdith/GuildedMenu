@@ -1,6 +1,7 @@
 package net.mcmerdith.guildedmenu.gui.util
 
 import net.mcmerdith.guildedmenu.GuildedMenu
+import net.mcmerdith.guildedmenu.gui.AdminMenu
 import net.mcmerdith.guildedmenu.gui.MainMenu
 import net.mcmerdith.guildedmenu.gui.framework.MenuSize
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
@@ -78,7 +79,16 @@ object GuiUtil : CommandExecutor {
             return true
         }
 
-        MainMenu(sender.isOp || sender.hasPermission(Globals.PERMISSION.ADMIN)).open(sender)
+        val admin = sender.isOp || sender.hasPermission(Globals.PERMISSION.ADMIN)
+
+        val mainMenu = MainMenu(admin)
+
+        if (label == "guildedmenuadmin" || label == "gma") {
+            AdminMenu(mainMenu).open(sender)
+        } else {
+            mainMenu.open(sender)
+        }
+
         return true
     }
 }

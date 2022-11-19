@@ -7,19 +7,21 @@ website: 'https://github.com/mcmerdith/GuildedCraftMenu'
 prefix: GuildedMenu
 softdepend: [ SignShop,Towny,TownyResources,Vault ]
 
-description: Custom Player menu for GuildedCraft (guildedcraft.crafted.pro)
+description: Custom Player Menu for GuildedCraft (https://discord.gg/tkahcfHKuz)
 commands:
   guildedmenu:
     aliases: [gm]
-    permission: guildedmenu.command.openmenu
+    permission: guildedmenu.open
+  guildedmenuadmin:
+    aliases: [gma]
+    permission: guildedmenu.admin
   business:
     description: Manage businesses on the server
 
 permissions:
-  guildedmenu.command.openmenu:
+  guildedmenu.open:
     description: User is able to open the menu.
     default: true
-
   guildedmenu.admin:
-    description: User is able to do all guildedmenu admin commands.
+    description: User is able to do all GuildedMenu admin commands.
     default: op

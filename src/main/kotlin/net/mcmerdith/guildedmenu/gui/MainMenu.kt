@@ -9,8 +9,9 @@ import net.mcmerdith.guildedmenu.gui.framework.MenuSize
 import net.mcmerdith.guildedmenu.integration.EssentialsIntegration
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
+import net.mcmerdith.guildedmenu.util.Extensions.setLore
 
-class MainMenu(val admin: Boolean = false) : BaseMenu(
+class MainMenu(admin: Boolean = false) : BaseMenu(
     GuildedMenu.plugin.menuConfig.title,
     MenuSize(6),
     null
@@ -18,6 +19,12 @@ class MainMenu(val admin: Boolean = false) : BaseMenu(
     private val config = GuildedMenu.plugin.menuConfig
 
     init {
+        if (admin) {
+            val home = getSlot(config.admin.mainButton.index)
+            home.item = ItemTemplates.EXCLAMATION.setLore("Switch to admin view")
+            GuiUtil.openScreenOnClick(home, AdminMenu(this))
+        }
+
         if (config.vault.enabled
             && IntegrationManager[VaultIntegration::class.java]?.run { ready && hasEconomy() } == true
         ) {

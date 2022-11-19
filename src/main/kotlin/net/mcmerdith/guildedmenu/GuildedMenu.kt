@@ -45,6 +45,7 @@ class GuildedMenu : JavaPlugin() {
 
         // Business manager
         getCommand("business")!!.setExecutor(BusinessManager)
+        getCommand("guildedmenuadmin")!!.setExecutor(GuiUtil)
         getCommand("guildedmenu")!!.setExecutor(GuiUtil)
 
         // GUI

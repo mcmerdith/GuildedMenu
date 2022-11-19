@@ -7,7 +7,7 @@ import java.io.File
 class MenuConfig : BaseConfiguration() {
     @Configuration
     class AdminMenuConfig {
-        @Comment("Icon to open the admin menu from the main menu")
+        @Comment("Icon to switch between admin and player menu")
         var mainButton = MenuIcon(true, 1, 1)
     }
 
