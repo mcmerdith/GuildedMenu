@@ -1,5 +1,6 @@
 package net.mcmerdith.guildedmenu.util
 
+import net.mcmerdith.guildedmenu.GuildedMenu
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -28,6 +29,10 @@ class GMLogger private constructor(name: String = "") {
 
             return loggers[name]!!
         }
+    }
+
+    fun debug(message: String) {
+        if (GuildedMenu.plugin.config.debug) info(message)
     }
 
     fun info(message: String) {
