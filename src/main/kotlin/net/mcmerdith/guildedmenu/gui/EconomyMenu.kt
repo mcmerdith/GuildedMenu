@@ -1,6 +1,5 @@
 package net.mcmerdith.guildedmenu.gui
 
-import PlayerBalanceMenu
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
 import net.mcmerdith.guildedmenu.gui.framework.PlayerHeadItemTemplate
@@ -57,7 +56,7 @@ class EconomyMenu(parent: Menu? = null) : PaginatedMenu {
                     val balance = balTop.balances.find { p -> p.player.uniqueId == target.uniqueId }
                         ?: throw RuntimeException("Could not identify player ${target.name}")
 
-                    // When the head is clicked open a PlayerBalanceMenu for the target player
+                    // When the head is clicked open a net.mcmerdith.guildedmenu.gui.PlayerBalanceMenu for the target player
                     GuiUtil.openScreenOnClick(slot, PlayerBalanceMenu(menu, balance.player))
 
                     // Place the money blocks

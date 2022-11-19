@@ -4,6 +4,7 @@ import net.mcmerdith.guildedmenu.GuildedMenu
 import java.util.logging.Level
 import java.util.logging.Logger
 
+@Suppress("unused")
 class GMLogger private constructor(name: String = "") {
     val name: String
 

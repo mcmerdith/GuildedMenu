@@ -2,7 +2,6 @@ package net.mcmerdith.guildedmenu.util
 
 import com.google.gson.Gson
 import net.mcmerdith.guildedmenu.GuildedMenu
-import net.mcmerdith.guildedmenu.integration.Integration
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import java.io.File
@@ -14,6 +13,7 @@ import java.util.stream.Collectors
 object Globals {
     private lateinit var configDir: File
 
+    @Suppress("unused")
     val DEBUG_PLAYER: OfflinePlayer
         get() = Bukkit.getOfflinePlayer(UUID.fromString("a8ae1005-73e3-49ba-b94e-bbf5143451bb"))
 
@@ -28,71 +28,6 @@ object Globals {
         if (!configDir.exists()) configDir.mkdir()
     }
 
-    // Integrations
-    /**
-     * Get the directory integration configs are stored in
-     *
-     * @return A [File] or null if one doesn't exist
-     */
-    val integrationConfigDir: File?
-        get() {
-            val dir = File(configDir, "integrations" + File.separator)
-            var success = true
-            if (!dir.exists()) success = dir.mkdir()
-            return if (success) dir else null
-        }
-
-    /**
-     * Get an integrations config file
-     *
-     * @param integration The integration
-     * @param name        The name of the config file
-     * @return A [File] or null if one doesn't exist
-     */
-    fun getIntegrationConfigFile(integration: Integration, name: String): File? {
-        val dir = integrationConfigDir ?: return null
-        val datafile = File(dir, integration.pluginName + File.separator + name + ".yml" + File.separator)
-        return try {
-            if (!datafile.exists()) GuildedMenu
-                .plugin.saveResource("integration/" + integration.pluginName + "/" + name + ".yml", false)
-            datafile
-        } catch (e: IllegalArgumentException) {
-            GuildedMenu.plugin.logger
-                .warning("No config found for name '" + name + "' in integration " + integration.pluginName)
-            null
-        }
-    }
-    // Panel Functions
-    /**
-     * Get the directory panels are stored in
-     *
-     * @return A [File] or null if one doesn't exist
-     */
-    val panelConfigDir: File?
-        get() {
-            val dir = File(configDir, "panels" + File.separator)
-            var success = true
-            if (!dir.exists()) success = dir.mkdir()
-            return if (success) dir else null
-        }
-
-    /**
-     * Get a panels config file
-     *
-     * @param name The name of the panel
-     * @return A [File] or null if one doesn't exist
-     */
-    fun getPanelFile(name: String): File? {
-        val dir = panelConfigDir ?: return null
-        val datafile = File(dir, name + ".yml" + File.separator)
-        return try {
-            if (!datafile.exists()) GuildedMenu.plugin.saveResource("panels/$name.yml", true)
-            datafile
-        } catch (e: IllegalArgumentException) {
-            GuildedMenu.plugin.logger.warning("No panel found for name '$name'")
-            null
-        }
-    }
     // Business Data
     /**
      * Get the directory business are stored in

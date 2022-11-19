@@ -3,6 +3,7 @@ package net.mcmerdith.guildedmenu.util
 import org.bukkit.ChatColor
 import org.bukkit.command.CommandSender
 
+@Suppress("unused")
 object ChatUtils {
     fun CommandSender.sendErrorMessage(message: String) {
         message(ChatColor.RED, message, this)
@@ -21,6 +22,6 @@ object ChatUtils {
     }
 
     fun message(color: ChatColor, message: String, sender: CommandSender) {
-        sender.sendMessage("$color$message");
+        sender.sendMessage("$color$message")
     }
 }

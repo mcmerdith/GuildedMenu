@@ -1,6 +1,5 @@
 package net.mcmerdith.guildedmenu.gui
 
-import PlayerBalanceMenu
 import net.mcmerdith.guildedmenu.GuildedMenu
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.MenuSize

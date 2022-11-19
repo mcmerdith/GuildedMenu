@@ -26,7 +26,8 @@ class Business {
     /**
      * Gson Constructor
      */
-    private constructor() {}
+    @Suppress("unused")
+    private constructor()
 
     /**
      * Check if a Player is a manager OR has the "gm.business.admin" permission

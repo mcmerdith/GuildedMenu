@@ -11,7 +11,6 @@ import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.bukkit.plugin.RegisteredServiceProvider
-import java.util.*
 import java.util.stream.Collectors
 
 class VaultIntegration : Integration("Vault") {
@@ -51,12 +50,9 @@ class VaultIntegration : Integration("Vault") {
 
     fun balance(player: OfflinePlayer) = econ!!.getBalance(player)
 
-    fun format(double: Double) = econ!!.format(double)
+    fun format(double: Double): String = econ!!.format(double)
 
-    fun formattedBalance(player: OfflinePlayer): String {
-        val balance = balance(player)
-        return format(balance) ?: balance.toString()
-    }
+    fun formattedBalance(player: OfflinePlayer) = format(balance(player))
 
     fun getPlayerBalanceHeadTemplate(player: OfflinePlayer) = PlayerHeadItemTemplate.of(player).apply {
         rawItem.setLore("Balance: ${formattedBalance(player)}")

@@ -34,6 +34,7 @@ abstract class Integration constructor(
     /**
      * Load the integration
      */
+    @Suppress("EmptyMethod")
     fun setup() {}
 
     /**
