@@ -3,7 +3,6 @@ package net.mcmerdith.guildedmenu.util
 import com.palmergames.bukkit.towny.`object`.Resident
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.TownyIntegration
-import net.mcmerdith.guildedmenu.util.Extensions.addLore
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.OfflinePlayer
@@ -25,9 +24,7 @@ object Extensions {
      * Returns null if Towny is not available, or the player is not a resident
      */
     fun UUID.asTownyResident(): Resident? {
-        if (!IntegrationManager.has(TownyIntegration::class.java)) return null
-
-        val towny = IntegrationManager[TownyIntegration::class.java] ?: return null
+        val towny = IntegrationManager[TownyIntegration::class.java]?.apply { if (!ready) return null } ?: return null
 
         return towny.getAPI().getResident(this)
     }
@@ -47,7 +44,7 @@ object Extensions {
     /**
      * Set the item display name to [name]
      */
-    fun ItemStack.name(name: String? = null): ItemStack {
+    fun ItemStack.setName(name: String? = null): ItemStack {
         val meta = itemMeta ?: run {
             GMLogger.MAIN.warn("Attempted to set name for ${type.name}x$amount, which has no meta!")
             return this
