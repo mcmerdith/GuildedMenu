@@ -1,4 +1,5 @@
 import org.apache.tools.ant.filters.ReplaceTokens
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.7.21'
@@ -48,12 +49,19 @@ dependencies {
 
 }
 
-shadowJar {
-    relocate 'org.ipvp.canvas', 'net.mcmerdith.canvas'
-    relocate 'dev.dbassett.skullcreator', 'net.mcmerdith.skullcreator'
-    relocate 'de.exlll.configlib', 'net.mcmerdith.configlib'
-    relocate 'net.wesjd.anvilgui', 'net.mcmerdith.anvilgui'
+task relocateShadowJar(type: ConfigureShadowRelocation) {
+    target = tasks.shadowJar
+    prefix = "net.mcmerdith"
 }
+
+shadowJar {
+    minimize {
+        // AnvilGUI uses reflective NMS wrappers
+        exclude(dependency('net.wesjd:anvilgui:.*'))
+    }
+}
+
+tasks.shadowJar.dependsOn tasks.relocateShadowJar
 
 idea {
     module {
