@@ -1,11 +1,9 @@
 package net.mcmerdith.guildedmenu.gui
 
-import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.gui.util.BaseMenu
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
+import net.mcmerdith.guildedmenu.gui.util.PaginatedMenu
 import net.mcmerdith.guildedmenu.gui.util.PlayerHeadItemTemplate
-import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
-import net.mcmerdith.guildedmenu.util.Extensions.name
 import net.mcmerdith.guildedmenu.util.Globals
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
@@ -15,14 +13,15 @@ import org.ipvp.canvas.slot.SlotSettings
 import java.util.*
 import java.util.function.BiConsumer
 
-class PlayerSelectMenu(parent: Menu? = null, online: Boolean = false, callback: BiConsumer<Player, OfflinePlayer>) {
+class PlayerSelectMenu(parent: Menu? = null, online: Boolean = false, callback: BiConsumer<Player, OfflinePlayer>) :
+    PaginatedMenu {
     val TEMPLATE = BaseMenu.Builder(6).title("Player Select").redraw(true).parent(parent)
 
     val pages: List<Menu> = GuiUtil.getPagination(TEMPLATE, GuiUtil.getFullRowMask(5))
         .apply {
             // debug
             val dPlayers = Bukkit.getOfflinePlayers()
-            val aPlayers = Array(125) { Globals.DEBUG_PLAYER }
+            val aPlayers = Array(128) { Globals.DEBUG_PLAYER }
 
             // production
 //                var players = Arrays.stream(Bukkit.getOfflinePlayers())
@@ -33,18 +32,14 @@ class PlayerSelectMenu(parent: Menu? = null, online: Boolean = false, callback: 
             players.forEach { player ->
                 addItem(SlotSettings.builder()
                     .clickHandler { clickPlayer, _ ->
-                        if (clickPlayer.uniqueId == player.uniqueId) {
-                            clickPlayer.sendErrorMessage("You can't TPA to yourself!")
-                        } else {
-                            callback.accept(clickPlayer, player)
-                        }
+                        callback.accept(clickPlayer, player)
                     }
                     .itemTemplate(PlayerHeadItemTemplate.of(player))
                     .build())
             }
         }.build()
 
-    fun get(): Menu {
+    override fun get(): Menu {
         return pages.first()
     }
 }
