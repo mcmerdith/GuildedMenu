@@ -1,10 +1,6 @@
 package net.mcmerdith.guildedmenu.integration
 
-import net.mcmerdith.guildedmenu.util.Globals
-import java.util.HashMap
-import kotlin.jvm.JvmOverloads
 import org.bukkit.Bukkit
-import org.bukkit.configuration.file.YamlConfiguration
 
 abstract class Integration constructor(
     val pluginName: String
@@ -14,8 +10,26 @@ abstract class Integration constructor(
      *
      * @return If the integration can be used
      */
-    val isAvailable: Boolean
+    val pluginEnabled: Boolean
         get() = Bukkit.getPluginManager().isPluginEnabled(pluginName)
+
+    /**
+     * Check if the required plugin is enabled
+     */
+    val pluginInstalled: Boolean
+        get() = Bukkit.getPluginManager().getPlugin(pluginName) != null
+
+    var ready = false
+        private set
+        get() = field && pluginEnabled
+
+    fun setError() {
+        ready = false
+    }
+
+    fun resetError() {
+        ready = true
+    }
 
     /**
      * Load the integration

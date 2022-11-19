@@ -5,42 +5,39 @@ import net.mcmerdith.guildedmenu.GuildedMenu
 object IntegrationManager {
     private val integrations: MutableMap<Class<out Integration>, Integration> = HashMap()
 
+    fun register(clazz: Class<out Integration>, i: Integration) {
+        integrations[clazz] = i
+    }
+
     fun setup() {
-        for (i in integrations.values) i.setup()
+        for (i in integrations.values) if (i.pluginInstalled) i.setup()
     }
 
     fun enable() {
         for (i in integrations.values) {
-            if (i.isAvailable) {
-                if (i.onEnable()) {
-                    GuildedMenu.plugin.logger.info("Loaded " + i.pluginName + " integration")
-                } else {
-                    GuildedMenu.plugin.logger.warning("Failed to load " + i.pluginName + " integration")
-                }
+            if (!i.pluginEnabled) continue
+
+            if (i.onEnable()) {
+                i.resetError()
+                GuildedMenu.plugin.logger.info("Enabled " + i.pluginName + " integration")
+            } else {
+                i.setError()
+                GuildedMenu.plugin.logger.warning("Failed to enable " + i.pluginName + " integration")
             }
         }
-    }
-
-    private fun register(clazz: Class<out Integration>, i: Integration) {
-        integrations[clazz] = i
     }
 
     /**
      * Gets an integration
      *
-     * @param clazz The integration to retrieve
+     * @param integration The integration to retrieve
      * @param <T>   something...
      * @return The integration, if available, otherwise null
     </T> */
-    operator fun <T : Integration?> get(clazz: Class<T>): T? {
-        val i = integrations[clazz] ?: return null
+    @Suppress("UNCHECKED_CAST")
+    operator fun <T : Integration> get(integration: Class<T>): T? {
+        val i = integrations[integration] ?: return null
         return i as T
-    }
-
-    fun has(clazz: Class<out Integration>): Boolean {
-        return if (integrations.containsKey(clazz)) {
-            integrations[clazz]!!.isAvailable
-        } else false
     }
 
     init {
