@@ -1,9 +1,9 @@
 package net.mcmerdith.guildedmenu.gui.util
 
 import net.mcmerdith.guildedmenu.GuildedMenu
-import net.mcmerdith.guildedmenu.util.GMLogger
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryType
 import org.ipvp.canvas.Menu
 import org.ipvp.canvas.Menu.Dimension
 import org.ipvp.canvas.type.AbstractMenu
@@ -21,7 +21,8 @@ open class BaseMenu(title: String, size: Dimension, parent: Menu?, redraw: Boole
         parent.ifPresent {
             if (viewer != null && triggerCloseHandler) {
                 Bukkit.getScheduler().runTask(GuildedMenu.plugin) { ->
-                    it.open(viewer)
+                    // Only reopen parent inventory if player does not have another open inventory
+                    if (viewer.openInventory.type == InventoryType.CRAFTING || viewer.openInventory.type == InventoryType.CREATIVE) it.open(viewer)
                 }
             }
         }
