@@ -48,6 +48,13 @@ dependencies {
 
 }
 
+shadowJar {
+    relocate 'org.ipvp.canvas', 'net.mcmerdith.canvas'
+    relocate 'dev.dbassett.skullcreator', 'net.mcmerdith.skullcreator'
+    relocate 'de.exlll.configlib', 'net.mcmerdith.configlib'
+    relocate 'net.wesjd.anvilgui', 'net.mcmerdith.anvilgui'
+}
+
 idea {
     module {
         downloadJavadoc = true
