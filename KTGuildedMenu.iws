@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="logging no longer needed">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/PlayerHeadItemTemplate.kt" afterDir="false" />
+    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="Move some classes, fix pagination glitches and finish implementing baltop">
+      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KTGuildedMenu.iws" beforeDir="false" afterPath="$PROJECT_DIR$/KTGuildedMenu.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/GuildedMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/GuildedMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/BaseMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/BaseMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/EconomyMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/EconomyMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/GuiUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/GuiUtil.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/ItemTemplates.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/ItemTemplates.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MainMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MainMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MenuSize.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/MenuSize.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/PlayerSelectMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/PlayerSelectMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/VaultIntegration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/VaultIntegration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/Extensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/Extensions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/Globals.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/Globals.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -281,7 +270,7 @@
       <workItem from="1668364892461" duration="9622000" />
       <workItem from="1668461657289" duration="739000" />
       <workItem from="1668540726014" duration="101000" />
-      <workItem from="1668541140127" duration="38222000" />
+      <workItem from="1668541140127" duration="38581000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1668738917626</created>
@@ -318,7 +307,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668810091943</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Move some classes, fix pagination glitches and finish implementing baltop">
+      <created>1668833275359</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1668833275359</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,7 +338,8 @@
     <MESSAGE value="All menus extend BaseMenu which handles reopening the parent on close" />
     <MESSAGE value="Use the correct close function" />
     <MESSAGE value="logging no longer needed" />
-    <option name="LAST_COMMIT_MESSAGE" value="logging no longer needed" />
+    <MESSAGE value="Move some classes, fix pagination glitches and finish implementing baltop" />
+    <option name="LAST_COMMIT_MESSAGE" value="Move some classes, fix pagination glitches and finish implementing baltop" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
