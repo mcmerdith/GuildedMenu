@@ -1,4 +1,4 @@
-package net.mcmerdith.guildedmenu.components
+package net.mcmerdith.guildedmenu.business
 
 import com.google.gson.JsonSyntaxException
 import net.mcmerdith.guildedmenu.GuildedMenu

@@ -1,6 +1,6 @@
 package net.mcmerdith.guildedmenu
 
-import net.mcmerdith.guildedmenu.components.BusinessManager
+import net.mcmerdith.guildedmenu.business.BusinessManager
 import net.mcmerdith.guildedmenu.configuration.MenuConfig
 import net.mcmerdith.guildedmenu.configuration.PluginConfig
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil

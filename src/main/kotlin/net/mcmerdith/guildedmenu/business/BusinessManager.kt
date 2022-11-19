@@ -1,4 +1,4 @@
-package net.mcmerdith.guildedmenu.components
+package net.mcmerdith.guildedmenu.business
 
 import net.mcmerdith.guildedmenu.GuildedMenu
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
