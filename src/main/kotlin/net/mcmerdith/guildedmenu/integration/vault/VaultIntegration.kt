@@ -38,11 +38,6 @@ class VaultIntegration : Integration("Vault") {
         val players = Bukkit.getOfflinePlayers()
         val balances: MutableList<PlayerBalance> = ArrayList()
 
-        // DEBUG PAGINATOR (must be repeatable lol. no random)
-        val bals = intArrayOf(5000, 7500, 10000, 40000, 80000, 140000, 190000, 200000, 400000, 600000, 600001, 1000000)
-//        for (bal in bals) balances.add(PlayerBalance(Globals.DEBUG_PLAYER, bal.toDouble()))
-        for (bal in bals) balances.add(PlayerBalance(Bukkit.getOfflinePlayer(UUID.randomUUID()), bal.toDouble()))
-
         for (player in players) {
             balances.add(PlayerBalance(player, econ!!.getBalance(player)))
         }

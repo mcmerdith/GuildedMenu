@@ -19,13 +19,7 @@ class PlayerSelectMenu(parent: Menu? = null, online: Boolean = false, callback: 
 
     val pages: List<Menu> = GuiUtil.getPagination(TEMPLATE, GuiUtil.getFullRowMask(5))
         .apply {
-            // debug
-            val dPlayers = Bukkit.getOfflinePlayers()
-            val aPlayers = Array(128) { Globals.DEBUG_PLAYER }
-
-            // production
-//                var players = Arrays.stream(Bukkit.getOfflinePlayers())
-            var players = Arrays.stream(dPlayers + aPlayers)
+            var players = Arrays.stream(Bukkit.getOfflinePlayers())
 
             if (online) players = players.filter { it.isOnline }
 
