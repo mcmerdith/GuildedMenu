@@ -107,7 +107,7 @@ object GuiUtil : CommandExecutor {
      * CommandHandler for [guildedmenu (gm), guildedmenuadmin (gma)]
      */
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
-        sender as? Player ?: run {
+        if (sender !is Player) {
             sender.sendErrorMessage("In game menu can only be accessed by players!")
             return true
         }
