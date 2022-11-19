@@ -2,7 +2,7 @@ package net.mcmerdith.guildedmenu
 
 import net.mcmerdith.guildedmenu.components.BusinessManager
 import net.mcmerdith.guildedmenu.configuration.PluginConfig
-import net.mcmerdith.guildedmenu.gui.GuiUtil
+import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.util.Globals
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.util.GMLogger

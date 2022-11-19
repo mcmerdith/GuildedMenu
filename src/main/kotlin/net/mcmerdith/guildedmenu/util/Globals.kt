@@ -3,6 +3,8 @@ package net.mcmerdith.guildedmenu.util
 import com.google.gson.Gson
 import net.mcmerdith.guildedmenu.GuildedMenu
 import net.mcmerdith.guildedmenu.integration.Integration
+import org.bukkit.Bukkit
+import org.bukkit.OfflinePlayer
 import java.io.File
 import java.io.FilenameFilter
 import java.io.IOException
@@ -12,7 +14,12 @@ import java.util.stream.Collectors
 object Globals {
     private lateinit var configDir: File
 
-    val PERMISSION_ADMIN = "guildedmenu.admin"
+    val DEBUG_PLAYER: OfflinePlayer
+        get() = Bukkit.getOfflinePlayer(UUID.fromString("a8ae1005-73e3-49ba-b94e-bbf5143451bb"))
+
+    object PERMISSION {
+        val ADMIN = "guildedmenu.admin"
+    }
 
     val gson = Gson()
 

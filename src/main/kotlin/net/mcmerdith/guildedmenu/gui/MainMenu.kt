@@ -1,11 +1,13 @@
 package net.mcmerdith.guildedmenu.gui
 
+import net.mcmerdith.guildedmenu.gui.util.BaseMenu
+import net.mcmerdith.guildedmenu.gui.util.GuiUtil
+import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
+import net.mcmerdith.guildedmenu.gui.util.MenuSize
 import net.mcmerdith.guildedmenu.integration.EssentialsIntegration
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.VaultIntegration
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
-import org.bukkit.Bukkit
-import org.ipvp.canvas.type.ChestMenu
 
 class MainMenu(val admin: Boolean = false) : BaseMenu(
     "GuildedCraft Menu",
@@ -18,7 +20,7 @@ class MainMenu(val admin: Boolean = false) : BaseMenu(
             val econ = getSlot(1, 5)
             econ.item = ItemTemplates.ECONOMY
 
-            val economyMenu = EconomyMenu(this)
+            val economyMenu = EconomyMenu(this).get()
             GuiUtil.openScreenOnClick(econ, economyMenu, EconomyMenu.PlayerBalanceMenu(economyMenu))
         }
 
@@ -33,7 +35,7 @@ class MainMenu(val admin: Boolean = false) : BaseMenu(
                 } else {
                     player.sendErrorMessage("Could not TPA! (is the target online?)")
                 }
-                close()
+                player.closeInventory()
             }.get())
 
             // TPA HERE
@@ -46,7 +48,7 @@ class MainMenu(val admin: Boolean = false) : BaseMenu(
                 } else {
                     player.sendErrorMessage("Could not TPA! (is the target online?)")
                 }
-                close()
+                player.closeInventory()
             }.get())
         }
     }

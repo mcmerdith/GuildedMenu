@@ -1,5 +1,6 @@
-package net.mcmerdith.guildedmenu.gui
+package net.mcmerdith.guildedmenu.gui.util
 
+import net.mcmerdith.guildedmenu.gui.MainMenu
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.Globals
 import org.bukkit.command.Command
@@ -8,23 +9,32 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.ipvp.canvas.Menu
 import org.ipvp.canvas.mask.BinaryMask
+import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 import org.ipvp.canvas.slot.Slot
 import org.ipvp.canvas.type.AbstractMenu
-import org.ipvp.canvas.type.ChestMenu
-import java.util.*
 
 object GuiUtil : CommandExecutor {
-    val PREV_MASK = BinaryMask.builder(MenuSize(1)).pattern("100000000").build()
-    val NEXT_MASK = BinaryMask.builder(MenuSize(1)).pattern("000000001").build()
-    val ALL_MASK = BinaryMask.builder(MenuSize(1)).pattern("111111111").build()
+    fun getFullRowMask(rows: Int): BinaryMask = getRowMask(rows, "111111111")
 
-    fun getSlotNumber(row: Int, column: Int): Int = (column - 1) * 9 + row - 1
+    fun getRowMask(rows: Int, pattern: String): BinaryMask {
+        val builder = BinaryMask.builder(MenuSize(rows))
 
-    /**
-     * Get a [menu] with an optional [previous] menu that opens when the main [menu] is closed
-     */
-    private fun getMenu(menu: AbstractMenu.Builder<*>, parent: Menu?): Menu =
-        menu.apply { if (parent != null) parent(parent) }.build()
+        repeat(rows) {
+            @Suppress("DEPRECATION")
+            builder.pattern(pattern)
+        }
+
+        return builder.build()
+    }
+
+    fun getSlotNumber(row: Int, column: Int): Int = (row - 1) * 9 + column - 1
+
+    fun getPagination(builder: AbstractMenu.Builder<*>, mask: BinaryMask) = PaginatedMenuBuilder.builder(builder)
+        .slots(mask)
+        .previousButton(ItemTemplates.PREV_BUTTON)
+        .previousButtonSlot(getSlotNumber(6, 1))
+        .nextButton(ItemTemplates.NEXT_BUTTON)
+        .nextButtonSlot(getSlotNumber(6, 9))
 
     /**
      * When [slot] is clicked open the [leftClick] menu.
@@ -46,7 +56,7 @@ object GuiUtil : CommandExecutor {
             return true
         }
 
-        MainMenu(sender.isOp || sender.hasPermission(Globals.PERMISSION_ADMIN)).open(sender)
+        MainMenu(sender.isOp || sender.hasPermission(Globals.PERMISSION.ADMIN)).open(sender)
         return true
     }
 }

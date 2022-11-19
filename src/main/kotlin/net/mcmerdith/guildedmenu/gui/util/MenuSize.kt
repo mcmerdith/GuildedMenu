@@ -1,4 +1,4 @@
-package net.mcmerdith.guildedmenu.gui
+package net.mcmerdith.guildedmenu.gui.util
 
 import org.ipvp.canvas.Menu
 

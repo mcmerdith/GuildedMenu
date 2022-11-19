@@ -1,46 +1,48 @@
 package net.mcmerdith.guildedmenu.gui
 
 import dev.dbassett.skullcreator.SkullCreator
-import net.mcmerdith.guildedmenu.util.GMLogger
+import net.mcmerdith.guildedmenu.gui.util.BaseMenu
+import net.mcmerdith.guildedmenu.gui.util.GuiUtil
+import net.mcmerdith.guildedmenu.gui.util.PlayerHeadItemTemplate
+import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
+import net.mcmerdith.guildedmenu.util.Extensions.name
+import net.mcmerdith.guildedmenu.util.Globals
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.ipvp.canvas.Menu
-import org.ipvp.canvas.mask.BinaryMask
-import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 import org.ipvp.canvas.slot.SlotSettings
-import org.ipvp.canvas.type.ChestMenu
 import java.util.*
 import java.util.function.BiConsumer
-import java.util.function.Consumer
 
-class PlayerSelectMenu(previous: Menu?, online: Boolean = false, callback: BiConsumer<Player, OfflinePlayer>) {
-    val TEMPLATE = BaseMenu.Builder(6).title("Player Select").redraw(true).parent(previous)
+class PlayerSelectMenu(parent: Menu? = null, online: Boolean = false, callback: BiConsumer<Player, OfflinePlayer>) {
+    val TEMPLATE = BaseMenu.Builder(6).title("Player Select").redraw(true).parent(parent)
 
-    val pages: List<Menu>
+    val pages: List<Menu> = GuiUtil.getPagination(TEMPLATE, GuiUtil.getFullRowMask(5))
+        .apply {
+            // debug
+            val dPlayers = Bukkit.getOfflinePlayers()
+            val aPlayers = Array(125) { Globals.DEBUG_PLAYER }
 
-    init {
-        pages = PaginatedMenuBuilder.builder(TEMPLATE)
-//            .slots(BinaryMask.builder(MenuSize(6)).pattern("111111111").build())
-            .slots(GuiUtil.ALL_MASK)
-            .nextButton(ItemTemplates.NEXT_BUTTON)
-//            .nextButtonSlot(GuiUtil.NEXT_MASK)
-            .nextButtonSlot(GuiUtil.getSlotNumber(6, 9))
-            .previousButton(ItemTemplates.PREV_BUTTON)
-//            .previousButtonSlot(GuiUtil.PREV_MASK)
-            .previousButtonSlot(GuiUtil.getSlotNumber(6, 1))
-            .apply {
-                var players = Arrays.stream(Bukkit.getOfflinePlayers())
+            // production
+//                var players = Arrays.stream(Bukkit.getOfflinePlayers())
+            var players = Arrays.stream(dPlayers + aPlayers)
 
-                if (online) players = players.filter { it.isOnline }
+            if (online) players = players.filter { it.isOnline }
 
-                players.forEach { player ->
-                    addItem(SlotSettings.builder()
-                        .clickHandler { clickPlayer, _ -> callback.accept(clickPlayer, player) }
-                        .item(SkullCreator.itemFromUuid(player.uniqueId)).build())
-                }
-            }.build()
-    }
+            players.forEach { player ->
+                addItem(SlotSettings.builder()
+                    .clickHandler { clickPlayer, _ ->
+                        if (clickPlayer.uniqueId == player.uniqueId) {
+                            clickPlayer.sendErrorMessage("You can't TPA to yourself!")
+                        } else {
+                            callback.accept(clickPlayer, player)
+                        }
+                    }
+                    .itemTemplate(PlayerHeadItemTemplate.of(player))
+                    .build())
+            }
+        }.build()
 
     fun get(): Menu {
         return pages.first()

@@ -2,9 +2,9 @@ package net.mcmerdith.guildedmenu.integration
 
 import net.mcmerdith.guildedmenu.GuildedMenu
 import net.mcmerdith.guildedmenu.components.PlayerBalance
-import net.mcmerdith.guildedmenu.util.ChatUtils
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
+import net.mcmerdith.guildedmenu.util.Globals
 import net.milkbowl.vault.economy.Economy
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
@@ -12,6 +12,8 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.RegisteredServiceProvider
 import java.util.*
 import java.util.stream.Collectors
+import kotlin.Comparator
+import kotlin.collections.ArrayList
 
 class VaultIntegration : Integration("Vault") {
     var econ: Economy? = null
@@ -37,11 +39,13 @@ class VaultIntegration : Integration("Vault") {
 
         // DEBUG PAGINATOR (must be repeatable lol. no random)
         val bals = intArrayOf(5000, 7500, 10000, 40000, 80000, 140000, 190000, 200000, 400000, 600000, 600001, 1000000)
-        val matt = Bukkit.getOfflinePlayer(UUID.fromString("a8ae1005-73e3-49ba-b94e-bbf5143451bb"))
-        for (bal in bals) balances.add(PlayerBalance(matt, bal.toDouble()))
+//        for (bal in bals) balances.add(PlayerBalance(Globals.DEBUG_PLAYER, bal.toDouble()))
+        for (bal in bals) balances.add(PlayerBalance(Bukkit.getOfflinePlayer(UUID.randomUUID()), bal.toDouble()))
+
         for (player in players) {
             balances.add(PlayerBalance(player, econ!!.getBalance(player)))
         }
+
         return balances.stream()
             .sorted(Comparator.comparing({ o: PlayerBalance -> o.balance }, Comparator.reverseOrder()))
             .collect(Collectors.toList())
