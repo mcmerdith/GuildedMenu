@@ -9,12 +9,20 @@ import org.ipvp.canvas.Menu.Dimension
 import org.ipvp.canvas.type.AbstractMenu
 import org.ipvp.canvas.type.ChestMenu
 
-open class BaseMenu(title: String, size: Dimension, parent: Menu?, redraw: Boolean = false) : ChestMenu(
-    title,
-    size.area,
-    parent,
-    redraw
-) {
+/**
+ * A [size] dimension [ChestMenu] with [title] as the title
+ *
+ * When closed [parent] will be opened (if provided)
+ *
+ * Use [redraw] for [PaginatedMenu]s
+ */
+open class BaseMenu(private val title: String, private val size: Dimension, parent: Menu?, redraw: Boolean = false) :
+    ChestMenu(
+        title,
+        size.area,
+        parent,
+        redraw
+    ) {
     override fun closedByPlayer(viewer: Player?, triggerCloseHandler: Boolean) {
         super.closedByPlayer(viewer, triggerCloseHandler)
 

@@ -6,17 +6,23 @@ import net.mcmerdith.guildedmenu.integration.TownyIntegration
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.OfflinePlayer
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import java.util.*
 
 object Extensions {
+
+    /*
+    Player Converters
+     */
+
     /**
      * Convert a player to a Towny resident
      *
      * Returns null if Towny is not available, or the player is not a resident
      */
-    fun Player.asTownyResident(): Resident? = this.uniqueId.asTownyResident()
+    fun Player.asTownyResident() = this.uniqueId.asTownyResident()
 
     /**
      * Convert a player to a Towny resident
@@ -34,12 +40,25 @@ object Extensions {
      *
      * Returns null if the player is not online
      */
-    fun UUID.asPlayer(): Player? = Bukkit.getPlayer(this)
+    fun UUID.asPlayer() = Bukkit.getPlayer(this)
 
     /**
      * Convert the UUID to an [OfflinePlayer]
      */
-    fun UUID.asOfflinePlayer(): OfflinePlayer = Bukkit.getOfflinePlayer(this)
+    fun UUID.asOfflinePlayer() = Bukkit.getOfflinePlayer(this)
+
+    /*
+    Player Util Functions
+     */
+
+    /**
+     * If the player is either OP or has the admin permission
+     */
+    fun CommandSender.isAdmin() = isOp || hasPermission(Globals.PERMISSION.ADMIN)
+
+    /*
+    ItemStack Util Functions
+     */
 
     /**
      * Set the item display name to [name]
@@ -58,6 +77,11 @@ object Extensions {
 
         return this
     }
+
+    /**
+     * Get the item name
+     */
+    fun ItemStack.getName() = itemMeta?.displayName
 
     /**
      * Add [lore] to the item lore
@@ -94,7 +118,8 @@ object Extensions {
         return this
     }
 
-    fun ItemStack.getLore(): List<String> {
-        return itemMeta?.lore ?: emptyList()
-    }
+    /**
+     * Get the item lore
+     */
+    fun ItemStack.getLore() = itemMeta?.lore ?: emptyList()
 }

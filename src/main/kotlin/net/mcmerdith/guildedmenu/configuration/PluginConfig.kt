@@ -13,7 +13,4 @@ class PluginConfig : BaseConfiguration() {
 
     @Comment("Enable debug logging")
     var debug = false
-
-    @Comment("Log the built configuration file for constructed panels")
-    var logBuiltPanels = false
 }

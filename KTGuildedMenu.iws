@@ -4,11 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="Intellij">
+    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="Redesigned">
       <change beforePath="$PROJECT_DIR$/KTGuildedMenu.iws" beforeDir="false" afterPath="$PROJECT_DIR$/KTGuildedMenu.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/configuration/MenuConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/configuration/MenuConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/configuration/BaseConfiguration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/configuration/BaseConfiguration.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/configuration/PluginConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/configuration/PluginConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/AdminMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/AdminMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/EconomyMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/EconomyMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MainMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MainMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/PlayerSelectMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/PlayerSelectMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/BaseMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/BaseMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/PaginatedMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/PaginatedMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/PlayerHeadItemTemplate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/PlayerHeadItemTemplate.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/GuiUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/GuiUtil.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/Extensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/Extensions.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -290,7 +298,7 @@
       <workItem from="1668364892461" duration="9622000" />
       <workItem from="1668461657289" duration="739000" />
       <workItem from="1668540726014" duration="101000" />
-      <workItem from="1668541140127" duration="64373000" />
+      <workItem from="1668541140127" duration="68834000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1668738917626</created>
@@ -544,7 +552,35 @@
       <option name="project" value="LOCAL" />
       <updated>1668892177714</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Auto-relocation">
+      <created>1668894152274</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1668894152274</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Headers">
+      <created>1668894161127</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1668894161127</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Debug function">
+      <created>1668895521980</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1668895521980</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Redesigned">
+      <created>1668898362370</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1668898362370</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -563,10 +599,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <MESSAGE value="All configurations extend BaseConfiguration which handles file operations" />
-    <MESSAGE value="Cleanup Extensions" />
-    <MESSAGE value="MenuConfig" />
-    <MESSAGE value="Add AnvilGUI dependency" />
     <MESSAGE value="PaginatedMenu interface" />
     <MESSAGE value="Extension function name change" />
     <MESSAGE value="Cleanup VaultIntegration" />
@@ -588,7 +620,11 @@
     <MESSAGE value="Credits" />
     <MESSAGE value="Shadow relocation" />
     <MESSAGE value="Intellij" />
-    <option name="LAST_COMMIT_MESSAGE" value="Intellij" />
+    <MESSAGE value="Auto-relocation" />
+    <MESSAGE value="Headers" />
+    <MESSAGE value="Debug function" />
+    <MESSAGE value="Redesigned" />
+    <option name="LAST_COMMIT_MESSAGE" value="Redesigned" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

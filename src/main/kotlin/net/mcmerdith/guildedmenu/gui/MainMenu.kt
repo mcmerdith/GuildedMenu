@@ -3,16 +3,20 @@ package net.mcmerdith.guildedmenu.gui
 import PlayerBalanceMenu
 import net.mcmerdith.guildedmenu.GuildedMenu
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
+import net.mcmerdith.guildedmenu.gui.framework.MenuSize
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
-import net.mcmerdith.guildedmenu.gui.framework.MenuSize
 import net.mcmerdith.guildedmenu.integration.EssentialsIntegration
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
-import net.mcmerdith.guildedmenu.util.Extensions.setLore
 import net.mcmerdith.guildedmenu.util.Extensions.setName
 
-class MainMenu(admin: Boolean = false) : BaseMenu(
+/**
+ * Main Menu
+ *
+ * If [admin] is true a "Switch to Admin View" button will be rendered
+ */
+class MainMenu(private val admin: Boolean = false) : BaseMenu(
     GuildedMenu.plugin.menuConfig.title,
     MenuSize(6),
     null
@@ -21,6 +25,7 @@ class MainMenu(admin: Boolean = false) : BaseMenu(
 
     init {
         if (admin) {
+            // Render the "Admin View" button
             val home = getSlot(config.admin.mainButton.index)
             home.item = ItemTemplates.EXCLAMATION.setName("Admin View")
             GuiUtil.openScreenOnClick(home, AdminMenu(this))

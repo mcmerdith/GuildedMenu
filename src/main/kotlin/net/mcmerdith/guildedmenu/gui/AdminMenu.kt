@@ -5,12 +5,11 @@ import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.MenuSize
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
-import net.mcmerdith.guildedmenu.util.Extensions.setLore
 import net.mcmerdith.guildedmenu.util.Extensions.setName
-import org.bukkit.Material
-import org.bukkit.inventory.ItemStack
-import org.ipvp.canvas.Menu
 
+/**
+ * Admin GUI
+ */
 class AdminMenu(main: MainMenu) : BaseMenu(
     GuildedMenu.plugin.menuConfig.title + " (Admin)",
     MenuSize(3),
