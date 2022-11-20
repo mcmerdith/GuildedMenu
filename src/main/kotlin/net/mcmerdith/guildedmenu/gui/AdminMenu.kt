@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack
 class AdminMenu(main: MainMenu) : BaseMenu(
     GuildedMenu.plugin.menuConfig.title + " (Admin)",
     MenuSize(5),
-    null
+    main
 ) {
     private val config = GuildedMenu.plugin.menuConfig
 
