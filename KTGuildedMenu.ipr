@@ -583,7 +583,9 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/spigotmc/spigot-api/1.19.2-R0.1-SNAPSHOT/spigot-api-1.19.2-R0.1-SNAPSHOT.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.spigotmc/spigot-api/1.19.2-R0.1-SNAPSHOT/414e30d13010fdd11a7d9a2ea6e651c36461834e/spigot-api-1.19.2-R0.1-SNAPSHOT-sources.jar!/" />
+      </SOURCES>
     </library>
     <library name="Gradle: org.wargamer2010:SignShop:3.6.1">
       <CLASSES>

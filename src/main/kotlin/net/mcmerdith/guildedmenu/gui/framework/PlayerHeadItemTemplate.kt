@@ -2,23 +2,26 @@ package net.mcmerdith.guildedmenu.gui.framework
 
 import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.util.Extensions.setName
-import org.bukkit.OfflinePlayer
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
-import org.ipvp.canvas.template.StaticItemTemplate
+import org.ipvp.canvas.template.ItemStackTemplate
 
-class PlayerHeadItemTemplate internal constructor(
-    val player: OfflinePlayer,
-    val rawItem: ItemStack
-) : StaticItemTemplate(rawItem) {
+/**
+ * An [ItemStackTemplate] returning the head of the player with [modifier] applied if provided
+ */
+class PlayerHeadItemTemplate(private val modifier: ((ItemStack, Player?) -> ItemStack)? = null) : ItemStackTemplate {
     companion object {
         /**
-         * Construct a [PlayerHeadItemTemplate] for [player]
+         * No modifier
          */
-        fun of(player: OfflinePlayer): PlayerHeadItemTemplate {
-            return PlayerHeadItemTemplate(
-                player,
-                SkullCreator.itemFromUuid(player.uniqueId).setName(player.name ?: "Unknown Player")
-            )
+        @Suppress("unused")
+        val INST = PlayerHeadItemTemplate()
+    }
+
+    override fun getItem(player: Player?): ItemStack {
+        SkullCreator.itemFromUuid(player?.uniqueId).setName(player?.name ?: "Unknown Player").apply {
+            return modifier?.invoke(this, player) ?: this
         }
     }
+
 }

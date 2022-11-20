@@ -1,33 +1,58 @@
 package net.mcmerdith.guildedmenu.business
 
 import com.google.gson.JsonSyntaxException
-import net.mcmerdith.guildedmenu.GuildedMenu
-import net.mcmerdith.guildedmenu.configuration.FileHandler
-import net.mcmerdith.guildedmenu.util.Globals
+import dev.dbassett.skullcreator.SkullCreator
+import net.mcmerdith.guildedmenu.business.BusinessManager.gson
+import net.mcmerdith.guildedmenu.util.Extensions.isAdmin
+import net.mcmerdith.guildedmenu.util.Extensions.setName
+import net.mcmerdith.guildedmenu.util.GMLogger
+import org.bukkit.Material
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 import java.io.File
 import java.io.IOException
 import java.util.*
 
-class Business {
-    var name: String? = null
-    var id: String? = null
-    var owner: UUID? = null
-    var managers: List<UUID>? = null
+class Business private constructor() {
+    @Transient
+    var id: UUID? = null
+        private set
 
-    private constructor(name: String, owner: UUID, managers: List<UUID>?) {
+    @Transient
+    private var file: File? = null
+    var name: String? = null
+    var owner: UUID? = null
+    var managers = mutableListOf<UUID>()
+    var icon: Material? = null
+
+    /**
+     * ONLY USE TO ALLOCATE A NEW BUSINESS
+     *
+     * Load existing businesses with [Business.load]
+     */
+    private constructor(name: String, owner: UUID, managers: List<UUID>?) : this() {
         this.name = name
-        id = name.replace("\\W+".toRegex(), "")
         this.owner = owner
-        this.managers = managers ?: ArrayList()
+        if (managers != null) this.managers.addAll(managers)
+    }
+
+    private fun newID(): UUID {
+        id = UUID.randomUUID()
+        return id!!
     }
 
     /**
-     * Gson Constructor
+     * If [player] is the owner of this business
      */
-    @Suppress("unused")
-    private constructor()
+    fun isOwner(player: Player): Boolean {
+        return player.isAdmin() || isOwner(player as OfflinePlayer)
+    }
+
+    /**
+     * If [player] is the owner of this business
+     */
+    fun isOwner(player: OfflinePlayer) = player.uniqueId == owner
 
     /**
      * Check if a Player is a manager OR has the "gm.business.admin" permission
@@ -36,7 +61,7 @@ class Business {
      * @return If the Player is a manager
      */
     fun isManager(player: Player): Boolean {
-        return player.hasPermission("gm.business.admin") || isManager(player)
+        return player.isAdmin() || isManager(player as OfflinePlayer)
     }
 
     /**
@@ -45,9 +70,12 @@ class Business {
      * @param player The OfflinePlayer
      * @return If the OfflinePlayer is a manager
      */
-    fun isManager(player: OfflinePlayer): Boolean {
-        val pUUID = player.uniqueId
-        return pUUID == owner || managers!!.contains(pUUID)
+    fun isManager(player: OfflinePlayer) = isOwner(player) || managers.contains(player.uniqueId)
+
+    fun getIcon(): ItemStack {
+        val base = icon?.let { ItemStack(it) } ?: SkullCreator.itemFromUuid(owner!!)
+
+        return base.setName(name)
     }
 
     /**
@@ -60,22 +88,22 @@ class Business {
         if (name == null || id == null || owner == null) return false
 
         // Get the file
-        val datafile = Globals.getBusinessConfigFile(id) ?: return false
-        // Fail if the file couldn't be created
         return try {
             // Serialize and write the data
-            FileHandler.writeDataFile(Globals.gson.toJson(this), datafile)
+            FileHandler.writeDataFile(gson.toJson(this), file!!)
             true
         } catch (e: IOException) {
-            GuildedMenu.plugin.logger
-                .warning("Error saving business to '" + datafile.name + "': The file could not be read, or doesn't exist")
-            e.printStackTrace()
-            false
-        } catch (e: JsonSyntaxException) {
-            GuildedMenu.plugin.logger.warning("Error saving business to '" + datafile.name + "': Invalid JSON")
-            e.printStackTrace()
+            GMLogger.FILE.error(
+                "Error saving business to '${file!!.name}'",
+                e
+            )
             false
         }
+    }
+
+    fun delete() {
+        BusinessManager.deregister(this)
+        file!!.delete()
     }
 
     companion object {
@@ -93,54 +121,51 @@ class Business {
 
             // Get an available config file
             var rawFile: File?
-            // The original filename
-            val originalID = business.id
-            var i = 0
-            do {
-                if (i > 0) {
-                    // Second or later pass
-                    business.id = originalID + i // Add an index and try again
-                }
-                // Increment our index
-                i++
 
+            do {
                 // Get the config file
-                rawFile = Globals.getBusinessConfigFile(business.id, true)
+                rawFile = FileHandler.getBusinessConfigFile(business.newID())
             } while (rawFile != null && rawFile.exists()) // Continue only if file is available
 
-            // Save the business to disk
-            return if (!business.save()) {
-                // Return null if the save fails
-                null
-            } else business
+            business.file = rawFile
 
-            // Return the new business
+            // Save the business to disk
+            return if (business.save()) business
+            else null
         }
 
         /**
          * Load a business from disk
          *
-         * @param name The name of the business
+         * @param id The name of the business
          * @return The business or null if 1. The business doesn't exist OR 2. The business is invalid
          */
-        fun load(name: String): Business? {
+        fun load(id: UUID): Business? {
             // Get the config file
-            val datafile = Globals.getBusinessConfigFile(name) ?: return null
+            val datafile = FileHandler.getBusinessConfigFile(id)
 
             return try {
                 // Read and deserialize the data
-                val b = Globals.gson.fromJson(FileHandler.readDataFile(datafile), Business::class.java)
+                val b = gson.fromJson(FileHandler.readDataFile(datafile), Business::class.java)
 
                 // Fail if any required elements are missing
-                if (b.name == null || b.id == null || b.owner == null) null else b
+                if (b.name == null || b.owner == null) throw JsonSyntaxException("Missing required field `name` or `owner`")
+
+                // Set the id, file and return
+                b.id = id
+                b.file = datafile
+                b
             } catch (e: IOException) {
-                GuildedMenu.plugin.logger
-                    .warning("Error loading business from '${datafile.name}': The file could not be read, or doesn't exist")
-                e.printStackTrace()
+                GMLogger.FILE.error(
+                    "Error loading business from '${datafile.name}'",
+                    e
+                )
                 null
             } catch (e: JsonSyntaxException) {
-                GuildedMenu.plugin.logger.warning("Error loading business from '${datafile.name}': Invalid JSON")
-                e.printStackTrace()
+                GMLogger.FILE.error(
+                    "Error loading business from '${datafile.name}': Invalid JSON",
+                    e
+                )
                 null
             }
         }

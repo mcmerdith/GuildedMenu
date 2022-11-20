@@ -5,7 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="Cleanup">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/BusinessSelectMenu.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MaterialSelectMenu.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/ViewBusinessMenu.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/StaticPlayerHeadItemTemplate.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KTGuildedMenu.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/KTGuildedMenu.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KTGuildedMenu.iws" beforeDir="false" afterPath="$PROJECT_DIR$/KTGuildedMenu.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/GuildedMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/GuildedMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/Business.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/Business.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/BusinessManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/BusinessManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/configuration/FileHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/FileHandler.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/configuration/MenuConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/configuration/MenuConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/AdminMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/AdminMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/EconomyMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/EconomyMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MainMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MainMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/PlayerBalanceMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/PlayerBalanceMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/PlayerSelectMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/PlayerSelectMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/BaseMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/BaseMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/PaginatedMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/PaginatedMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/PlayerHeadItemTemplate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/PlayerHeadItemTemplate.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/GuiUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/GuiUtil.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/ItemTemplates.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/ItemTemplates.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/vault/VaultIntegration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/vault/VaultIntegration.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/GMLogger.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/GMLogger.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/Globals.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/Globals.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,18 +180,20 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="net.mcmerdith.guildedmenu.business" />
       <recent name="net.mcmerdith.guildedmenu.integration.vault" />
       <recent name="net.mcmerdith.guildedmenu.gui.framework" />
       <recent name="net.mcmerdith.guildedmenu.gui.util" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="net.mcmerdith.guildedmenu.gui" />
+      <recent name="net.mcmerdith.guildedmenu.gui.framework" />
     </key>
     <key name="KotlinExtractSuperclassDialog.RECENT_KEYS">
       <recent name="net.mcmerdith.guildedmenu.gui" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Clean Build">
+  <component name="RunManager" selected="Gradle.Quick Build">
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -298,7 +323,7 @@
       <workItem from="1668461657289" duration="739000" />
       <workItem from="1668540726014" duration="101000" />
       <workItem from="1668541140127" duration="69005000" />
-      <workItem from="1668899353577" duration="999000" />
+      <workItem from="1668899353577" duration="29540000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1668738917626</created>
@@ -594,7 +619,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668900271358</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Cleanup">
+      <created>1668900364910</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1668900364910</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

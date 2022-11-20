@@ -37,11 +37,11 @@ class PlayerBalanceMenu(parent: Menu? = null, private val target: OfflinePlayer?
             // Generic "Send Money" button 1 slot right of center
             getSlot(2, 6).apply {
                 item = ItemTemplates.REGISTER_ORANGE.setName("Send Money")
-                GuiUtil.openScreenOnClick(
+                GuiUtil.openScreenSupplierOnClick(
                     this,
                     PlayerSelectMenu(this@PlayerBalanceMenu, false) { callingPlayer, selectedPlayer ->
                         initTransaction(callingPlayer, selectedPlayer)
-                    }.get()
+                    }::get
                 )
             }
         } else {

@@ -14,9 +14,7 @@ class MenuConfig : BaseConfiguration() {
     companion object {
         fun create(dataFolder: File) = Factory("menu.yml", MenuConfig::class.java)
             .header(
-                """######## Main Menu ########                    
-                    - Row   : 1-6
-                    - Column: 1-9""".trimIndent()
+                "######## Main Menu ########\n- Row   : 1-5\n- Column: 1-9".trimIndent()
             ).create(dataFolder)
     }
 
@@ -32,16 +30,16 @@ class MenuConfig : BaseConfiguration() {
     var vault = MenuIcon(true, 1, 5)
 
     @Comment("Requires EssentialsX")
-    var tpa = MenuIcon(true, 2, 3)
-
-    @Comment("Requires EssentialsX")
-    var tpaHere = MenuIcon(true, 2, 7)
-
-    @Comment("Towny integration")
-    var towny = MenuIcon(true, 2, 7)
+    var tpa = MenuIcon(true, 3, 3)
 
     @Comment("Signshop integration", "Also: /business")
-    var signshop = MenuIcon(true, 2, 7)
+    var signshop = MenuIcon(true, 3, 5)
+
+    @Comment("Requires EssentialsX")
+    var tpaHere = MenuIcon(true, 3, 7)
+
+    @Comment("Towny integration")
+    var towny = MenuIcon(true, 5, 5)
 
     @Comment("Admin menu options")
     var admin = AdminMenuConfig()

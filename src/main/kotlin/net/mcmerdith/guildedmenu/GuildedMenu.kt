@@ -6,7 +6,6 @@ import net.mcmerdith.guildedmenu.configuration.PluginConfig
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.util.GMLogger
-import net.mcmerdith.guildedmenu.util.Globals
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import org.ipvp.canvas.MenuFunctionListener
@@ -24,13 +23,16 @@ class GuildedMenu : JavaPlugin() {
     lateinit var menuConfig: MenuConfig
 
     override fun onLoad() {
+        super.onLoad()
+
+        // Logging
         GMLogger.init(logger)
 
-        Globals.init(this)
+        // Integration preload
         IntegrationManager.setup()
-        BusinessManager.init()
 
-        super.onLoad()
+        // Load data
+        BusinessManager.init()
     }
 
     override fun onEnable() {
@@ -40,11 +42,16 @@ class GuildedMenu : JavaPlugin() {
         config = PluginConfig.create(dataFolder)
         menuConfig = MenuConfig.create(dataFolder)
 
-        // Set up our integrations
+        // Enable integrations
         IntegrationManager.enable()
 
         // Business manager
-        getCommand("business")!!.setExecutor(BusinessManager)
+        getCommand("business")!!.apply {
+            setExecutor(BusinessManager)
+            tabCompleter = BusinessManager
+        }
+
+        // Menu commands
         getCommand("guildedmenuadmin")!!.setExecutor(GuiUtil)
         getCommand("guildedmenu")!!.setExecutor(GuiUtil)
 

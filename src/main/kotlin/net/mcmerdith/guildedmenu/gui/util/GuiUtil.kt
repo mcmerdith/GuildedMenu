@@ -19,6 +19,7 @@ import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 import org.ipvp.canvas.slot.Slot
 import org.ipvp.canvas.type.AbstractMenu
 import java.util.function.BiFunction
+import java.util.function.Supplier
 
 object GuiUtil : CommandExecutor {
     /**
@@ -65,6 +66,20 @@ object GuiUtil : CommandExecutor {
             .nextButton(ItemTemplates.NEXT_BUTTON)
             .nextButtonEmpty(ItemTemplates.NEXT_BUTTON_DISABLED)
             .nextButtonSlot(getSlotIndex(builder.dimensions.rows, 9))
+
+    /**
+     * When [slot] is clicked open the [click] menu.
+     *
+     * If the player right clicks and [rightClick] is provided [rightClick] will be opened instead
+     */
+    fun openScreenSupplierOnClick(slot: Slot, click: Supplier<Menu>, rightClick: Supplier<Menu>? = null) {
+        slot.setClickHandler { player, clickInfo ->
+            val type = clickInfo.clickType
+
+            if (rightClick != null && type.isRightClick) rightClick.get().open(player)
+            else click.get().open(player)
+        }
+    }
 
     /**
      * When [slot] is clicked open the [click] menu.

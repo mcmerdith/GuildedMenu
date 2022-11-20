@@ -1,71 +1,93 @@
 package net.mcmerdith.guildedmenu.business
 
-import net.mcmerdith.guildedmenu.GuildedMenu
+import com.google.gson.Gson
+import net.mcmerdith.guildedmenu.gui.BusinessSelectMenu
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
-import net.mcmerdith.guildedmenu.util.Globals
+import net.mcmerdith.guildedmenu.util.GMLogger
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
+import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import java.util.*
 import javax.annotation.Nonnull
 
-object BusinessManager : CommandExecutor {
+object BusinessManager : CommandExecutor, TabCompleter {
+    /*
+    Business Command
+     */
     override fun onCommand(
-        @Nonnull commandSender: CommandSender,
+        @Nonnull sender: CommandSender,
         @Nonnull command: Command,
-        @Nonnull s: String,
-        @Nonnull strings: Array<String>
+        @Nonnull label: String,
+        @Nonnull args: Array<String>
     ): Boolean {
-        if (commandSender !is Player) {
-            commandSender.sendErrorMessage("Only players can use business commands")
+        if (sender !is Player) {
+            sender.sendErrorMessage("Only players can use business commands")
             return false
         }
-        if (strings.isEmpty()) return false
-        when (strings[0]) {
+
+        if (args.isEmpty()) return false
+
+        when (args[0]) {
             "register" -> {
-                val name = StringBuilder()
-                var i = 0
-                while (i < strings.size) {
-                    name.append(strings[i])
-                    if (i != strings.size - 1) name.append(" ")
-                    i++
-                }
-                val success = register(commandSender.uniqueId, name.toString())
-                if (success) {
-                    commandSender.sendSuccessMessage("Successfully registered '$name'")
-                } else {
-                    commandSender.sendErrorMessage("Failed to register '$name'")
+                val name = args.slice(1..args.lastIndex).joinToString(" ")
+
+                // Create and register
+                Business.create(name, sender.uniqueId, null)?.apply {
+                    register(this)
+                    sender.sendSuccessMessage("Successfully registered '$name'")
+                } ?: run {
+                    sender.sendErrorMessage("Failed to register '$name'")
                 }
             }
 
             "delete" -> {
+                // Players can only delete their own businesses unless they are admins
+                BusinessSelectMenu.getDeleteMenu(null, sender).open(sender)
             }
         }
         return true
     }
 
+    override fun onTabComplete(
+        sender: CommandSender,
+        command: Command,
+        label: String,
+        args: Array<out String>
+    ): MutableList<String> {
+        return if (args.size == 1) mutableListOf("register", "delete") else mutableListOf()
+    }
+
+    /*
+    Business Manager
+     */
+
+    val gson = Gson()
+
     // Data Storage
     fun init() {
-        val names = Globals.allBusinessIds
+        val names = FileHandler.allBusinessIds
+
         for (name in names) {
-            val b = Business.load(name)
+            try {
+                val b = Business.load(UUID.fromString(name)) ?: continue
 
-            if (b == null) {
-                GuildedMenu.plugin.logger.warning("Could not load business '$name'")
-                continue
+                businessMap[b.id!!] = b
+            } catch (e: IllegalArgumentException) {
+                GMLogger.FILE.error("Error loading business '$name': Invalid ID", e)
             }
-
-            businessMap[b.owner!!] = b
         }
     }
 
     private val businessMap: MutableMap<UUID, Business> = HashMap()
 
-    fun register(entity: UUID, name: String): Boolean {
-        val b: Business = Business.create(name, entity, null) ?: return false
-        businessMap[entity] = b
-        return true
+    fun allBusinesses() = businessMap.values
+
+    fun register(business: Business) {
+        businessMap[business.id!!] = business
     }
+
+    fun deregister(business: Business) = businessMap.remove(business.id!!)
 }

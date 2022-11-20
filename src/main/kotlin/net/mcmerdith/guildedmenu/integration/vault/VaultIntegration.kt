@@ -1,7 +1,7 @@
 package net.mcmerdith.guildedmenu.integration.vault
 
 import net.mcmerdith.guildedmenu.GuildedMenu
-import net.mcmerdith.guildedmenu.gui.framework.PlayerHeadItemTemplate
+import net.mcmerdith.guildedmenu.gui.framework.StaticPlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.integration.Integration
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
@@ -54,7 +54,7 @@ class VaultIntegration : Integration("Vault") {
 
     fun formattedBalance(player: OfflinePlayer) = format(balance(player))
 
-    fun getPlayerBalanceHeadTemplate(player: OfflinePlayer) = PlayerHeadItemTemplate.of(player).apply {
+    fun getPlayerBalanceHeadTemplate(player: OfflinePlayer) = StaticPlayerHeadItemTemplate.of(player).apply {
         rawItem.setLore("Balance: ${formattedBalance(player)}")
     }
 

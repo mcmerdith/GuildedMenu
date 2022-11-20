@@ -2,7 +2,7 @@ package net.mcmerdith.guildedmenu.gui
 
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
-import net.mcmerdith.guildedmenu.gui.framework.PlayerHeadItemTemplate
+import net.mcmerdith.guildedmenu.gui.framework.StaticPlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
@@ -15,7 +15,7 @@ import org.ipvp.canvas.Menu
 /**
  * Graphical "BalTop" interface
  */
-class EconomyMenu(parent: Menu? = null) : PaginatedMenu {
+class EconomyMenu(private val parent: Menu? = null) : PaginatedMenu {
     companion object {
         val LOGGER = GMLogger.getLogger("EconomyMenu")
 
@@ -25,6 +25,8 @@ class EconomyMenu(parent: Menu? = null) : PaginatedMenu {
 
     private val template: BaseMenu.Builder =
         BaseMenu.Builder(6).title("Top Player Balances").redraw(true).parent(parent)
+
+    override fun regenerate() = EconomyMenu(parent).get()
 
     private val vault = IntegrationManager[VaultIntegration::class.java]!!
     private val balTop = vault.topBalances()
@@ -49,7 +51,7 @@ class EconomyMenu(parent: Menu? = null) : PaginatedMenu {
                 // Get the left-most slot
                 val slot = menu.getSlot(i, 1)
                 // Get the player (or continue if the slot does not contain a player head)
-                val target = (slot.settings.itemTemplate as? PlayerHeadItemTemplate)?.player ?: continue
+                val target = (slot.settings.itemTemplate as? StaticPlayerHeadItemTemplate)?.player ?: continue
 
                 try {
                     // Search for their balance

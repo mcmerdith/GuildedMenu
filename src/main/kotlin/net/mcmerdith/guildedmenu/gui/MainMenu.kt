@@ -9,6 +9,8 @@ import net.mcmerdith.guildedmenu.integration.EssentialsIntegration
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
 import net.mcmerdith.guildedmenu.util.Extensions.setName
+import org.bukkit.Material
+import org.bukkit.inventory.ItemStack
 
 /**
  * Main Menu
@@ -17,7 +19,7 @@ import net.mcmerdith.guildedmenu.util.Extensions.setName
  */
 class MainMenu(private val admin: Boolean = false) : BaseMenu(
     GuildedMenu.plugin.menuConfig.title,
-    MenuSize(6),
+    MenuSize(5),
     null
 ) {
     private val config = GuildedMenu.plugin.menuConfig
@@ -37,7 +39,7 @@ class MainMenu(private val admin: Boolean = false) : BaseMenu(
             val econ = getSlot(config.vault.index)
             econ.item = ItemTemplates.ECONOMY
 
-            GuiUtil.openScreenOnClick(econ, EconomyMenu(this).get(), PlayerBalanceMenu(this))
+            GuiUtil.openScreenSupplierOnClick(econ, { EconomyMenu(this).get() }) { PlayerBalanceMenu(this) }
         }
 
         val essentials = IntegrationManager[EssentialsIntegration::class.java]
@@ -48,9 +50,9 @@ class MainMenu(private val admin: Boolean = false) : BaseMenu(
                 val tpa = getSlot(config.tpa.index)
                 tpa.item = ItemTemplates.TPA
 
-                GuiUtil.openScreenOnClick(
+                GuiUtil.openScreenSupplierOnClick(
                     tpa,
-                    PlayerSelectMenu(this, true, essentials.getTPAExecutor()).get()
+                    PlayerSelectMenu(this, true, null, essentials.getTPAExecutor())::get
                 )
             }
 
@@ -59,10 +61,17 @@ class MainMenu(private val admin: Boolean = false) : BaseMenu(
                 val tpaHere = getSlot(config.tpaHere.index)
                 tpaHere.item = ItemTemplates.TPA_HERE
 
-                GuiUtil.openScreenOnClick(
+                GuiUtil.openScreenSupplierOnClick(
                     tpaHere,
-                    PlayerSelectMenu(this, true, essentials.getTPAHereExecutor()).get()
+                    PlayerSelectMenu(this, true, null, essentials.getTPAHereExecutor())::get
                 )
+            }
+        }
+
+        if (config.signshop.enabled) {
+            getSlot(config.signshop.index).apply {
+                item = ItemStack(Material.OAK_SIGN).setName("Business Directory")
+                GuiUtil.openScreenSupplierOnClick(this, BusinessSelectMenu(this@MainMenu)::get)
             }
         }
     }

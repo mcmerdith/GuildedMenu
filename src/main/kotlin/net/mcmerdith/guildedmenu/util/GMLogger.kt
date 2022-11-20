@@ -18,8 +18,7 @@ class GMLogger private constructor(name: String = "") {
         private val loggers = mutableMapOf<String, GMLogger>()
 
         val MAIN = getLogger("")
-        val CONFIG = getLogger("Config")
-        val EVENT = getLogger("Event")
+        val FILE = getLogger("File Manager")
 
         fun init(logger: Logger) {
             this.logger = logger

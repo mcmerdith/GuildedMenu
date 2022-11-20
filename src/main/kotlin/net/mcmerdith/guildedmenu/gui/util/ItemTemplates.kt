@@ -41,6 +41,21 @@ object ItemTemplates {
     val INFO: ItemStack
         get() = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDAxYWZlOTczYzU0ODJmZGM3MWU2YWExMDY5ODgzM2M3OWM0MzdmMjEzMDhlYTlhMWEwOTU3NDZlYzI3NGEwZiJ9fX0=")
             .setName("More Information")
+    val EDIT: ItemStack
+        get() = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTdlZDY2ZjVhNzAyMDlkODIxMTY3ZDE1NmZkYmMwY2EzYmYxMWFkNTRlZDVkODZlNzVjMjY1ZjdlNTAyOWVjMSJ9fX0=")
+            .setName("Edit")
+    val NEW: ItemStack
+        get() = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNThjZjJjMmI3NWI5NzM0MzkwMWY2N2VjMGVmYmNmYzBmNDkzMzVlYmFjNDQwNGUyN2NmMjVhNzlkYmQyMTU2MSJ9fX0=")
+            .setName("New")
+    val DELETE: ItemStack
+        get() = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTNkN2E5ZWUzMTM0OGEzNTc1NDM4M2MxNjdmYTMzYWJjMDJlOGU2OGNhMmM0YTk2OTE0MDBlN2ZlMzRiM2ViNSJ9fX0=")
+            .setName("Delete")
+    val REFRESH: ItemStack
+        get() = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTUzZGQ0NTc5ZWRjMmE2ZjIwMzJmOTViMWMxODk4MTI5MWI2YzdjMTFlYjM0YjZhOGVkMzZhZmJmYmNlZmZmYiJ9fX0=")
+            .setName("Delete")
+    val TRANSFER: ItemStack
+        get() = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2RmNTM2YzNkMDVmN2ZjODMyNTAxYjRjMTE1YWNlZmE0M2E2NTIwOWMzZDU2NGM2YzU2Zjk0OTc5NmYxMDI5YSJ9fX0=")
+            .setName("Delete")
     val TPA: ItemStack
         get() = ItemStack(Material.ENDER_PEARL).setName("TPA").setLore("Request to TPA to another player")
     val TPA_HERE: ItemStack

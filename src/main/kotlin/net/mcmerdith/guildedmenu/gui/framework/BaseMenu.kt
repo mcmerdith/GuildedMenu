@@ -39,6 +39,15 @@ open class BaseMenu(private val title: String, private val size: Dimension, pare
         }
     }
 
+    /**
+     * Open for [player] after [ticks]
+     */
+    fun openLater(player: Player, ticks: Long = 2) {
+        Bukkit.getScheduler().runTaskLater(GuildedMenu.plugin, { ->
+            open(player)
+        }, ticks)
+    }
+
     class Builder(rows: Int) : AbstractMenu.Builder<Builder>(MenuSize(rows)) {
         override fun build(): BaseMenu {
             return BaseMenu(title, dimensions, parent, isRedraw)
