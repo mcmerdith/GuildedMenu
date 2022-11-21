@@ -9,4 +9,4 @@ import java.util.function.Supplier
  * Return true to close the inventory
  */
 typealias MenuSelectReceiver<T> = (Player, T) -> Boolean
-typealias MenuProvider = Supplier<MenuBase>
+typealias MenuProvider = Supplier<BaseMenu>

@@ -15,7 +15,7 @@ import org.ipvp.canvas.type.ChestMenu
  *
  * Use [redraw] for [PaginatedMenu]s
  */
-class MenuBase private constructor(
+class BaseMenu private constructor(
     private val title: String,
     private val size: Dimension,
     val previous: MenuProvider?,
@@ -61,8 +61,8 @@ class MenuBase private constructor(
             return this
         }
 
-        override fun build(): MenuBase {
-            return MenuBase(title, dimensions, previous, isRedraw)
+        override fun build(): BaseMenu {
+            return BaseMenu(title, dimensions, previous, isRedraw)
         }
     }
 }

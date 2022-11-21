@@ -3,7 +3,7 @@ package net.mcmerdith.guildedmenu.gui
 import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.business.Business
 import net.mcmerdith.guildedmenu.business.BusinessManager
-import net.mcmerdith.guildedmenu.gui.framework.MenuBase
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.framework.MenuSelectReceiver
 import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
@@ -53,7 +53,7 @@ class BusinessSelectMenu(
                 { (player is Player && player.isAdmin()) || it.owner == player.uniqueId },
                 true
             ) { p, business ->
-                val confirm = MenuBase.Builder(1).title("Delete Business (confirm)").previous(previous).build()
+                val confirm = BaseMenu.Builder(1).title("Delete Business (confirm)").previous(previous).build()
 
                 confirm.getSlot(1, 5).apply {
                     item = business.getIcon()
@@ -73,7 +73,7 @@ class BusinessSelectMenu(
     }
 
     override fun getBuilder() =
-        MenuBase.Builder(6).title("Select a Business").redraw(true).previous(previous)
+        BaseMenu.Builder(6).title("Select a Business").redraw(true).previous(previous)
 
     override fun getRowMask() = GuiUtil.getFullRowMask(5)
 

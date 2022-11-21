@@ -4,15 +4,15 @@ abstract class BasicMenu : MenuProvider {
     /**
      * The builder for this menu
      */
-    abstract fun getBuilder(): MenuBase.Builder
+    abstract fun getBuilder(): BaseMenu.Builder
 
     /**
      * Menus from [getBuilder] will be passed to this function before being returned to the caller
      */
-    abstract fun setup(menu: MenuBase)
+    abstract fun setup(menu: BaseMenu)
 
     /**
      * Get the first page (aka pagination entry point)
      */
-    final override fun get(): MenuBase = getBuilder().build().apply { setup(this) }
+    final override fun get(): BaseMenu = getBuilder().build().apply { setup(this) }
 }

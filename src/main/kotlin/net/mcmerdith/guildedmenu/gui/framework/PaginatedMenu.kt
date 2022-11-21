@@ -9,7 +9,7 @@ abstract class PaginatedMenu : MenuProvider {
     /**
      * The builder for this menu
      */
-    abstract fun getBuilder(): MenuBase.Builder
+    abstract fun getBuilder(): BaseMenu.Builder
 
     abstract fun getRowMask(): BinaryMask
 
@@ -23,7 +23,7 @@ abstract class PaginatedMenu : MenuProvider {
     /**
      * Get the first page (aka pagination entry point)
      */
-    final override fun get(): MenuBase = GuiUtil.getPagination(getBuilder(), getRowMask())
+    final override fun get(): BaseMenu = GuiUtil.getPagination(getBuilder(), getRowMask())
         .apply { setup(this) }.build()
-        .apply { setup(this) }.first() as MenuBase
+        .apply { setup(this) }.first() as BaseMenu
 }

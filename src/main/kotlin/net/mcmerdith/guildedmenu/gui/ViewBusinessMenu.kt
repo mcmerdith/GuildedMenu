@@ -25,11 +25,11 @@ class ViewBusinessMenu(
     private val previous: MenuProvider? = null,
     private val business: Business
 ) : BasicMenu() {
-    override fun getBuilder(): MenuBase.Builder = MenuBase.Builder(3)
+    override fun getBuilder(): BaseMenu.Builder = BaseMenu.Builder(3)
         .title(business.name ?: "Unnamed business")
         .previous(previous)
 
-    override fun setup(menu: MenuBase) {
+    override fun setup(menu: BaseMenu) {
         menu.apply {
             /*
             Manager Functions
@@ -151,7 +151,7 @@ class ViewBusinessMenu(
 
     class ManagerMenu(private val previous: MenuProvider?, private val business: Business) : PaginatedMenu() {
         override fun getBuilder() =
-            MenuBase.Builder(2).title("Managers (${business.name})").redraw(true).previous(previous)
+            BaseMenu.Builder(2).title("Managers (${business.name})").redraw(true).previous(previous)
 
         override fun getRowMask() = GuiUtil.getFullRowMask(1)
 

@@ -1,6 +1,6 @@
 package net.mcmerdith.guildedmenu.gui
 
-import net.mcmerdith.guildedmenu.gui.framework.MenuBase
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
 import net.mcmerdith.guildedmenu.gui.framework.StaticPlayerHeadItemTemplate
@@ -35,7 +35,7 @@ class EconomyMenu(private val previous: MenuProvider? = null) : PaginatedMenu() 
      */
     private fun getBlockCount(balance: Double) = (balTop.percentile(balance) * 8).toInt().coerceIn(0, 8)
 
-    override fun getBuilder() = MenuBase.Builder(6).title("Top Player Balances").redraw(true).previous(previous)
+    override fun getBuilder() = BaseMenu.Builder(6).title("Top Player Balances").redraw(true).previous(previous)
 
     override fun getRowMask() = GuiUtil.getRowMask(5, "100000000")
 

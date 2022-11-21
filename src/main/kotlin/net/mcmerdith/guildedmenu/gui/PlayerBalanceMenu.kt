@@ -1,7 +1,7 @@
 package net.mcmerdith.guildedmenu.gui
 
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.BasicMenu
-import net.mcmerdith.guildedmenu.gui.framework.MenuBase
 import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
@@ -25,9 +25,9 @@ class PlayerBalanceMenu(
 ) : BasicMenu() {
     private val vault = IntegrationManager[VaultIntegration::class.java]!!
 
-    override fun getBuilder() = MenuBase.Builder(3).title("Player Balance").previous(previous)
+    override fun getBuilder() = BaseMenu.Builder(3).title("Player Balance").previous(previous)
 
-    override fun setup(menu: MenuBase) {
+    override fun setup(menu: BaseMenu) {
         menu.apply {
             if (target == null) {
                 // Render the menu with the viewer as the target

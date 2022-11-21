@@ -23,7 +23,7 @@ class PlayerSelectMenu(
     private val sourceSet: List<OfflinePlayer>? = null,
     private val callback: MenuSelectReceiver<OfflinePlayer>
 ) : PaginatedMenu() {
-    override fun getBuilder() = MenuBase.Builder(6).title("Player Select").redraw(true).previous(previous)
+    override fun getBuilder() = BaseMenu.Builder(6).title("Player Select").redraw(true).previous(previous)
 
     override fun getRowMask() = GuiUtil.getFullRowMask(5)
 

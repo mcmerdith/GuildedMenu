@@ -1,8 +1,8 @@
 package net.mcmerdith.guildedmenu.gui
 
 import net.mcmerdith.guildedmenu.GuildedMenu
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.BasicMenu
-import net.mcmerdith.guildedmenu.gui.framework.MenuBase
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.integration.EssentialsIntegration
@@ -20,9 +20,9 @@ import org.bukkit.inventory.ItemStack
 class MainMenu(private val admin: Boolean = false) : BasicMenu() {
     private val config = GuildedMenu.plugin.menuConfig
 
-    override fun getBuilder(): MenuBase.Builder = MenuBase.Builder(5).title(GuildedMenu.plugin.menuConfig.title)
+    override fun getBuilder(): BaseMenu.Builder = BaseMenu.Builder(5).title(GuildedMenu.plugin.menuConfig.title)
 
-    override fun setup(menu: MenuBase) {
+    override fun setup(menu: BaseMenu) {
         menu.apply {
             if (admin) {
                 // Render the "Admin View" button

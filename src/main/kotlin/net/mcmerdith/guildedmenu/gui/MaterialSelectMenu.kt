@@ -1,6 +1,6 @@
 package net.mcmerdith.guildedmenu.gui
 
-import net.mcmerdith.guildedmenu.gui.framework.MenuBase
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.framework.MenuSelectReceiver
 import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
@@ -24,7 +24,7 @@ class MaterialSelectMenu(
     private val filter: Predicate<Material>? = null,
     private val callback: MenuSelectReceiver<Material>
 ) : PaginatedMenu() {
-    override fun getBuilder() = MenuBase.Builder(6).title("Material Select").redraw(true).previous(previous)
+    override fun getBuilder() = BaseMenu.Builder(6).title("Material Select").redraw(true).previous(previous)
 
     override fun getRowMask() = GuiUtil.getFullRowMask(5)
 
