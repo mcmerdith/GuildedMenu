@@ -117,7 +117,7 @@ class BusinessSelectMenu(
                 newMenuModifier { menu ->
                     // New Business
                     menu.getSlot(6, 3).apply {
-                        item = ItemTemplates.NEW
+                        item = ItemTemplates.UI.getNew()
                         setClickHandler { player, _ ->
                             GuiUtil.getAnvilGUIBuilder(
                                 "New business",
@@ -143,13 +143,13 @@ class BusinessSelectMenu(
 
                     // Reset filters
                     menu.getSlot(6, 5).apply {
-                        item = ItemTemplates.REFRESH.setName("Reset Filters")
+                        item = ItemTemplates.UI.getRefresh("Reset Filters")
                         openOnClick(BusinessSelectMenu(previous, delete = false, callback = callback))
                     }
 
                     // Delete mode
                     menu.getSlot(6, 7).apply {
-                        item = ItemTemplates.DELETE
+                        item = ItemTemplates.UI.getDelete()
                         setClickHandler { player, _ ->
                             getDeleteMenu(this@BusinessSelectMenu, player).get().open(player)
                         }

@@ -22,8 +22,8 @@ class EconomyMenu(private val previous: MenuProvider? = null) : PaginatedMenu() 
     companion object {
         val LOGGER = GMLogger.getLogger("EconomyMenu")
 
-        val ERROR_ITEM = ItemTemplates.ERROR.setLore("Failed to retrieve balance")
-        val MONEY_ITEM = ItemTemplates.MONEYBLOCK.setName()
+        val ERROR_ITEM = ItemTemplates.getError().setLore("Failed to retrieve balance")
+        val MONEY_ITEM = ItemTemplates.getMoneyBlock().setName()
     }
 
     private val vault = IntegrationManager[VaultIntegration::class.java]!!

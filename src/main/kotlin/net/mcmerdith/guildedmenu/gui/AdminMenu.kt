@@ -21,11 +21,11 @@ class AdminMenu(private val main: MainMenu) : BasicMenu() {
     override fun setup(menu: BaseMenu) {
         menu.apply {
             getSlot(config.admin.mainButton.index).apply {
-                item = ItemTemplates.EXCLAMATION.setName("Player View")
+                item = ItemTemplates.UI.getExclamation("Player View")
                 openOnClick(main)
             }
 
-            getSlot(3, 5).item = ItemTemplates.EXCLAMATION.setName("Coming Soon!")
+            getSlot(3, 5).item = ItemTemplates.UI.getExclamation("Coming Soon!")
 
             getSlot(1, 5).apply {
                 item = ItemStack(Material.STONE).setName("Material Menu DEBUG")

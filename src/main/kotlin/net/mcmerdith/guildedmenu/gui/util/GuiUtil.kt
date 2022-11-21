@@ -58,11 +58,11 @@ object GuiUtil : CommandExecutor {
     fun getPagination(builder: AbstractMenu.Builder<*>, mask: BinaryMask): PaginatedMenuBuilder =
         PaginatedMenuBuilder.builder(builder)
             .slots(mask)
-            .previousButton(ItemTemplates.PREV_BUTTON)
-            .previousButtonEmpty(ItemTemplates.PREV_BUTTON_DISABLED)
+            .previousButton(ItemTemplates.UI.getPreviousButton())
+            .previousButtonEmpty(ItemTemplates.UI.getDisabledPreviousButton())
             .previousButtonSlot(getSlotIndex(builder.dimensions.rows, 1))
-            .nextButton(ItemTemplates.NEXT_BUTTON)
-            .nextButtonEmpty(ItemTemplates.NEXT_BUTTON_DISABLED)
+            .nextButton(ItemTemplates.UI.getNextButton())
+            .nextButtonEmpty(ItemTemplates.UI.getDisabledNextButton())
             .nextButtonSlot(getSlotIndex(builder.dimensions.rows, 9))
 
     /**

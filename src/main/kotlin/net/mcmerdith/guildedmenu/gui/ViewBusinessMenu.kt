@@ -12,8 +12,6 @@ import net.mcmerdith.guildedmenu.util.PlayerUtils.asOfflinePlayer
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
-import org.bukkit.Material
-import org.bukkit.inventory.ItemStack
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 
 /**
@@ -38,7 +36,7 @@ class ViewBusinessMenu(
             // Rename
             getSlot(1, 1).apply {
                 setItemTemplate { p ->
-                    if (business.isManager(p)) ItemTemplates.EDIT.setLore("Edit business name")
+                    if (business.isManager(p)) ItemTemplates.UI.getEdit("Rename ${business.name}")
                     else null
                 }
                 setClickHandler { p, _ ->
@@ -80,7 +78,7 @@ class ViewBusinessMenu(
             // Remove Icon
             getSlot(3, 1).apply {
                 setItemTemplate { p ->
-                    if (business.isManager(p)) ItemTemplates.XMARK.setLore("Click to reset icon")
+                    if (business.isManager(p)) ItemTemplates.UI.getXMark("Reset Icon")
                     else null
                 }
                 setClickHandler { player, _ ->
@@ -98,7 +96,7 @@ class ViewBusinessMenu(
              */
 
             getSlot(2, 3).apply {
-                item = ItemStack(Material.OAK_SIGN).setName("See locations")
+                item = ItemTemplates.getSignshop("See locations")
                 // clickHandler
             }
 
@@ -110,7 +108,7 @@ class ViewBusinessMenu(
             getSlot(1, 5).apply {
                 setItemTemplate { p ->
                     if (business.isManager(p)) {
-                        val i = ItemTemplates.TRANSFER.setName("Transfer Ownership")
+                        val i = ItemTemplates.UI.getTransfer("Transfer Ownership")
 
                         // Only the owner can change ownership
                         if (business.isOwner(p))
@@ -164,7 +162,7 @@ class ViewBusinessMenu(
                 newMenuModifier { menu ->
                     menu.getSlot(2, 4).apply {
                         setItemTemplate { p ->
-                            if (business.isManager(p)) ItemTemplates.NEW.setLore("Add a manager")
+                            if (business.isManager(p)) ItemTemplates.UI.getNew("Add a manager")
                             else null
                         }
                         setClickHandler { p, _ ->
@@ -185,7 +183,7 @@ class ViewBusinessMenu(
 
                     menu.getSlot(2, 6).apply {
                         setItemTemplate { p ->
-                            if (business.isManager(p)) ItemTemplates.DELETE.setLore("Remove a manager")
+                            if (business.isManager(p)) ItemTemplates.UI.getDelete("Remove a manager")
                             else null
                         }
                         setClickHandler { p, _ ->

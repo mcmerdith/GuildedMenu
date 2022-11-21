@@ -9,7 +9,6 @@ import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
-import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
@@ -39,7 +38,7 @@ class PlayerBalanceMenu(
 
                 // Generic "Send Money" button 1 slot right of center
                 getSlot(2, 6).apply {
-                    item = ItemTemplates.REGISTER_ORANGE.setName("Send Money")
+                    item = ItemTemplates.getOrangeRegister("Send Money")
                     openOnClick(
                         PlayerSelectMenu(this@PlayerBalanceMenu, false) { callingPlayer, selectedPlayer ->
                             initTransaction(callingPlayer, selectedPlayer)
@@ -53,12 +52,12 @@ class PlayerBalanceMenu(
 
                 // Request button on the left
                 getSlot(2, 3).apply {
-                    item = ItemTemplates.REGISTER_GREEN.setName("Request from ${target.name}").setLore("Coming Soon!")
+                    item = ItemTemplates.getGreenRegister("Request from ${target.name}").setLore("Coming Soon!")
                 }
 
                 // Send button on the right
                 getSlot(2, 7).apply {
-                    item = ItemTemplates.REGISTER_ORANGE.setName("Pay ${target.name}")
+                    item = ItemTemplates.getOrangeRegister("Pay ${target.name}")
 
                     setClickHandler { player, _ ->
                         initTransaction(player, target)
@@ -74,7 +73,7 @@ class PlayerBalanceMenu(
     private fun initTransaction(sender: Player, receiver: OfflinePlayer) {
         GuiUtil.getAnvilGUIBuilder(
             "Pay ${receiver.name}",
-            ItemTemplates.MONEYBLOCK.setLore("Your Balance: ${vault.formattedBalance(sender)}"),
+            ItemTemplates.getMoneyBlock().setLore("Your Balance: ${vault.formattedBalance(sender)}"),
             this@PlayerBalanceMenu
         ) { _, input ->
             val amount = input.toDoubleOrNull()
