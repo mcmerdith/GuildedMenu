@@ -4,23 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="Original name was better lol">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/PlayerUtils.kt" afterDir="false" />
+    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="Split Extensions into PlayerUtils and ItemStackUtils">
       <change beforePath="$PROJECT_DIR$/KTGuildedMenu.iws" beforeDir="false" afterPath="$PROJECT_DIR$/KTGuildedMenu.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/Business.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/Business.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/AdminMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/AdminMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/BusinessSelectMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/BusinessSelectMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/EconomyMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/EconomyMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MainMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/MainMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/PlayerBalanceMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/PlayerBalanceMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/ViewBusinessMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/ViewBusinessMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/PlayerHeadItemTemplate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/PlayerHeadItemTemplate.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/StaticPlayerHeadItemTemplate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/StaticPlayerHeadItemTemplate.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/GuiUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/GuiUtil.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/ItemTemplates.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/util/ItemTemplates.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/TownyIntegration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/TownyIntegration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/vault/VaultIntegration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/vault/VaultIntegration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/Extensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/ItemStackUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/Globals.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/Permissions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/PlayerUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/PlayerUtils.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -315,14 +302,7 @@
       <workItem from="1668461657289" duration="739000" />
       <workItem from="1668540726014" duration="101000" />
       <workItem from="1668541140127" duration="69005000" />
-      <workItem from="1668899353577" duration="43401000" />
-    </task>
-    <task id="LOCAL-00001" summary="Initial Commit">
-      <created>1668738917626</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1668738917626</updated>
+      <workItem from="1668899353577" duration="43767000" />
     </task>
     <task id="LOCAL-00002" summary="Update to use Canvas instead of CommandPanels">
       <created>1668746116718</created>
@@ -660,7 +640,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668995455658</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Split Extensions into PlayerUtils and ItemStackUtils">
+      <created>1668995767493</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1668995767494</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -679,7 +666,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <MESSAGE value="Better integration checking, use MenuConfig values for positioning and title" />
     <MESSAGE value="Implemented PlayerBalanceMenu" />
     <MESSAGE value="Implement PaginatedMenu, callback should always be called on click" />
     <MESSAGE value="Intellij Stuff" />
@@ -704,7 +690,8 @@
     <MESSAGE value="Menu classes are now MenuProviders&#10;&#10;Using menu providers ensures that data-driven menus are always up-to-date even when re-opened as the parent of a closing menu" />
     <MESSAGE value="Ability to reset filters" />
     <MESSAGE value="Original name was better lol" />
-    <option name="LAST_COMMIT_MESSAGE" value="Original name was better lol" />
+    <MESSAGE value="Split Extensions into PlayerUtils and ItemStackUtils" />
+    <option name="LAST_COMMIT_MESSAGE" value="Split Extensions into PlayerUtils and ItemStackUtils" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />

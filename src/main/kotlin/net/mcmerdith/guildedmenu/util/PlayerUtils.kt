@@ -44,5 +44,5 @@ object PlayerUtils {
     /**
      * If the player is either OP or has the admin permission
      */
-    fun CommandSender.isAdmin() = isOp || hasPermission(Globals.PERMISSION.ADMIN)
+    fun CommandSender.isAdmin() = isOp || hasPermission(Permissions.ADMIN)
 }
