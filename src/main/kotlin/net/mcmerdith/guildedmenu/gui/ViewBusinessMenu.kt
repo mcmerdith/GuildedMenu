@@ -2,17 +2,17 @@ package net.mcmerdith.guildedmenu.gui
 
 import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.business.Business
-import net.mcmerdith.guildedmenu.gui.framework.*
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
+import net.mcmerdith.guildedmenu.gui.framework.BasicMenu
+import net.mcmerdith.guildedmenu.gui.framework.ConditionalSlot
+import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
-import net.mcmerdith.guildedmenu.util.PlayerUtils.asOfflinePlayer
 import net.wesjd.anvilgui.AnvilGUI
-import org.bukkit.Bukkit
 import org.bukkit.ChatColor
-import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 
 /**
  * Player Balance Menu
@@ -34,62 +34,50 @@ class ViewBusinessMenu(
              */
 
             // Rename
-            getSlot(1, 1).apply {
-                setItemTemplate { p ->
-                    if (business.isManager(p)) ItemTemplates.UI.getEdit("Rename ${business.name}")
-                    else null
-                }
-                setClickHandler { p, _ ->
-                    if (business.isManager(p)) {
-                        GuiUtil.getAnvilGUIBuilder(
-                            "Rename '${business.name}'",
-                            business.getIcon(),
-                            this@ViewBusinessMenu
-                        ) { _, input ->
-                            if (input.isBlank()) AnvilGUI.Response.text(business.name)
-                            else {
-                                business.name = input
-                                business.save()
+            getSlot(1, 1).settings = ConditionalSlot.build(
+                ItemTemplates.UI.getEdit("Rename ${business.name}"),
+                { p -> business.isManager(p) },
+                { p, _ ->
+                    GuiUtil.getAnvilGUIBuilder(
+                        "Rename '${business.name}'",
+                        business.getIcon(),
+                        this@ViewBusinessMenu
+                    ) { _, input ->
+                        if (input.isBlank()) AnvilGUI.Response.text(business.name)
+                        else {
+                            business.name = input
+                            business.save()
 
-                                AnvilGUI.Response.close()
-                            }
-                        }.text(business.name).open(p)
-                    }
+                            AnvilGUI.Response.close()
+                        }
+                    }.text(business.name).open(p)
                 }
-            }
+            )
 
             // Change Icon
-            getSlot(2, 1).apply {
-                setItemTemplate { p ->
-                    if (business.isManager(p)) business.getIcon().setLore("Click to change icon")
-                    else null
+            getSlot(2, 1).settings = ConditionalSlot.build(
+                business.getIcon().setLore("Click to change icon"),
+                { p -> business.isManager(p) },
+                { p, _ ->
+                    MaterialSelectMenu(this@ViewBusinessMenu) { _, material ->
+                        business.icon = material
+                        business.save()
+                        true
+                    }.get().open(p)
                 }
-                setClickHandler { p, _ ->
-                    if (business.isManager(p)) {
-                        MaterialSelectMenu(this@ViewBusinessMenu) { _, material ->
-                            business.icon = material
-                            business.save()
-                            true
-                        }.get().open(p)
-                    }
-                }
-            }
+            )
 
             // Remove Icon
-            getSlot(3, 1).apply {
-                setItemTemplate { p ->
-                    if (business.isManager(p)) ItemTemplates.UI.getXMark("Reset Icon")
-                    else null
-                }
-                setClickHandler { player, _ ->
-                    if (business.isManager(player)) {
-                        business.icon = null
-                        business.save()
+            getSlot(3, 1).settings = ConditionalSlot.build(
+                ItemTemplates.UI.getXMark("Reset Icon"),
+                { p -> business.isManager(p) },
+                { p, _ ->
+                    business.icon = null
+                    business.save()
 
-                        get().open(player)
-                    }
+                    get().open(p)
                 }
-            }
+            )
 
             /*
             Locations
@@ -105,33 +93,22 @@ class ViewBusinessMenu(
              */
 
             // Change owner
-            getSlot(1, 5).apply {
-                setItemTemplate { p ->
-                    if (business.isManager(p)) {
-                        val i = ItemTemplates.UI.getTransfer("Transfer Ownership")
-
-                        // Only the owner can change ownership
-                        if (business.isOwner(p))
-                            i.setLore(
-                                "Warning! You will no longer be able to",
-                                "manage this business unless granted access",
-                                "by the new owner!",
-                                "${ChatColor.RED}This cannot be undone"
-                            )
-                        else i.setLore(
-                            "You do not have permission to",
-                            "perform this action"
-                        )
-                    } else null
-                }
-                setClickHandler { p, _ ->
+            getSlot(1, 5).settings = ConditionalSlot.build(
+                ItemTemplates.UI.getTransfer("Transfer Ownership").setLore(
+                    "Warning! You will no longer be able to",
+                    "manage this business unless granted access",
+                    "by the new owner!",
+                    "${ChatColor.RED}This cannot be undone"
+                ),
+                { p -> business.isOwner(p) },
+                { p, _ ->
                     PlayerSelectMenu(this@ViewBusinessMenu) { _, selected ->
                         business.owner = selected.uniqueId
                         business.save()
                         true
                     }.get().open(p)
                 }
-            }
+            )
 
             // Current owner
             getSlot(2, 5).item = SkullCreator.itemFromUuid(business.owner!!).setLore("Owner")
@@ -147,61 +124,4 @@ class ViewBusinessMenu(
         }
     }
 
-    class ManagerMenu(private val previous: MenuProvider?, private val business: Business) : PaginatedMenu() {
-        override fun getBuilder() =
-            BaseMenu.Builder(2).title("Managers (${business.name})").redraw(true).previous(previous)
-
-        override fun getRowMask() = GuiUtil.getFullRowMask(1)
-
-        override fun setup(builder: PaginatedMenuBuilder) {
-            builder.apply {
-                business.managers.forEach { manager ->
-                    addItem(StaticPlayerHeadItemTemplate.of(manager.asOfflinePlayer()))
-                }
-
-                newMenuModifier { menu ->
-                    menu.getSlot(2, 4).apply {
-                        setItemTemplate { p ->
-                            if (business.isManager(p)) ItemTemplates.UI.getNew("Add a manager")
-                            else null
-                        }
-                        setClickHandler { p, _ ->
-                            if (business.isManager(p)) {
-                                PlayerSelectMenu(
-                                    this@ManagerMenu,
-                                    false,
-                                    mutableListOf(*Bukkit.getOfflinePlayers())
-                                        .filter { !business.managers.contains(it.uniqueId) }
-                                ) { _, newManager ->
-                                    business.managers.add(newManager.uniqueId)
-                                    business.save()
-                                    true
-                                }.get().open(p)
-                            }
-                        }
-                    }
-
-                    menu.getSlot(2, 6).apply {
-                        setItemTemplate { p ->
-                            if (business.isManager(p)) ItemTemplates.UI.getDelete("Remove a manager")
-                            else null
-                        }
-                        setClickHandler { p, _ ->
-                            if (business.isManager(p)) {
-                                PlayerSelectMenu(
-                                    this@ManagerMenu,
-                                    false,
-                                    business.managers.map { it.asOfflinePlayer() }
-                                ) { _, newManager ->
-                                    business.managers.remove(newManager.uniqueId)
-                                    business.save()
-                                    true
-                                }.get().open(p)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
