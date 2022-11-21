@@ -45,6 +45,13 @@ class GuildedMenu : JavaPlugin() {
         // Enable integrations
         IntegrationManager.enable()
 
+        registerCommands()
+
+        // GUI Event Listener
+        Bukkit.getPluginManager().registerEvents(MenuFunctionListener(), this)
+    }
+
+    private fun registerCommands() {
         // Business manager
         getCommand("business")!!.apply {
             setExecutor(BusinessManager)
@@ -54,8 +61,5 @@ class GuildedMenu : JavaPlugin() {
         // Menu commands
         getCommand("guildedmenuadmin")!!.setExecutor(GuiUtil)
         getCommand("guildedmenu")!!.setExecutor(GuiUtil)
-
-        // GUI
-        Bukkit.getPluginManager().registerEvents(MenuFunctionListener(), this)
     }
 }
