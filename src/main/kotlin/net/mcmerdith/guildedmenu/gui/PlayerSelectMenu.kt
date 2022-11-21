@@ -1,16 +1,12 @@
 package net.mcmerdith.guildedmenu.gui
 
-import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
-import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
-import net.mcmerdith.guildedmenu.gui.framework.StaticPlayerHeadItemTemplate
+import net.mcmerdith.guildedmenu.gui.framework.*
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
-import org.bukkit.entity.Player
-import org.ipvp.canvas.Menu
+import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 import org.ipvp.canvas.slot.SlotSettings
 import java.util.*
-import java.util.function.BiConsumer
 
 /**
  * Menu to select a player
@@ -22,38 +18,31 @@ import java.util.function.BiConsumer
  * [callback] will be executed with the selecting player and the selected player
  */
 class PlayerSelectMenu(
-    private val parent: Menu? = null,
+    private val previous: MenuProvider? = null,
     private val online: Boolean = false,
     private val sourceSet: List<OfflinePlayer>? = null,
-    private val callback: BiConsumer<Player, OfflinePlayer>
-) : PaginatedMenu {
-    private val template: BaseMenu.Builder = BaseMenu.Builder(6).title("Player Select").redraw(true).parent(parent)
+    private val callback: MenuSelectReceiver<OfflinePlayer>
+) : PaginatedMenu() {
+    override fun getBuilder() = MenuBase.Builder(6).title("Player Select").redraw(true).previous(previous)
 
-    override fun regenerate() = PlayerSelectMenu(parent, online, sourceSet, callback).get()
+    override fun getRowMask() = GuiUtil.getFullRowMask(5)
 
-    /**
-     * A list of [Menu]s with containing all valid players
-     */
-    private val pages: List<Menu>
-        get() = GuiUtil.getPagination(template, GuiUtil.getFullRowMask(5))
-            .apply {
-                var players = sourceSet?.stream() ?: Arrays.stream(Bukkit.getOfflinePlayers())
+    override fun setup(builder: PaginatedMenuBuilder) {
+        builder.apply {
+            var players = sourceSet?.stream() ?: Arrays.stream(Bukkit.getOfflinePlayers())
 
-                if (online) players = players.filter { it.isOnline }
+            if (online) players = players.filter { it.isOnline }
 
-                players.forEach { player ->
-                    // Add each player
-                    addItem(SlotSettings.builder()
-                        .clickHandler { clickPlayer, _ ->
-                            // Execute the callback when clicked
-                            callback.accept(clickPlayer, player)
-                        }
-                        .itemTemplate(StaticPlayerHeadItemTemplate.of(player))
+            players.forEach { player ->
+                // Add each player
+                addItem(SlotSettings.builder()
+                    .clickHandler { clickPlayer, _ ->
+                        // Execute the callback when clicked
+                        if (callback.invoke(clickPlayer, player)) clickPlayer.closeInventory()
+                    }
+                    .itemTemplate(StaticPlayerHeadItemTemplate.of(player))
                     .build())
             }
-        }.build()
-
-    override fun get(): Menu {
-        return pages.first()
+        }
     }
 }

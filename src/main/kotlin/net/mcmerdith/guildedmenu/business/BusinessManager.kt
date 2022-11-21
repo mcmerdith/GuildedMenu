@@ -45,7 +45,7 @@ object BusinessManager : CommandExecutor, TabCompleter {
 
             "delete" -> {
                 // Players can only delete their own businesses unless they are admins
-                BusinessSelectMenu.getDeleteMenu(null, sender).open(sender)
+                BusinessSelectMenu.getDeleteMenu(null, sender).get().open(sender)
             }
         }
         return true

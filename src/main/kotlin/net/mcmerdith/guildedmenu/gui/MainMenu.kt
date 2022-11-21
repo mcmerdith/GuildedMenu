@@ -1,9 +1,9 @@
 package net.mcmerdith.guildedmenu.gui
 
 import net.mcmerdith.guildedmenu.GuildedMenu
-import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
-import net.mcmerdith.guildedmenu.gui.framework.MenuSize
-import net.mcmerdith.guildedmenu.gui.util.GuiUtil
+import net.mcmerdith.guildedmenu.gui.framework.BasicMenu
+import net.mcmerdith.guildedmenu.gui.framework.MenuBase
+import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.integration.EssentialsIntegration
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
@@ -17,61 +17,60 @@ import org.bukkit.inventory.ItemStack
  *
  * If [admin] is true a "Switch to Admin View" button will be rendered
  */
-class MainMenu(private val admin: Boolean = false) : BaseMenu(
-    GuildedMenu.plugin.menuConfig.title,
-    MenuSize(5),
-    null
-) {
+class MainMenu(private val admin: Boolean = false) : BasicMenu() {
     private val config = GuildedMenu.plugin.menuConfig
 
-    init {
-        if (admin) {
-            // Render the "Admin View" button
-            val home = getSlot(config.admin.mainButton.index)
-            home.item = ItemTemplates.EXCLAMATION.setName("Admin View")
-            GuiUtil.openScreenOnClick(home, AdminMenu(this))
-        }
+    override fun getBuilder(): MenuBase.Builder = MenuBase.Builder(5).title(GuildedMenu.plugin.menuConfig.title)
 
-        if (config.vault.enabled
-            && IntegrationManager[VaultIntegration::class.java]?.run { ready && hasEconomy() } == true
-        ) {
-            // BALTOP
-            val econ = getSlot(config.vault.index)
-            econ.item = ItemTemplates.ECONOMY
-
-            GuiUtil.openScreenSupplierOnClick(econ, { EconomyMenu(this).get() }) { PlayerBalanceMenu(this) }
-        }
-
-        val essentials = IntegrationManager[EssentialsIntegration::class.java]
-
-        if (essentials?.ready == true) {
-            if (config.tpa.enabled) {
-                // TPA
-                val tpa = getSlot(config.tpa.index)
-                tpa.item = ItemTemplates.TPA
-
-                GuiUtil.openScreenSupplierOnClick(
-                    tpa,
-                    PlayerSelectMenu(this, true, null, essentials.getTPAExecutor())::get
-                )
+    override fun setup(menu: MenuBase) {
+        menu.apply {
+            if (admin) {
+                // Render the "Admin View" button
+                getSlot(config.admin.mainButton.index).apply {
+                    item = ItemTemplates.EXCLAMATION.setName("Admin View")
+                    openOnClick(AdminMenu(this@MainMenu))
+                }
             }
 
-            if (config.tpaHere.enabled) {
-                // TPA HERE
-                val tpaHere = getSlot(config.tpaHere.index)
-                tpaHere.item = ItemTemplates.TPA_HERE
-
-                GuiUtil.openScreenSupplierOnClick(
-                    tpaHere,
-                    PlayerSelectMenu(this, true, null, essentials.getTPAHereExecutor())::get
-                )
+            if (config.vault.enabled
+                && IntegrationManager[VaultIntegration::class.java]?.run { ready && hasEconomy() } == true
+            ) {
+                // BALTOP
+                getSlot(config.vault.index).apply {
+                    item = ItemTemplates.ECONOMY
+                    openOnClick(EconomyMenu(this@MainMenu), PlayerBalanceMenu(this@MainMenu))
+                }
             }
-        }
 
-        if (config.signshop.enabled) {
-            getSlot(config.signshop.index).apply {
-                item = ItemStack(Material.OAK_SIGN).setName("Business Directory")
-                GuiUtil.openScreenSupplierOnClick(this, BusinessSelectMenu(this@MainMenu)::get)
+            val essentials = IntegrationManager[EssentialsIntegration::class.java]
+
+            if (essentials?.ready == true) {
+                if (config.tpa.enabled) {
+                    // TPA
+                    getSlot(config.tpa.index).apply {
+                        item = ItemTemplates.TPA
+                        openOnClick(
+                            PlayerSelectMenu(this@MainMenu, true, null, essentials.getTPAExecutor())
+                        )
+                    }
+                }
+
+                if (config.tpaHere.enabled) {
+                    // TPA HERE
+                    getSlot(config.tpaHere.index).apply {
+                        item = ItemTemplates.TPA_HERE
+                        openOnClick(
+                            PlayerSelectMenu(this@MainMenu, true, null, essentials.getTPAHereExecutor())
+                        )
+                    }
+                }
+            }
+
+            if (config.signshop.enabled) {
+                getSlot(config.signshop.index).apply {
+                    item = ItemStack(Material.OAK_SIGN).setName("Business Directory")
+                    openOnClick(BusinessSelectMenu(this@MainMenu))
+                }
             }
         }
     }

@@ -10,19 +10,19 @@ class EssentialsIntegration : Integration("Essentials") {
     }
 
     private fun getTPAExecutor(tpahere: Boolean) =
-        fun(player: Player, target: OfflinePlayer) {
+        fun(player: Player, target: OfflinePlayer): Boolean {
             if (player.uniqueId == target.uniqueId) {
                 player.sendErrorMessage("You can't TPA to yourself!")
-                return
+                return false
             }
 
-            if (target.isOnline) {
+            return if (target.isOnline) {
                 player.performCommand("tpa${if (tpahere) "here" else ""} ${target.name}")
+                true
             } else {
                 player.sendErrorMessage("Could not TPA! (is the target online?)")
+                false
             }
-
-            player.closeInventory()
         }
 
     fun getTPAExecutor() = getTPAExecutor(false)

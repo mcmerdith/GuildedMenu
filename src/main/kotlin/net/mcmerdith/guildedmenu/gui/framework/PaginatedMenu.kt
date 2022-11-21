@@ -1,17 +1,29 @@
 package net.mcmerdith.guildedmenu.gui.framework
 
+import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import org.ipvp.canvas.Menu
+import org.ipvp.canvas.mask.BinaryMask
+import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 
-interface PaginatedMenu {
+abstract class PaginatedMenu : MenuProvider {
     /**
-     * UI is pre-generated so changing the source set won't update it
-     *
-     * Make an identical copy of this menu but with new data
+     * The builder for this menu
      */
-    fun regenerate(): Menu
+    abstract fun getBuilder(): MenuBase.Builder
+
+    abstract fun getRowMask(): BinaryMask
+
+    abstract fun setup(builder: PaginatedMenuBuilder)
+
+    /**
+     * Menus from [getBuilder] will be passed to this function before being returned to the caller
+     */
+    open fun setup(menus: List<Menu>) {}
 
     /**
      * Get the first page (aka pagination entry point)
      */
-    fun get(): Menu
+    final override fun get(): MenuBase = GuiUtil.getPagination(getBuilder(), getRowMask())
+        .apply { setup(this) }.build()
+        .apply { setup(this) }.first() as MenuBase
 }

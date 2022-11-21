@@ -1,8 +1,10 @@
 package net.mcmerdith.guildedmenu.gui
 
-import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
-import net.mcmerdith.guildedmenu.gui.framework.MenuSize
+import net.mcmerdith.guildedmenu.gui.framework.BasicMenu
+import net.mcmerdith.guildedmenu.gui.framework.MenuBase
+import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
+import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
@@ -11,54 +13,56 @@ import net.mcmerdith.guildedmenu.util.Extensions.setName
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
-import org.ipvp.canvas.Menu
 
 /**
  * Player Balance Menu
  *
  * If [target] is not provided the menu will render for the current viewer
  */
-class PlayerBalanceMenu(parent: Menu? = null, private val target: OfflinePlayer? = null) : BaseMenu(
-    "Player Balance",
-    MenuSize(3),
-    parent
-) {
+class PlayerBalanceMenu(
+    private val previous: MenuProvider? = null,
+    private val target: OfflinePlayer? = null
+) : BasicMenu() {
     private val vault = IntegrationManager[VaultIntegration::class.java]!!
 
-    init {
-        if (target == null) {
-            // Render the menu with the viewer as the target
+    override fun getBuilder() = MenuBase.Builder(3).title("Player Balance").previous(previous)
 
-            // Render the player head 1 slot left of center
-            getSlot(2, 4).setItemTemplate { viewer ->
-                vault.getPlayerBalanceHeadTemplate(viewer).item
-            }
+    override fun setup(menu: MenuBase) {
+        menu.apply {
+            if (target == null) {
+                // Render the menu with the viewer as the target
 
-            // Generic "Send Money" button 1 slot right of center
-            getSlot(2, 6).apply {
-                item = ItemTemplates.REGISTER_ORANGE.setName("Send Money")
-                GuiUtil.openScreenSupplierOnClick(
-                    this,
-                    PlayerSelectMenu(this@PlayerBalanceMenu, false) { callingPlayer, selectedPlayer ->
-                        initTransaction(callingPlayer, selectedPlayer)
-                    }::get
-                )
-            }
-        } else {
-            // Render the player head in the center of the GUI
-            getSlot(2, 5).setItemTemplate(vault.getPlayerBalanceHeadTemplate(target))
+                // Render the player head 1 slot left of center
+                getSlot(2, 4).setItemTemplate { viewer ->
+                    vault.getPlayerBalanceHeadTemplate(viewer).item
+                }
 
-            // Request button on the left
-            getSlot(2, 3).apply {
-                item = ItemTemplates.REGISTER_GREEN.setName("Request from ${target.name}").setLore("Coming Soon!")
-            }
+                // Generic "Send Money" button 1 slot right of center
+                getSlot(2, 6).apply {
+                    item = ItemTemplates.REGISTER_ORANGE.setName("Send Money")
+                    openOnClick(
+                        PlayerSelectMenu(this@PlayerBalanceMenu, false) { callingPlayer, selectedPlayer ->
+                            initTransaction(callingPlayer, selectedPlayer)
+                            false
+                        }::get
+                    )
+                }
+            } else {
+                // Render the player head in the center of the GUI
+                getSlot(2, 5).setItemTemplate(vault.getPlayerBalanceHeadTemplate(target))
 
-            // Send button on the right
-            getSlot(2, 7).apply {
-                item = ItemTemplates.REGISTER_ORANGE.setName("Pay ${target.name}")
+                // Request button on the left
+                getSlot(2, 3).apply {
+                    item = ItemTemplates.REGISTER_GREEN.setName("Request from ${target.name}").setLore("Coming Soon!")
+                }
 
-                setClickHandler { player, _ ->
-                    initTransaction(player, target)
+                // Send button on the right
+                getSlot(2, 7).apply {
+                    item = ItemTemplates.REGISTER_ORANGE.setName("Pay ${target.name}")
+
+                    setClickHandler { player, _ ->
+                        initTransaction(player, target)
+                    }
                 }
             }
         }

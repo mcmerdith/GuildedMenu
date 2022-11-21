@@ -1,9 +1,11 @@
 package net.mcmerdith.guildedmenu.gui
 
-import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
+import net.mcmerdith.guildedmenu.gui.framework.MenuBase
+import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
 import net.mcmerdith.guildedmenu.gui.framework.StaticPlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
+import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
@@ -11,11 +13,12 @@ import net.mcmerdith.guildedmenu.util.Extensions.setLore
 import net.mcmerdith.guildedmenu.util.Extensions.setName
 import net.mcmerdith.guildedmenu.util.GMLogger
 import org.ipvp.canvas.Menu
+import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 
 /**
  * Graphical "BalTop" interface
  */
-class EconomyMenu(private val parent: Menu? = null) : PaginatedMenu {
+class EconomyMenu(private val previous: MenuProvider? = null) : PaginatedMenu() {
     companion object {
         val LOGGER = GMLogger.getLogger("EconomyMenu")
 
@@ -23,30 +26,28 @@ class EconomyMenu(private val parent: Menu? = null) : PaginatedMenu {
         val MONEY_ITEM = ItemTemplates.MONEYBLOCK.setName()
     }
 
-    private val template: BaseMenu.Builder =
-        BaseMenu.Builder(6).title("Top Player Balances").redraw(true).parent(parent)
-
-    override fun regenerate() = EconomyMenu(parent).get()
-
     private val vault = IntegrationManager[VaultIntegration::class.java]!!
-    private val balTop = vault.topBalances()
+    private val balTop
+        get() = vault.topBalances()
 
     /**
      * Get the number of money blocks that represent [balance] as a percentile of all balances
      */
     private fun getBlockCount(balance: Double) = (balTop.percentile(balance) * 8).toInt().coerceIn(0, 8)
 
-    /**
-     * A list of [Menu]s with all players (in descending order of their balances) along the left edge
-     */
-    private val pages: List<Menu> = GuiUtil.getPagination(template, GuiUtil.getRowMask(5, "100000000"))
-        .apply {
-            for (balance in balTop.balances) addItem(vault.getPlayerBalanceHeadTemplate(balance.player))
-        }.build()
+    override fun getBuilder() = MenuBase.Builder(6).title("Top Player Balances").redraw(true).previous(previous)
 
-    init {
+    override fun getRowMask() = GuiUtil.getRowMask(5, "100000000")
+
+    override fun setup(builder: PaginatedMenuBuilder) {
+        for (balance in balTop.balances) builder.addItem(vault.getPlayerBalanceHeadTemplate(balance.player))
+    }
+
+    override fun setup(menus: List<Menu>) {
+        super.setup(menus)
+
         // Calculate and build the graphs
-        for (menu in pages) {
+        for (menu in menus) {
             for (i in 1..5) {
                 // Get the left-most slot
                 val slot = menu.getSlot(i, 1)
@@ -58,8 +59,8 @@ class EconomyMenu(private val parent: Menu? = null) : PaginatedMenu {
                     val balance = balTop.balances.find { p -> p.player.uniqueId == target.uniqueId }
                         ?: throw RuntimeException("Could not identify player ${target.name}")
 
-                    // When the head is clicked open a net.mcmerdith.guildedmenu.gui.PlayerBalanceMenu for the target player
-                    GuiUtil.openScreenOnClick(slot, PlayerBalanceMenu(menu, balance.player))
+                    // When the head is clicked open a PlayerBalanceMenu for the target player
+                    slot.openOnClick(PlayerBalanceMenu(this@EconomyMenu, balance.player))
 
                     // Place the money blocks
                     for (j in 2..getBlockCount(balance.balance) + 1) menu.getSlot(i, j).item = MONEY_ITEM
@@ -72,9 +73,5 @@ class EconomyMenu(private val parent: Menu? = null) : PaginatedMenu {
 
             }
         }
-    }
-
-    override fun get(): Menu {
-        return pages.first()
     }
 }
