@@ -8,6 +8,7 @@ import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.framework.MenuSelectReceiver
 import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
+import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
 import net.mcmerdith.guildedmenu.util.Extensions.asOfflinePlayer
@@ -84,8 +85,12 @@ class BusinessSelectMenu(
                     .clickHandler { clickPlayer, clickInfo ->
                         if (clickInfo.clickType.isRightClick && !delete) {
                             // Filter by owner when right-clicked (not available in delete mode)
-                            BusinessSelectMenu(previous, { it.owner == business.owner }, false, callback)
-                                .get().open(clickPlayer)
+                            BusinessSelectMenu(
+                                previous,
+                                { it.owner == business.owner },
+                                false,
+                                callback
+                            ).get().open(clickPlayer)
                         } else {
                             // Execute the callback when left-clicked (or default behavior)
                             callback?.apply {
@@ -111,7 +116,7 @@ class BusinessSelectMenu(
             if (!delete) {
                 newMenuModifier { menu ->
                     // New Business
-                    menu.getSlot(6, 4).apply {
+                    menu.getSlot(6, 3).apply {
                         item = ItemTemplates.NEW
                         setClickHandler { player, _ ->
                             GuiUtil.getAnvilGUIBuilder(
@@ -136,8 +141,14 @@ class BusinessSelectMenu(
                         }
                     }
 
+                    // Reset filters
+                    menu.getSlot(6, 5).apply {
+                        item = ItemTemplates.REFRESH.setName("Reset Filters")
+                        openOnClick(BusinessSelectMenu(previous, delete = false, callback = callback))
+                    }
+
                     // Delete mode
-                    menu.getSlot(6, 6).apply {
+                    menu.getSlot(6, 7).apply {
                         item = ItemTemplates.DELETE
                         setClickHandler { player, _ ->
                             getDeleteMenu(this@BusinessSelectMenu, player).get().open(player)
