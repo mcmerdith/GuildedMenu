@@ -8,7 +8,7 @@ import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.integration.EssentialsIntegration
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
-import net.mcmerdith.guildedmenu.util.Extensions.setName
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 

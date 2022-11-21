@@ -11,10 +11,10 @@ import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
-import net.mcmerdith.guildedmenu.util.Extensions.asOfflinePlayer
-import net.mcmerdith.guildedmenu.util.Extensions.isAdmin
-import net.mcmerdith.guildedmenu.util.Extensions.setLore
-import net.mcmerdith.guildedmenu.util.Extensions.setName
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
+import net.mcmerdith.guildedmenu.util.PlayerUtils.asOfflinePlayer
+import net.mcmerdith.guildedmenu.util.PlayerUtils.isAdmin
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.ChatColor
 import org.bukkit.OfflinePlayer

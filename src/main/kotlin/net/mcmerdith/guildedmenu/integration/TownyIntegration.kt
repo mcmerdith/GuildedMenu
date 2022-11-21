@@ -3,8 +3,8 @@ package net.mcmerdith.guildedmenu.integration
 import com.palmergames.bukkit.towny.TownyUniverse
 import com.palmergames.bukkit.towny.`object`.Town
 import com.palmergames.bukkit.towny.`object`.WorldCoord
-import net.mcmerdith.guildedmenu.util.Extensions.asPlayer
-import net.mcmerdith.guildedmenu.util.Extensions.asTownyResident
+import net.mcmerdith.guildedmenu.util.PlayerUtils.asPlayer
+import net.mcmerdith.guildedmenu.util.PlayerUtils.asTownyResident
 import java.util.*
 
 class TownyIntegration : Integration("Towny") {

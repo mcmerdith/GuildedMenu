@@ -6,7 +6,7 @@ import net.mcmerdith.guildedmenu.gui.MainMenu
 import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.framework.MenuSize
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
-import net.mcmerdith.guildedmenu.util.Extensions.isAdmin
+import net.mcmerdith.guildedmenu.util.PlayerUtils.isAdmin
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor

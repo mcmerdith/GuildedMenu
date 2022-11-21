@@ -5,7 +5,7 @@ import net.mcmerdith.guildedmenu.gui.framework.StaticPlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.integration.Integration
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
-import net.mcmerdith.guildedmenu.util.Extensions.setLore
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.milkbowl.vault.economy.Economy
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer

@@ -3,9 +3,9 @@ package net.mcmerdith.guildedmenu.business
 import com.google.gson.JsonSyntaxException
 import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.business.BusinessManager.gson
-import net.mcmerdith.guildedmenu.util.Extensions.isAdmin
-import net.mcmerdith.guildedmenu.util.Extensions.setName
 import net.mcmerdith.guildedmenu.util.GMLogger
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
+import net.mcmerdith.guildedmenu.util.PlayerUtils.isAdmin
 import org.bukkit.Material
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player

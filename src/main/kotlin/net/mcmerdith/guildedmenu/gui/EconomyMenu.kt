@@ -9,9 +9,9 @@ import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
-import net.mcmerdith.guildedmenu.util.Extensions.setLore
-import net.mcmerdith.guildedmenu.util.Extensions.setName
 import net.mcmerdith.guildedmenu.util.GMLogger
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import org.ipvp.canvas.Menu
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 

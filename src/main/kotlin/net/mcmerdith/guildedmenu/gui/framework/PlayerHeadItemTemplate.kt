@@ -1,7 +1,7 @@
 package net.mcmerdith.guildedmenu.gui.framework
 
 import dev.dbassett.skullcreator.SkullCreator
-import net.mcmerdith.guildedmenu.util.Extensions.setName
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.ipvp.canvas.template.ItemStackTemplate

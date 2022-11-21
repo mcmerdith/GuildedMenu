@@ -5,7 +5,7 @@ import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.BasicMenu
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
-import net.mcmerdith.guildedmenu.util.Extensions.setName
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 

@@ -6,9 +6,9 @@ import net.mcmerdith.guildedmenu.gui.framework.*
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
-import net.mcmerdith.guildedmenu.util.Extensions.asOfflinePlayer
-import net.mcmerdith.guildedmenu.util.Extensions.setLore
-import net.mcmerdith.guildedmenu.util.Extensions.setName
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
+import net.mcmerdith.guildedmenu.util.PlayerUtils.asOfflinePlayer
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
