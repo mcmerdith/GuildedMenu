@@ -33,10 +33,10 @@ class PlayerSelectMenu(
     override fun setup(builder: PaginatedMenuBuilder) {
         builder.apply {
             // Get all players filtered by the predicate
-            val players = Arrays.stream(Bukkit.getOfflinePlayers()).apply {
-                predicate?.let { filter(it) }
-                if (online) filter { it.isOnline }
-            }
+            var players = Arrays.stream(Bukkit.getOfflinePlayers())
+
+            predicate?.let { players = players.filter(it) }
+            if (online) players = players.filter { it.isOnline }
 
             players.forEach { player ->
                 // Add each player
