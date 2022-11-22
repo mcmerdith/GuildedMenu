@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="Towny Menu, cleanup some integration crap&#10;&#10;Signed-off-by: Matthew Meredith &lt;matthewmeredith775@gmail.com&gt;">
+    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="Documentation">
       <change beforePath="$PROJECT_DIR$/KTGuildedMenu.iws" beforeDir="false" afterPath="$PROJECT_DIR$/KTGuildedMenu.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/TownyIntegration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/TownyIntegration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/vault/VaultIntegration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/vault/VaultIntegration.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/Business.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/Business.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/BusinessManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/BusinessManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/FileHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/business/FileHandler.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -308,14 +309,7 @@
       <workItem from="1668461657289" duration="739000" />
       <workItem from="1668540726014" duration="101000" />
       <workItem from="1668541140127" duration="69005000" />
-      <workItem from="1668899353577" duration="92024000" />
-    </task>
-    <task id="LOCAL-00008" summary="Parent menu should only open if the player closed the menu, not when they open a new one">
-      <created>1668888324439</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1668888324439</updated>
+      <workItem from="1668899353577" duration="92955000" />
     </task>
     <task id="LOCAL-00009" summary="Cleanup IntegrationManager">
       <created>1668888392714</created>
@@ -653,7 +647,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669135611764</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Documentation">
+      <created>1669136889311</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1669136889311</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -682,7 +683,6 @@
     <MESSAGE value="Headers" />
     <MESSAGE value="Debug function" />
     <MESSAGE value="Redesigned" />
-    <MESSAGE value="Documentation" />
     <MESSAGE value="Cleanup" />
     <MESSAGE value="Basic implementation of business menu" />
     <MESSAGE value="test player data" />
@@ -697,7 +697,8 @@
     <MESSAGE value="Move ManagerMenu to its own class" />
     <MESSAGE value="Towny Menu, cleanup some integration crap" />
     <MESSAGE value="Towny Menu, cleanup some integration crap&#10;&#10;Signed-off-by: Matthew Meredith &lt;matthewmeredith775@gmail.com&gt;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Towny Menu, cleanup some integration crap&#10;&#10;Signed-off-by: Matthew Meredith &lt;matthewmeredith775@gmail.com&gt;" />
+    <MESSAGE value="Documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Documentation" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />

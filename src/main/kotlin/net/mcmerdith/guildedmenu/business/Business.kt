@@ -1,7 +1,7 @@
 package net.mcmerdith.guildedmenu.business
 
+import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
-import net.mcmerdith.guildedmenu.business.BusinessManager.gson
 import net.mcmerdith.guildedmenu.util.GMLogger
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import net.mcmerdith.guildedmenu.util.PlayerUtils.getPlayerHead
@@ -38,6 +38,9 @@ class Business private constructor() {
         if (managers != null) this.managers.addAll(managers)
     }
 
+    /**
+     * Assign this business a new [UUID]
+     */
     private fun newID(): UUID {
         id = UUID.randomUUID()
         return id!!
@@ -73,12 +76,20 @@ class Business private constructor() {
      */
     fun isManager(player: OfflinePlayer) = isOwner(player) || managers.contains(player.uniqueId)
 
+    /**
+     * Get this business' icon
+     */
     fun getIcon(): ItemStack {
         val base = icon?.let { ItemStack(it) } ?: owner!!.getPlayerHead()
 
         return base.setName(name)
     }
 
+    /**
+     * Add a new [location]
+     *
+     * Returns false if [location] is already registered
+     */
     fun addLocation(location: BusinessLocation): Boolean {
         if (locations.find { location.isSimilar(it) } != null) return false
 
@@ -91,7 +102,7 @@ class Business private constructor() {
     /**
      * Save the business to disk
      *
-     * @return False for file system error, True otherwise
+     * Returns false if there was an error saving
      */
     fun save(): Boolean {
         // Fail if any required elements are missing
@@ -111,19 +122,25 @@ class Business private constructor() {
         }
     }
 
+    /**
+     * Delete this business
+     *
+     * Unregisters with [BusinessManager] and deletes file on disk
+     */
     fun delete() {
         BusinessManager.deregister(this)
         file!!.delete()
     }
 
     companion object {
+        private val gson = Gson()
+
         /**
-         * Create a new business and save it to disk
+         * Create a new business named [name] owned by [owner] with [managers]
          *
-         * @param name     The name of the business
-         * @param owner    The owners UUID
-         * @param managers A list of the UUIDs allowed to manage this business
-         * @return The new business, OR null if the business could not be created
+         * Saves to disk automatically
+         *
+         * Returns the business or null if there was an error
          */
         fun create(name: String, owner: UUID, managers: List<UUID>?): Business? {
             // Create the business
@@ -145,10 +162,9 @@ class Business private constructor() {
         }
 
         /**
-         * Load a business from disk
+         * Load business [id] from disk
          *
-         * @param id The name of the business
-         * @return The business or null if 1. The business doesn't exist OR 2. The business is invalid
+         * Return the business or null if it doesn't exist or is invalid
          */
         fun load(id: UUID): Business? {
             // Get the config file
@@ -164,18 +180,21 @@ class Business private constructor() {
                 // Set the id, file and return
                 b.id = id
                 b.file = datafile
+
                 b
             } catch (e: IOException) {
                 GMLogger.FILE.error(
                     "Error loading business from '${datafile.name}'",
                     e
                 )
+
                 null
             } catch (e: JsonSyntaxException) {
                 GMLogger.FILE.error(
                     "Error loading business from '${datafile.name}': Invalid JSON",
                     e
                 )
+
                 null
             }
         }

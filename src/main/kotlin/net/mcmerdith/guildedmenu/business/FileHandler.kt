@@ -6,6 +6,9 @@ import java.util.*
 import java.util.stream.Collectors
 
 object FileHandler {
+    /**
+     * Write [json] to [file]
+     */
     @Throws(IOException::class)
     fun writeDataFile(json: String, file: File) {
         val writer = FileWriter(file)
@@ -14,6 +17,9 @@ object FileHandler {
         writer.close()
     }
 
+    /**
+     * Read raw data from [file]
+     */
     @Throws(IOException::class)
     fun readDataFile(file: File): String {
         val reader = BufferedReader(FileReader(file))
@@ -31,6 +37,9 @@ object FileHandler {
         }
     }
 
+    /**
+     * Get a file [id].json in the business data directory
+     */
     fun getBusinessConfigFile(id: UUID) = File(businessConfigDir, "$id.json")
 
     /**

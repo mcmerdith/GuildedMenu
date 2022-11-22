@@ -1,6 +1,5 @@
 package net.mcmerdith.guildedmenu.business
 
-import com.google.gson.Gson
 import net.mcmerdith.guildedmenu.gui.business.BusinessSelectMenu
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.SignShopIntegration
@@ -70,8 +69,6 @@ object BusinessManager : CommandExecutor, TabCompleter {
     /*
     Business Manager
      */
-
-    val gson = Gson()
 
     // Data Storage
     fun init() {
