@@ -28,12 +28,25 @@ class TownyIntegration : Integration("Towny") {
     private val api: TownyAPI by lazy { TownyAPI.getInstance() }
     private val townCommand: TownCommand by lazy { TownCommand(Towny.getPlugin()) }
 
+    /**
+     * Get a [Resident] for [uuid]
+     *
+     * Returns null if Towny does not have a [Resident] registered for [uuid]
+     */
     fun getResident(uuid: UUID) = api.getResident(uuid)
 
     /**
-     * /t claim [shape] [count]
-     *
-     * Claim town blocks for [player]
+     * Get all town ranks
+     */
+    fun getTownRanks(): List<String> = TownyPerms.getTownRanks()
+
+    /**
+     * Get all nation ranks
+     */
+    fun getNationRanks(): List<String> = TownyPerms.getNationRanks()
+
+    /**
+     * Claim [count] town blocks for [player]
      *
      * [shape]: true=rect, false=circle
      */
@@ -47,8 +60,6 @@ class TownyIntegration : Integration("Towny") {
         )
 
     /**
-     * /t claim auto
-     *
      * Claim maximum town blocks for [player]
      */
     fun townClaimAuto(player: Player) =
@@ -58,8 +69,6 @@ class TownyIntegration : Integration("Towny") {
         )
 
     /**
-     * /t claim outpost
-     *
      * Claim output for [player]
      */
     fun townClaimOutpost(player: Player) =
@@ -69,17 +78,13 @@ class TownyIntegration : Integration("Towny") {
         )
 
     /**
-     * /t outpost
-     *
      * Teleport [player] to spawn of [outpostId]
      */
     fun townOutpostSpawn(player: Player, outpostId: Int) =
         TownCommand.townSpawn(player, arrayOf(outpostId.toString()), true, false)
 
     /**
-     * /t delete [town]
-     *
-     * Delete a town
+     * Delete a [town]
      *
      * [player]'s town will be used if [town] is not provided
      */
@@ -91,13 +96,11 @@ class TownyIntegration : Integration("Towny") {
     }
 
     /**
-     * /t spawn [town]
-     *
      * Teleport [player] to the spawn of [town]
      *
      * [player]'s hometown will be used if [town] is null
      */
-    fun townSpawn(player: Player, town: Town?) {
+    fun townSpawn(player: Player, town: Town? = null) {
         TownCommand.townSpawn(
             player,
             town?.let { arrayOf(it.name) } ?: arrayOf(),
@@ -107,19 +110,7 @@ class TownyIntegration : Integration("Towny") {
     }
 
     /**
-     * Get all town ranks
-     */
-    fun getTownRanks(): List<String> = TownyPerms.getTownRanks()
-
-    /**
-     * Get all nation ranks
-     */
-    fun getNationRanks(): List<String> = TownyPerms.getNationRanks()
-
-    /**
-     * /t ranklist [town]
-     *
-     * Returns a map of each rank to a list of [Resident]s with that rank
+     * Returns a map of each rank for [town] to a list of [Resident]s with that rank
      */
     fun townRankList(town: Town): Map<String, List<Resident>> {
         val res = mutableMapOf<String, List<Resident>>()
@@ -132,45 +123,54 @@ class TownyIntegration : Integration("Towny") {
     }
 
     /**
-     * /t rank [action] [target] [rank]
+     * [player]: The calling player
+     *
      * [action]: true=add, false=remove
-     * Add/remove [rank] from [target]
+     *
+     * Add/remove [rank] from [target] ([player] if not provided)
      */
-    fun townRankUpdate(player: Player, action: Boolean, target: Player, rank: String) {
+    fun townRankUpdate(player: Player, action: Boolean, target: Player?, rank: String) {
         townCommand.townRank(
             player, arrayOf(
                 if (action) "add" else "remove",
-                target.name,
+                target?.name ?: player.name,
                 rank
             )
         )
     }
 
     /**
-     * /t deposit [amount]
+     * [player]: The calling player
      *
-     * Deposit [amount] to [player]'s town
+     * Deposit [amount] to [town] from [resident]'s account
      */
     fun townDeposit(player: Player, resident: Resident, town: Town, amount: Int) {
         MoneyUtil.townDeposit(player, resident, town, null, amount)
     }
 
     /**
-     * /t deposit [amount]
+     * [player]: The calling player
      *
-     * Deposit [amount] to [player]'s town
+     * Withdraw [amount] from [town] to [resident]'s account
      */
     fun townWithdraw(player: Player, resident: Resident, town: Town, amount: Int) {
         MoneyUtil.townWithdraw(player, resident, town, amount)
     }
 
     /**
-     * t set board
+     * [player]: The calling player
+     *
+     * Set [town]'s board to [board]
      */
     fun townSetBoard(player: Player, town: Town, board: String) {
         TownCommand.townSet(player, arrayOf("board", *board.split(" ").toTypedArray()), false, town)
     }
 
+    /**
+     * [player]: The calling player
+     *
+     * Set [town]'s [action] permission for [level] to [value]
+     */
     fun townSetPerm(player: Player, action: ActionType, level: PermLevel, value: Boolean, town: Town) {
         TownCommand.townSet(
             player, arrayOf(
@@ -180,6 +180,9 @@ class TownyIntegration : Integration("Towny") {
         )
     }
 
+    /**
+     * Get an item representing [town]'s current permission level for [action]
+     */
     fun getPermissionsItem(action: ActionType, town: Town): ItemStack {
         val lore = mutableListOf<String>()
 
@@ -197,6 +200,9 @@ class TownyIntegration : Integration("Towny") {
         return ItemTemplates.UI.getInfo(action.commonName).setLore(lore)
     }
 
+    /**
+     * Get an item representing [town]'s current permission of [level] for [action]
+     */
     fun getPermissionItem(action: ActionType, level: PermLevel, town: Town): ItemStack {
         val allowed = town.permissions.getPerm(level, action)
 
@@ -220,6 +226,9 @@ class TownyIntegration : Integration("Towny") {
         NATIONZONE("Nation Zone?"),
         OPEN("Public Joining");
 
+        /**
+         * Get an item representing this setting if [enabled]
+         */
         fun getItem(enabled: Boolean): ItemStack {
             return if (enabled) {
                 ItemStack(Material.LIME_CONCRETE).setName(description).setLore("${ChatColor.GREEN}Enabled")
@@ -228,6 +237,11 @@ class TownyIntegration : Integration("Towny") {
             }
         }
 
+        /**
+         * [player]: The calling player
+         *
+         * Toggle this setting for [town]
+         */
         fun toggle(player: Player, town: Town) {
             TownCommand.townToggle(player, arrayOf(name), false, town)
         }

@@ -20,6 +20,11 @@ class VaultIntegration : Integration("Vault") {
         return setupEconomy()
     }
 
+    /**
+     * Get the current Vault [Economy]
+     *
+     * Returns false if no economy is registered
+     */
     private fun setupEconomy(): Boolean {
         if (!pluginEnabled) return false
         val rsp: RegisteredServiceProvider<Economy> =
@@ -30,9 +35,14 @@ class VaultIntegration : Integration("Vault") {
         return true
     }
 
+    /**
+     * Get the top balances on this server
+     *
+     * Sorted high -> low
+     */
     fun topBalances(): BalanceTop {
         val players = Bukkit.getOfflinePlayers()
-        val balances: MutableList<PlayerBalance> = ArrayList()
+        val balances = mutableListOf<PlayerBalance>()
 
         for (player in players) {
             balances.add(PlayerBalance(player, econ.getBalance(player)))
@@ -45,16 +55,33 @@ class VaultIntegration : Integration("Vault") {
         )
     }
 
+    /**
+     * Get [player]'s balance
+     */
     fun balance(player: OfflinePlayer) = econ.getBalance(player)
 
+    /**
+     * Format [balance]
+     */
     fun format(double: Double): String = econ.format(double)
 
+    /**
+     * Get [player]'s formatted balance
+     */
     fun formattedBalance(player: OfflinePlayer) = format(balance(player))
 
+    /**
+     * Get [player]'s head with their formatted balance as the lore
+     */
     fun getPlayerBalanceHeadTemplate(player: OfflinePlayer) = StaticPlayerHeadItemTemplate.of(player).apply {
         rawItem.setLore("Balance: ${formattedBalance(player)}")
     }
 
+    /**
+     * Transfer [amount] from [playerToWithdraw] to [playerToDeposit]
+     *
+     * [callingPlayer] is only used for messaging
+     */
     fun transfer(
         playerToWithdraw: OfflinePlayer,
         playerToDeposit: OfflinePlayer,
