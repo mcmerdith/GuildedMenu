@@ -26,15 +26,15 @@ import java.util.function.Predicate
 /**
  * Menu to view businesses that match [filter] (all by default)
  *
- * [callback] will be executed with the selecting player and the selected business
+ * [selectReceiver] will be executed with the selecting player and the selected business
  *
- * If [callback] is not provided a [ViewBusinessMenu] will be opened instead
+ * If [selectReceiver] is not provided a [ViewBusinessMenu] will be opened instead
  */
 class BusinessSelectMenu(
     private val previous: MenuProvider? = null,
     private val filter: Predicate<Business> = Predicate<Business> { true },
     private val delete: Boolean = false,
-    private val callback: MenuSelectReceiver<Business>? = null
+    private val selectReceiver: MenuSelectReceiver<Business>? = null
 ) : PaginatedMenu() {
     companion object {
         /**
@@ -89,11 +89,11 @@ class BusinessSelectMenu(
                                 previous,
                                 { it.owner == business.owner },
                                 false,
-                                callback
+                                selectReceiver
                             ).get().open(clickPlayer)
                         } else {
                             // Execute the callback when left-clicked (or default behavior)
-                            callback?.apply {
+                            selectReceiver?.apply {
                                 if (invoke(clickPlayer, business)) clickPlayer.closeInventory()
                             } ?: defaultBehavior(
                                 this@BusinessSelectMenu,
@@ -144,7 +144,7 @@ class BusinessSelectMenu(
                     // Reset filters
                     menu.getSlot(6, 5).apply {
                         item = ItemTemplates.UI.getRefresh("Reset Filters")
-                        openOnClick(BusinessSelectMenu(previous, delete = false, callback = callback))
+                        openOnClick(BusinessSelectMenu(previous, delete = false, selectReceiver = selectReceiver))
                     }
 
                     // Delete mode

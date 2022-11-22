@@ -27,6 +27,10 @@ class EconomyMenu(private val previous: MenuProvider? = null) : PaginatedMenu() 
     }
 
     private val vault by lazy { IntegrationManager[VaultIntegration::class.java]!! }
+
+    /**
+     * Always returns the current bal-top
+     */
     private val balTop
         get() = vault.topBalances()
 
@@ -40,6 +44,7 @@ class EconomyMenu(private val previous: MenuProvider? = null) : PaginatedMenu() 
     override fun getRowMask() = GuiUtil.getRowMask(5, "100000000")
 
     override fun setup(builder: PaginatedMenuBuilder) {
+        // Add all the player heads
         for (balance in balTop.balances) builder.addItem(vault.getPlayerBalanceHeadTemplate(balance.player))
     }
 
@@ -70,7 +75,6 @@ class EconomyMenu(private val previous: MenuProvider? = null) : PaginatedMenu() 
                     // Fill the row with error items to indicate there was an issue
                     for (j in 2..9) menu.getSlot(i, j).item = ERROR_ITEM
                 }
-
             }
         }
     }

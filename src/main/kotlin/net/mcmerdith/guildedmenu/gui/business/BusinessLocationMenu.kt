@@ -18,6 +18,8 @@ import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import net.mcmerdith.guildedmenu.util.MenuProvider
 import net.mcmerdith.guildedmenu.util.MenuSelectReceiver
+import net.mcmerdith.guildedmenu.util.capitalize
+import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
@@ -29,6 +31,11 @@ import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 import org.ipvp.canvas.slot.ClickOptions
 import org.ipvp.canvas.slot.SlotSettings
 
+/**
+ * View locations of [business]
+ *
+ * [delete]: If the menu should render for deletion
+ */
 class BusinessLocationMenu(
     private val previous: MenuProvider?,
     private val business: Business,
@@ -58,18 +65,23 @@ class BusinessLocationMenu(
                 )
             }
 
+            // Don't show controls in delete mode
             if (delete) return
 
+            // Add/Remove controls are only shown for the owner
             newMenuModifier { menu ->
+                // Add location button
                 menu.getSlot(4, 4).settings = ConditionalSlot.build(
                     ItemTemplates.UI.getNew("Add locations"),
                     { p -> business.isOwner(p) },
                     { p, _ ->
+                        // Open a menu containing the magic item
                         BaseMenu.Builder(1)
                             .title("Add a location")
                             .build()
                             .apply {
                                 getSlot(1, 5).apply {
+                                    // Magic item is a stick
                                     item = ItemTemplates.getEnchantedStick("Add location")
                                         .setLore(
                                             "Add a SignShop sign to '${business.name}'",
@@ -77,21 +89,25 @@ class BusinessLocationMenu(
                                         )
                                         .setBusiness(business)
 
+                                    // Allow the player to remove the item from the menu
                                     clickOptions = ClickOptions.ALLOW_ALL
                                 }
                             }.open(p)
                     }
                 )
 
+                // Remove location button
                 menu.getSlot(4, 6).settings = ConditionalSlot.build(
                     ItemTemplates.UI.getDelete("Remove a location"),
                     { p -> business.isOwner(p) },
                     { p, _ ->
+                        // Open a delete selection menu
                         BusinessLocationMenu(
                             this@BusinessLocationMenu,
                             business,
                             true
                         ) { _, location ->
+                            // Remove and save
                             business.locations.remove(location)
                             business.save()
                             true
@@ -122,29 +138,38 @@ class BusinessLocationMenu(
 
             val block = event.clickedBlock ?: return
 
+            // Get SignShop
             val signshop = IntegrationManager[SignShopIntegration::class.java] ?: return
-
             if (!signshop.ready) return
 
+            // Get the shop at the clicked block location
             val shop = signshop.getShop(block.location) ?: run {
                 event.player.sendErrorMessage("That is not a shop!")
                 return
             }
 
-            // TODO AnvilGUI name
+            val icon = shop.items.firstOrNull()?.type ?: Material.OAK_SIGN
 
-            val location = BusinessLocation(
-                shop.items.firstOrNull()?.type ?: Material.OAK_SIGN,
-                block.location,
-                shop.operation,
-                listOf(*shop.items)
-            )
+            GuiUtil.getAnvilGUIBuilder(
+                "Name location",
+                ItemStack(icon),
+                null
+            ) { player, input ->
+                val location = BusinessLocation(
+                    icon,
+                    block.location,
+                    "$input (${shop.operation.capitalize()})",
+                    listOf(*shop.items)
+                )
 
-            if (business.addLocation(location)) {
-                event.player.sendSuccessMessage("Added shop to '${business.name}'")
-            } else {
-                event.player.sendErrorMessage("This shop is already registered to '${business.name}'")
-            }
+                if (business.addLocation(location)) {
+                    player.sendSuccessMessage("Added shop to '${business.name}'")
+                } else {
+                    player.sendErrorMessage("This shop is already registered to '${business.name}'")
+                }
+
+                AnvilGUI.Response.close()
+            }.text("Name").open(event.player)
         }
     }
 }

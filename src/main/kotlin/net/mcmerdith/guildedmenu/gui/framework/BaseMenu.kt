@@ -57,6 +57,9 @@ class BaseMenu private constructor(
     class Builder(rows: Int) : AbstractMenu.Builder<Builder>(MenuSize(rows)) {
         private var previous: MenuProvider? = null
 
+        /**
+         * Set the menu that will open on close
+         */
         fun previous(menu: MenuProvider?): Builder {
             this.previous = menu
             return this

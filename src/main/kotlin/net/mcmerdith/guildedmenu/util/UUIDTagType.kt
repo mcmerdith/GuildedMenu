@@ -5,6 +5,9 @@ import org.bukkit.persistence.PersistentDataType
 import java.nio.ByteBuffer
 import java.util.*
 
+/**
+ * Stores a [UUID] in a PersistentDataContainer
+ */
 class UUIDTagType : PersistentDataType<ByteArray, UUID> {
     companion object {
         val TYPE = UUIDTagType()

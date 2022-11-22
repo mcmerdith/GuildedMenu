@@ -88,8 +88,14 @@ object ItemStackUtils {
      */
     fun ItemStack.getLore() = itemMeta?.lore ?: emptyList()
 
+    /**
+     * Get a [NamespacedKey] that stores the [UUID] of a [Business]
+     */
     private fun getBusinessIdentifierKey() = NamespacedKey(GuildedMenu.plugin, "business-id")
 
+    /**
+     * Set [business] as a [NamespacedKey] on this item
+     */
     fun ItemStack.setBusiness(business: Business): ItemStack {
         val meta = itemMeta ?: return this
 
@@ -100,6 +106,11 @@ object ItemStackUtils {
         return this
     }
 
+    /**
+     * Get a [Business] from the [NamespacedKey] on this item
+     *
+     * Returns null if this item does not have the [NamespacedKey]
+     */
     fun ItemStack.getBusiness(): Business? {
         val container = itemMeta?.persistentDataContainer ?: return null
 

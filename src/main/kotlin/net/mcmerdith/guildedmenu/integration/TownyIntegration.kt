@@ -13,7 +13,7 @@ import com.palmergames.bukkit.towny.utils.MoneyUtil
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
-import net.mcmerdith.guildedmenu.util.toSentenceCase
+import net.mcmerdith.guildedmenu.util.capitalize
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -189,7 +189,7 @@ class TownyIntegration : Integration("Towny") {
         town.permissions.let { tPerm ->
             for (perm in TownyPermission.PermLevel.values()) {
                 lore.add(
-                    "${perm.name.toSentenceCase()}: ${
+                    "${perm.name.capitalize()}: ${
                         if (tPerm.getPerm(perm, action)) "${ChatColor.GREEN}Yes"
                         else "${ChatColor.RED}No"
                     }"
@@ -209,7 +209,7 @@ class TownyIntegration : Integration("Towny") {
         return ItemStack(if (allowed) Material.GREEN_CONCRETE else Material.RED_CONCRETE)
             .setName(action.commonName)
             .setLore(
-                "${level.name.toSentenceCase()}: ${
+                "${level.name.capitalize()}: ${
                     if (allowed) "${ChatColor.GREEN}Yes"
                     else "${ChatColor.RED}No"
                 }"

@@ -8,6 +8,9 @@ import net.mcmerdith.guildedmenu.util.MenuProvider
 import net.mcmerdith.guildedmenu.util.PlayerUtils.asTownyResident
 import org.ipvp.canvas.slot.SlotSettings
 
+/**
+ * View settings for [town]
+ */
 class TownSettingsMenu(
     private val previous: MenuProvider?,
     private val town: Town
@@ -18,6 +21,7 @@ class TownSettingsMenu(
         .previous(previous)
 
     override fun setup(menu: BaseMenu) {
+        // Add all settings items
         menu.getSlot(1, 1).settings = getSettingItem(TownyIntegration.Settings.EXPLOSION, town.isBANG)
         menu.getSlot(1, 2).settings = getSettingItem(TownyIntegration.Settings.FIRE, town.isFire)
         menu.getSlot(1, 3).settings = getSettingItem(TownyIntegration.Settings.MOBS, town.hasMobs())
@@ -28,6 +32,9 @@ class TownSettingsMenu(
         menu.getSlot(1, 8).settings = getSettingItem(TownyIntegration.Settings.OPEN, town.isOpen)
     }
 
+    /**
+     * Get an item representing the [value] of [setting]
+     */
     private fun getSettingItem(setting: TownyIntegration.Settings, value: Boolean): SlotSettings {
         return SlotSettings.builder()
             .item(setting.getItem(value))

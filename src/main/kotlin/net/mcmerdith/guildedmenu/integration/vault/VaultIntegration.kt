@@ -73,8 +73,8 @@ class VaultIntegration : Integration("Vault") {
     /**
      * Get [player]'s head with their formatted balance as the lore
      */
-    fun getPlayerBalanceHeadTemplate(player: OfflinePlayer) = StaticPlayerHeadItemTemplate.of(player).apply {
-        rawItem.setLore("Balance: ${formattedBalance(player)}")
+    fun getPlayerBalanceHeadTemplate(player: OfflinePlayer) = StaticPlayerHeadItemTemplate.of(player) { item ->
+        item.setLore("Balance: ${formattedBalance(player)}")
     }
 
     /**

@@ -1,7 +1,6 @@
 package net.mcmerdith.guildedmenu.business
 
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.getName
-import net.mcmerdith.guildedmenu.util.toSentenceCase
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -22,7 +21,7 @@ class BusinessLocation private constructor() {
         this.y = location.blockY
         this.z = location.blockZ
 
-        this.description = description.toSentenceCase()
+        this.description = description
         this.items.addAll(items.map {
             "${it.getName() ?: it.type.name}x${it.amount}"
         })

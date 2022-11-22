@@ -5,11 +5,12 @@ import net.mcmerdith.guildedmenu.util.PlayerUtils.getHeadItem
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.ipvp.canvas.template.ItemStackTemplate
+import java.util.function.BiConsumer
 
 /**
  * An [ItemStackTemplate] returning the head of the player with [modifier] applied if provided
  */
-class PlayerHeadItemTemplate(private val modifier: ((ItemStack, Player?) -> ItemStack)? = null) : ItemStackTemplate {
+class PlayerHeadItemTemplate(private val modifier: BiConsumer<ItemStack, Player?>? = null) : ItemStackTemplate {
     companion object {
         /**
          * No modifier
@@ -20,7 +21,8 @@ class PlayerHeadItemTemplate(private val modifier: ((ItemStack, Player?) -> Item
 
     override fun getItem(player: Player?): ItemStack? {
         player?.getHeadItem()?.setName(player.name)?.apply {
-            return modifier?.invoke(this, player) ?: this
+            modifier?.accept(this, player)
+            return this
         }
 
         return null

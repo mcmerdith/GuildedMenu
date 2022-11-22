@@ -11,21 +11,20 @@ import org.bukkit.OfflinePlayer
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 import org.ipvp.canvas.slot.SlotSettings
 import java.util.*
+import java.util.function.Predicate
 
 /**
- * Menu to select a player
+ * Menu to select a player filtered by [predicate]
  *
  * If [online] is true only online players will be displayed
  *
- * Provide [sourceSet] to replace the default "All Offline Players"
- *
- * [callback] will be executed with the selecting player and the selected player
+ * [selectReceiver] will be executed with the selecting player and the selected player
  */
 class PlayerSelectMenu(
     private val previous: MenuProvider? = null,
     private val online: Boolean = false,
-    private val sourceSet: List<OfflinePlayer>? = null,
-    private val callback: MenuSelectReceiver<OfflinePlayer>
+    private val predicate: Predicate<OfflinePlayer>? = null,
+    private val selectReceiver: MenuSelectReceiver<OfflinePlayer>
 ) : PaginatedMenu() {
     override fun getBuilder() = BaseMenu.Builder(6).title("Player Select").redraw(true).previous(previous)
 
@@ -33,16 +32,18 @@ class PlayerSelectMenu(
 
     override fun setup(builder: PaginatedMenuBuilder) {
         builder.apply {
-            var players = sourceSet?.stream() ?: Arrays.stream(Bukkit.getOfflinePlayers())
-
-            if (online) players = players.filter { it.isOnline }
+            // Get all players filtered by the predicate
+            val players = Arrays.stream(Bukkit.getOfflinePlayers()).apply {
+                predicate?.let { filter(it) }
+                if (online) filter { it.isOnline }
+            }
 
             players.forEach { player ->
                 // Add each player
                 addItem(SlotSettings.builder()
                     .clickHandler { clickPlayer, _ ->
                         // Execute the callback when clicked
-                        if (callback.invoke(clickPlayer, player)) clickPlayer.closeInventory()
+                        if (selectReceiver.invoke(clickPlayer, player)) clickPlayer.closeInventory()
                     }
                     .itemTemplate(StaticPlayerHeadItemTemplate.of(player))
                     .build())

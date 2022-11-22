@@ -8,12 +8,24 @@ import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
 import net.mcmerdith.guildedmenu.gui.framework.StaticPlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.addLore
 import net.mcmerdith.guildedmenu.util.MenuProvider
+import net.mcmerdith.guildedmenu.util.MenuSelectReceiver
 import net.mcmerdith.guildedmenu.util.PlayerUtils.asOfflinePlayer
-import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder
+import org.ipvp.canvas.slot.SlotSettings
+import java.util.*
 
-class BusinessManagerMenu(private val previous: MenuProvider?, private val business: Business) : PaginatedMenu() {
+/**
+ * View managers of [business]
+ */
+class BusinessManagerMenu(
+    private val previous: MenuProvider?,
+    private val business: Business,
+    private val delete: Boolean = false,
+    private val selectReceiver: MenuSelectReceiver<UUID>? = null
+) : PaginatedMenu() {
     override fun getBuilder() =
         BaseMenu.Builder(2).title("Managers (${business.name})").redraw(true).previous(previous)
 
@@ -22,20 +34,35 @@ class BusinessManagerMenu(private val previous: MenuProvider?, private val busin
     override fun setup(builder: PaginatedMenuBuilder) {
         builder.apply {
             business.managers.forEach { manager ->
-                addItem(StaticPlayerHeadItemTemplate.of(manager.asOfflinePlayer()))
+                addItem(
+                    SlotSettings.builder().itemTemplate(
+                        StaticPlayerHeadItemTemplate.of(manager.asOfflinePlayer()) { item ->
+                            if (delete) item.addLore("${ChatColor.RED}Remove this manager")
+                        }
+                    ).clickHandler { clickPlayer, _ ->
+                        // Execute the callback when clicked
+                        if (selectReceiver?.invoke(clickPlayer, manager) == true) clickPlayer.closeInventory()
+                    }.build()
+                )
             }
 
+            // Don't show controls in delete mode
+            if (delete) return
+
+            // Add/Remove controls are only shown for the owner
             newMenuModifier { menu ->
+                // Add manager button
                 menu.getSlot(2, 4).settings = ConditionalSlot.build(
                     ItemTemplates.UI.getNew("Add a manager"),
                     { p -> business.isOwner(p) },
                     { p, _ ->
+                        // Open a selection menu containing the players who are NOT currently managers
                         PlayerSelectMenu(
                             this@BusinessManagerMenu,
                             false,
-                            mutableListOf(*Bukkit.getOfflinePlayers())
-                                .filter { !business.managers.contains(it.uniqueId) }
+                            { !business.managers.contains(it.uniqueId) }
                         ) { _, newManager ->
+                            // Add and save
                             business.managers.add(newManager.uniqueId)
                             business.save()
                             true
@@ -43,16 +70,19 @@ class BusinessManagerMenu(private val previous: MenuProvider?, private val busin
                     }
                 )
 
+                // Remove manager button
                 menu.getSlot(2, 6).settings = ConditionalSlot.build(
                     ItemTemplates.UI.getDelete("Remove a manager"),
                     { p -> business.isOwner(p) },
                     { p, _ ->
-                        PlayerSelectMenu(
+                        // Open a delete menu for the managers
+                        BusinessManagerMenu(
                             this@BusinessManagerMenu,
-                            false,
-                            business.managers.map { it.asOfflinePlayer() }
+                            business,
+                            true
                         ) { _, newManager ->
-                            business.managers.remove(newManager.uniqueId)
+                            // Remove and save
+                            business.managers.remove(newManager)
                             business.save()
                             true
                         }.get().open(p)

@@ -8,16 +8,26 @@ import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 
 abstract class PaginatedMenu : MenuProvider {
     /**
-     * The builder for this menu
+     * The [BaseMenu.Builder] for this menu
      */
     abstract fun getBuilder(): BaseMenu.Builder
 
+    /**
+     * The [BinaryMask] identifying which slots may be filled by the pagination
+     */
     abstract fun getRowMask(): BinaryMask
 
+    /**
+     * Called before [builder] is built
+     *
+     * Add pagination items here and menu modifiers here
+     */
     abstract fun setup(builder: PaginatedMenuBuilder)
 
     /**
      * Menus from [getBuilder] will be passed to this function before being returned to the caller
+     *
+     * Add any additional items here
      */
     open fun setup(menus: List<Menu>) {}
 

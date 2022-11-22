@@ -27,41 +27,39 @@ class PlayerBalanceMenu(
     override fun getBuilder() = BaseMenu.Builder(3).title("Player Balance").previous(previous)
 
     override fun setup(menu: BaseMenu) {
-        menu.apply {
-            if (target == null) {
-                // Render the menu with the viewer as the target
+        if (target == null) {
+            // Render the menu with the viewer as the target
 
-                // Render the player head 1 slot left of center
-                getSlot(2, 4).setItemTemplate { viewer ->
-                    vault.getPlayerBalanceHeadTemplate(viewer).item
-                }
+            // Render the player head 1 slot left of center
+            menu.getSlot(2, 4).setItemTemplate { viewer ->
+                vault.getPlayerBalanceHeadTemplate(viewer).item
+            }
 
-                // Generic "Send Money" button 1 slot right of center
-                getSlot(2, 6).apply {
-                    item = ItemTemplates.getOrangeRegister("Send Money")
-                    openOnClick(
-                        PlayerSelectMenu(this@PlayerBalanceMenu, false) { callingPlayer, selectedPlayer ->
-                            initTransaction(callingPlayer, selectedPlayer)
-                            false
-                        }::get
-                    )
-                }
-            } else {
-                // Render the player head in the center of the GUI
-                getSlot(2, 5).setItemTemplate(vault.getPlayerBalanceHeadTemplate(target))
+            // Generic "Send Money" button 1 slot right of center
+            menu.getSlot(2, 6).apply {
+                item = ItemTemplates.getOrangeRegister("Send Money")
+                openOnClick(
+                    PlayerSelectMenu(this@PlayerBalanceMenu, false) { callingPlayer, selectedPlayer ->
+                        initTransaction(callingPlayer, selectedPlayer)
+                        false
+                    }::get
+                )
+            }
+        } else {
+            // Render the player head in the center of the GUI
+            menu.getSlot(2, 5).setItemTemplate(vault.getPlayerBalanceHeadTemplate(target))
 
-                // Request button on the left
-                getSlot(2, 3).apply {
-                    item = ItemTemplates.getGreenRegister("Request from ${target.name}").setLore("Coming Soon!")
-                }
+            // Request button on the left
+            menu.getSlot(2, 3).apply {
+                item = ItemTemplates.getGreenRegister("Request from ${target.name}").setLore("Coming Soon!")
+            }
 
-                // Send button on the right
-                getSlot(2, 7).apply {
-                    item = ItemTemplates.getOrangeRegister("Pay ${target.name}")
+            // Send button on the right
+            menu.getSlot(2, 7).apply {
+                item = ItemTemplates.getOrangeRegister("Pay ${target.name}")
 
-                    setClickHandler { player, _ ->
-                        initTransaction(player, target)
-                    }
+                setClickHandler { player, _ ->
+                    initTransaction(player, target)
                 }
             }
         }

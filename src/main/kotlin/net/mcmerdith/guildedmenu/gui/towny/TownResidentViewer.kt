@@ -15,6 +15,9 @@ import net.mcmerdith.guildedmenu.util.PlayerUtils.getHeadItem
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 import org.ipvp.canvas.slot.SlotSettings
 
+/**
+ * View all residents of [town]
+ */
 class TownResidentViewer(
     private val previous: MenuProvider?,
     private val town: Town,
@@ -26,6 +29,7 @@ class TownResidentViewer(
 
     override fun setup(builder: PaginatedMenuBuilder) {
         for (resident in town.residents) {
+            // Add all residents
             builder.addItem(SlotSettings.builder().apply {
                 item(
                     (resident.player?.getHeadItem() ?: SkullCreator.createSkull().setName(resident.name))

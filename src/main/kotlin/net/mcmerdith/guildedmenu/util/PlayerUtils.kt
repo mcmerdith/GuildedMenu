@@ -25,6 +25,9 @@ object PlayerUtils {
      */
     fun OfflinePlayer.getHeadItem(): ItemStack = uniqueId.getPlayerHead()
 
+    /**
+     * Get the players head as an item
+     */
     fun UUID.getPlayerHead(): ItemStack = SkullCreator.itemFromUuid(this)
 
     /**
