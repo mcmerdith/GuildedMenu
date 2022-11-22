@@ -3,6 +3,7 @@ package net.mcmerdith.guildedmenu
 import net.mcmerdith.guildedmenu.business.BusinessManager
 import net.mcmerdith.guildedmenu.configuration.MenuConfig
 import net.mcmerdith.guildedmenu.configuration.PluginConfig
+import net.mcmerdith.guildedmenu.gui.business.BusinessLocationMenu
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.util.GMLogger
@@ -46,9 +47,7 @@ class GuildedMenu : JavaPlugin() {
         IntegrationManager.enable()
 
         registerCommands()
-
-        // GUI Event Listener
-        Bukkit.getPluginManager().registerEvents(MenuFunctionListener(), this)
+        registerEvents()
     }
 
     private fun registerCommands() {
@@ -61,5 +60,15 @@ class GuildedMenu : JavaPlugin() {
         // Menu commands
         getCommand("guildedmenuadmin")!!.setExecutor(GuiUtil)
         getCommand("guildedmenu")!!.setExecutor(GuiUtil)
+    }
+
+    private fun registerEvents() {
+        Bukkit.getPluginManager().apply {
+            // GUI Event Listener
+            registerEvents(MenuFunctionListener(), this@GuildedMenu)
+
+            // Add Business Location
+            registerEvents(BusinessLocationMenu.EventPlayerInteract(), this@GuildedMenu)
+        }
     }
 }

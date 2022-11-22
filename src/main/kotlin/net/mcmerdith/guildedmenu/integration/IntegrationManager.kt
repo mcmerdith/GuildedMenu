@@ -6,6 +6,7 @@ import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
 object IntegrationManager {
     private val integrations: MutableMap<Class<out Integration>, Integration> = HashMap()
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun register(clazz: Class<out Integration>, i: Integration) {
         integrations[clazz] = i
     }
@@ -42,8 +43,9 @@ object IntegrationManager {
     }
 
     init {
-        register(SignShopIntegration::class.java, SignShopIntegration())
-        register(VaultIntegration::class.java, VaultIntegration())
         register(EssentialsIntegration::class.java, EssentialsIntegration())
+        register(VaultIntegration::class.java, VaultIntegration())
+        register(SignShopIntegration::class.java, SignShopIntegration())
+        register(TownyIntegration::class.java, TownyIntegration())
     }
 }

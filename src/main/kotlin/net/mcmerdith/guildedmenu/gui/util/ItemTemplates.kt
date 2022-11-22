@@ -4,6 +4,7 @@ import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import org.bukkit.Material
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
 @Suppress("unused")
@@ -17,6 +18,9 @@ object ItemTemplates {
     Items
      */
 
+    private val ENCHANTED_STICK: ItemStack
+        get() = ItemStack(Material.STICK).apply { addUnsafeEnchantment(Enchantment.DURABILITY, 1) }
+
     private val MONEYBLOCK: ItemStack
         get() = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjg4OWNmY2JhY2JlNTk4ZThhMWNkODYxMGI0OWZjYjYyNjQ0ZThjYmE5ZDQ5MTFkMTIxMTM0NTA2ZDhlYTFiNyJ9fX0=")
     private val REGISTER_GREEN: ItemStack
@@ -26,6 +30,7 @@ object ItemTemplates {
     private val ERROR: ItemStack
         get() = ItemStack(Material.BARRIER)
 
+    fun getEnchantedStick(name: String? = null) = getItem(ENCHANTED_STICK, name)
     fun getMoneyBlock(name: String? = null) = getItem(MONEYBLOCK, name)
     fun getGreenRegister(name: String? = null) = getItem(REGISTER_GREEN, name)
     fun getOrangeRegister(name: String? = null) = getItem(REGISTER_ORANGE, name)

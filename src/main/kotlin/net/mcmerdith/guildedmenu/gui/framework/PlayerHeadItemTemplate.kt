@@ -1,7 +1,7 @@
 package net.mcmerdith.guildedmenu.gui.framework
 
-import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
+import net.mcmerdith.guildedmenu.util.PlayerUtils.getHeadItem
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.ipvp.canvas.template.ItemStackTemplate
@@ -18,10 +18,12 @@ class PlayerHeadItemTemplate(private val modifier: ((ItemStack, Player?) -> Item
         val INST = PlayerHeadItemTemplate()
     }
 
-    override fun getItem(player: Player?): ItemStack {
-        SkullCreator.itemFromUuid(player?.uniqueId).setName(player?.name ?: "Unknown Player").apply {
+    override fun getItem(player: Player?): ItemStack? {
+        player?.getHeadItem()?.setName(player.name)?.apply {
             return modifier?.invoke(this, player) ?: this
         }
+
+        return null
     }
 
 }

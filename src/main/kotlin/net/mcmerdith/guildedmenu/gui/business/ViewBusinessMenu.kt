@@ -1,16 +1,19 @@
-package net.mcmerdith.guildedmenu.gui
+package net.mcmerdith.guildedmenu.gui.business
 
 import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.business.Business
+import net.mcmerdith.guildedmenu.gui.MaterialSelectMenu
+import net.mcmerdith.guildedmenu.gui.PlayerSelectMenu
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.BasicMenu
 import net.mcmerdith.guildedmenu.gui.framework.ConditionalSlot
-import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
+import net.mcmerdith.guildedmenu.util.MenuProvider
+import net.mcmerdith.guildedmenu.util.PlayerUtils.getPlayerHead
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.ChatColor
 
@@ -85,7 +88,7 @@ class ViewBusinessMenu(
 
             getSlot(2, 3).apply {
                 item = ItemTemplates.getSignshop("See locations")
-                // clickHandler
+                openOnClick(BusinessLocationMenu(this@ViewBusinessMenu, business))
             }
 
             /*
@@ -111,7 +114,7 @@ class ViewBusinessMenu(
             )
 
             // Current owner
-            getSlot(2, 5).item = SkullCreator.itemFromUuid(business.owner!!).setLore("Owner")
+            getSlot(2, 5).item = business.owner!!.getPlayerHead().setLore("Owner")
 
             /*
             Managers
@@ -119,7 +122,7 @@ class ViewBusinessMenu(
 
             getSlot(2, 7).apply {
                 item = SkullCreator.createSkull().setName("View Managers")
-                openOnClick(ManagerMenu(this@ViewBusinessMenu, business))
+                openOnClick(BusinessManagerMenu(this@ViewBusinessMenu, business))
             }
         }
     }

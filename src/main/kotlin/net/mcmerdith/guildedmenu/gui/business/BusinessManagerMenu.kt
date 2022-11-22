@@ -1,14 +1,19 @@
-package net.mcmerdith.guildedmenu.gui
+package net.mcmerdith.guildedmenu.gui.business
 
 import net.mcmerdith.guildedmenu.business.Business
-import net.mcmerdith.guildedmenu.gui.framework.*
+import net.mcmerdith.guildedmenu.gui.PlayerSelectMenu
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
+import net.mcmerdith.guildedmenu.gui.framework.ConditionalSlot
+import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
+import net.mcmerdith.guildedmenu.gui.framework.StaticPlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
+import net.mcmerdith.guildedmenu.util.MenuProvider
 import net.mcmerdith.guildedmenu.util.PlayerUtils.asOfflinePlayer
 import org.bukkit.Bukkit
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 
-class ManagerMenu(private val previous: MenuProvider?, private val business: Business) : PaginatedMenu() {
+class BusinessManagerMenu(private val previous: MenuProvider?, private val business: Business) : PaginatedMenu() {
     override fun getBuilder() =
         BaseMenu.Builder(2).title("Managers (${business.name})").redraw(true).previous(previous)
 
@@ -26,7 +31,7 @@ class ManagerMenu(private val previous: MenuProvider?, private val business: Bus
                     { p -> business.isOwner(p) },
                     { p, _ ->
                         PlayerSelectMenu(
-                            this@ManagerMenu,
+                            this@BusinessManagerMenu,
                             false,
                             mutableListOf(*Bukkit.getOfflinePlayers())
                                 .filter { !business.managers.contains(it.uniqueId) }
@@ -43,7 +48,7 @@ class ManagerMenu(private val previous: MenuProvider?, private val business: Bus
                     { p -> business.isOwner(p) },
                     { p, _ ->
                         PlayerSelectMenu(
-                            this@ManagerMenu,
+                            this@BusinessManagerMenu,
                             false,
                             business.managers.map { it.asOfflinePlayer() }
                         ) { _, newManager ->

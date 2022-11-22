@@ -17,7 +17,7 @@ class EssentialsIntegration : Integration("Essentials") {
             }
 
             return if (target.isOnline) {
-                player.performCommand("tpa${if (tpahere) "here" else ""} ${target.name}")
+                player.performCommand("/essentials:tpa${if (tpahere) "here" else ""} ${target.name}")
                 true
             } else {
                 player.sendErrorMessage("Could not TPA! (is the target online?)")

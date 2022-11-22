@@ -1,7 +1,6 @@
 package net.mcmerdith.guildedmenu.gui
 
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
-import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
 import net.mcmerdith.guildedmenu.gui.framework.StaticPlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
@@ -12,6 +11,7 @@ import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
 import net.mcmerdith.guildedmenu.util.GMLogger
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
+import net.mcmerdith.guildedmenu.util.MenuProvider
 import org.ipvp.canvas.Menu
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 
@@ -26,7 +26,7 @@ class EconomyMenu(private val previous: MenuProvider? = null) : PaginatedMenu() 
         val MONEY_ITEM = ItemTemplates.getMoneyBlock().setName()
     }
 
-    private val vault = IntegrationManager[VaultIntegration::class.java]!!
+    private val vault by lazy { IntegrationManager[VaultIntegration::class.java]!! }
     private val balTop
         get() = vault.topBalances()
 

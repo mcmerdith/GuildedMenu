@@ -34,8 +34,9 @@ abstract class Integration constructor(
     /**
      * Load the integration
      */
-    @Suppress("EmptyMethod")
-    fun setup() {}
+    open fun setup() {
+
+    }
 
     /**
      * Run when server is loading. A

@@ -1,10 +1,10 @@
 package net.mcmerdith.guildedmenu.gui
 
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
-import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
-import net.mcmerdith.guildedmenu.gui.framework.MenuSelectReceiver
 import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
+import net.mcmerdith.guildedmenu.util.MenuProvider
+import net.mcmerdith.guildedmenu.util.MenuSelectReceiver
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder
@@ -13,11 +13,9 @@ import java.util.*
 import java.util.function.Predicate
 
 /**
- * Menu to select a player
+ * Menu to select all [Material]s matching [filter]
  *
- * If [online] is true only online players will be displayed
- *
- * [callback] will be executed with the selecting player and the selected player
+ * [callback] will be executed with the selecting player and the selected material
  */
 class MaterialSelectMenu(
     private val previous: MenuProvider? = null,

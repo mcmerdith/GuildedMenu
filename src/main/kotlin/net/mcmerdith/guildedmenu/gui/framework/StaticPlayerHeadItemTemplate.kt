@@ -1,7 +1,7 @@
 package net.mcmerdith.guildedmenu.gui.framework
 
-import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
+import net.mcmerdith.guildedmenu.util.PlayerUtils.getHeadItem
 import org.bukkit.OfflinePlayer
 import org.bukkit.inventory.ItemStack
 import org.ipvp.canvas.template.StaticItemTemplate
@@ -17,7 +17,7 @@ class StaticPlayerHeadItemTemplate internal constructor(
         fun of(player: OfflinePlayer): StaticPlayerHeadItemTemplate {
             return StaticPlayerHeadItemTemplate(
                 player,
-                SkullCreator.itemFromUuid(player.uniqueId).setName(player.name ?: "Unknown Player")
+                player.getHeadItem().setName(player.name ?: "Unknown Player")
             )
         }
     }

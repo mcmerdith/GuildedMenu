@@ -1,10 +1,10 @@
 package net.mcmerdith.guildedmenu.business
 
 import com.google.gson.JsonSyntaxException
-import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.business.BusinessManager.gson
 import net.mcmerdith.guildedmenu.util.GMLogger
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
+import net.mcmerdith.guildedmenu.util.PlayerUtils.getPlayerHead
 import net.mcmerdith.guildedmenu.util.PlayerUtils.isAdmin
 import org.bukkit.Material
 import org.bukkit.OfflinePlayer
@@ -24,6 +24,7 @@ class Business private constructor() {
     var name: String? = null
     var owner: UUID? = null
     var managers = mutableListOf<UUID>()
+    var locations = mutableListOf<BusinessLocation>()
     var icon: Material? = null
 
     /**
@@ -73,9 +74,18 @@ class Business private constructor() {
     fun isManager(player: OfflinePlayer) = isOwner(player) || managers.contains(player.uniqueId)
 
     fun getIcon(): ItemStack {
-        val base = icon?.let { ItemStack(it) } ?: SkullCreator.itemFromUuid(owner!!)
+        val base = icon?.let { ItemStack(it) } ?: owner!!.getPlayerHead()
 
         return base.setName(name)
+    }
+
+    fun addLocation(location: BusinessLocation): Boolean {
+        if (locations.find { location.isSimilar(it) } != null) return false
+
+        locations.add(location)
+        save()
+
+        return true
     }
 
     /**

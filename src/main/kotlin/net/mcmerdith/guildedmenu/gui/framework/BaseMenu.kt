@@ -1,6 +1,7 @@
 package net.mcmerdith.guildedmenu.gui.framework
 
 import net.mcmerdith.guildedmenu.GuildedMenu
+import net.mcmerdith.guildedmenu.util.MenuProvider
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryType

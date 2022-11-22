@@ -1,6 +1,7 @@
 package net.mcmerdith.guildedmenu.gui.framework
 
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
+import net.mcmerdith.guildedmenu.util.MenuProvider
 import org.ipvp.canvas.Menu
 import org.ipvp.canvas.mask.BinaryMask
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder

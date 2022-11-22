@@ -1,7 +1,9 @@
 package net.mcmerdith.guildedmenu.business
 
 import com.google.gson.Gson
-import net.mcmerdith.guildedmenu.gui.BusinessSelectMenu
+import net.mcmerdith.guildedmenu.gui.business.BusinessSelectMenu
+import net.mcmerdith.guildedmenu.integration.IntegrationManager
+import net.mcmerdith.guildedmenu.integration.SignShopIntegration
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
 import net.mcmerdith.guildedmenu.util.GMLogger
@@ -25,7 +27,12 @@ object BusinessManager : CommandExecutor, TabCompleter {
     ): Boolean {
         if (sender !is Player) {
             sender.sendErrorMessage("Only players can use business commands")
-            return false
+            return true
+        }
+
+        if (IntegrationManager[SignShopIntegration::class.java]?.ready != true) {
+            sender.sendErrorMessage("This command requires SignShop!")
+            return true
         }
 
         if (args.isEmpty()) return false
@@ -82,6 +89,8 @@ object BusinessManager : CommandExecutor, TabCompleter {
     }
 
     private val businessMap: MutableMap<UUID, Business> = HashMap()
+
+    fun find(id: UUID) = businessMap[id]
 
     fun allBusinesses() = businessMap.values
 

@@ -1,12 +1,14 @@
 package net.mcmerdith.guildedmenu.util
 
 import com.palmergames.bukkit.towny.`object`.Resident
+import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.TownyIntegration
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 import java.util.*
 
 @Suppress("unused")
@@ -16,7 +18,14 @@ object PlayerUtils {
      *
      * Returns null if Towny is not available, or the player is not a resident
      */
-    fun Player.asTownyResident() = this.uniqueId.asTownyResident()
+    fun OfflinePlayer.asTownyResident() = this.uniqueId.asTownyResident()
+
+    /**
+     * Get this players head as an ItemStack
+     */
+    fun OfflinePlayer.getHeadItem(): ItemStack = uniqueId.getPlayerHead()
+
+    fun UUID.getPlayerHead(): ItemStack = SkullCreator.itemFromUuid(this)
 
     /**
      * Convert a player to a Towny resident
@@ -26,7 +35,7 @@ object PlayerUtils {
     fun UUID.asTownyResident(): Resident? {
         val towny = IntegrationManager[TownyIntegration::class.java]?.apply { if (!ready) return null } ?: return null
 
-        return towny.getAPI().getResident(this)
+        return towny.getResident(this)
     }
 
     /**

@@ -14,8 +14,7 @@ import org.bukkit.plugin.RegisteredServiceProvider
 import java.util.stream.Collectors
 
 class VaultIntegration : Integration("Vault") {
-    var econ: Economy? = null
-        private set
+    private lateinit var econ: Economy
 
     override fun onEnable(): Boolean {
         return setupEconomy()
@@ -31,14 +30,12 @@ class VaultIntegration : Integration("Vault") {
         return true
     }
 
-    fun hasEconomy() = econ != null
-
     fun topBalances(): BalanceTop {
         val players = Bukkit.getOfflinePlayers()
         val balances: MutableList<PlayerBalance> = ArrayList()
 
         for (player in players) {
-            balances.add(PlayerBalance(player, econ!!.getBalance(player)))
+            balances.add(PlayerBalance(player, econ.getBalance(player)))
         }
 
         return BalanceTop(
@@ -48,9 +45,9 @@ class VaultIntegration : Integration("Vault") {
         )
     }
 
-    fun balance(player: OfflinePlayer) = econ!!.getBalance(player)
+    fun balance(player: OfflinePlayer) = econ.getBalance(player)
 
-    fun format(double: Double): String = econ!!.format(double)
+    fun format(double: Double): String = econ.format(double)
 
     fun formattedBalance(player: OfflinePlayer) = format(balance(player))
 
@@ -64,18 +61,13 @@ class VaultIntegration : Integration("Vault") {
         amount: Double,
         callingPlayer: Player? = null
     ): Boolean {
-        if (!ready) {
-            callingPlayer?.sendErrorMessage("No economy, the transaction is cancelled (is ${if (econ == null) "an economy plugin" else "Vault"} installed?)")
-            return false
-        }
-
-        if (econ?.has(playerToWithdraw, amount) != true) {
+        if (!econ.has(playerToWithdraw, amount)) {
             callingPlayer?.sendErrorMessage("Insufficient funds, the transaction is cancelled")
             return false
         }
 
         // Start the transaction
-        val moneyTaken = econ!!.withdrawPlayer(playerToWithdraw, amount)
+        val moneyTaken = econ.withdrawPlayer(playerToWithdraw, amount)
 
         if (!moneyTaken.transactionSuccess()) {
             callingPlayer?.sendErrorMessage(moneyTaken.errorMessage)
@@ -84,16 +76,16 @@ class VaultIntegration : Integration("Vault") {
         }
 
         // Finish the transaction
-        val moneyGiven = econ!!.depositPlayer(playerToDeposit, amount)
+        val moneyGiven = econ.depositPlayer(playerToDeposit, amount)
 
         if (!moneyGiven.transactionSuccess()) {
             callingPlayer?.sendErrorMessage(moneyGiven.errorMessage)
             callingPlayer?.sendErrorMessage("The transaction has been cancelled and you have been refunded")
-            econ!!.depositPlayer(playerToWithdraw, amount)
+            econ.depositPlayer(playerToWithdraw, amount)
             return false
         }
 
-        callingPlayer?.sendSuccessMessage("Paid ${econ!!.format(amount)} to ${playerToDeposit.name}")
+        callingPlayer?.sendSuccessMessage("Paid ${econ.format(amount)} to ${playerToDeposit.name}")
         return true
     }
 }

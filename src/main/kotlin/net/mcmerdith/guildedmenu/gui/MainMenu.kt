@@ -1,13 +1,19 @@
 package net.mcmerdith.guildedmenu.gui
 
 import net.mcmerdith.guildedmenu.GuildedMenu
+import net.mcmerdith.guildedmenu.gui.business.BusinessSelectMenu
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.BasicMenu
+import net.mcmerdith.guildedmenu.gui.framework.ConditionalSlot
+import net.mcmerdith.guildedmenu.gui.framework.PlayerHeadItemTemplate
+import net.mcmerdith.guildedmenu.gui.towny.TownyMenu
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.integration.EssentialsIntegration
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
+import net.mcmerdith.guildedmenu.integration.TownyIntegration
 import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 
 /**
  * Main Menu
@@ -30,7 +36,7 @@ class MainMenu(private val admin: Boolean = false) : BasicMenu() {
             }
 
             if (config.vault.enabled
-                && IntegrationManager[VaultIntegration::class.java]?.run { ready && hasEconomy() } == true
+                && IntegrationManager[VaultIntegration::class.java]?.ready == true
             ) {
                 // BALTOP
                 getSlot(config.vault.index).apply {
@@ -68,6 +74,19 @@ class MainMenu(private val admin: Boolean = false) : BasicMenu() {
                     item = ItemTemplates.getSignshop()
                     openOnClick(BusinessSelectMenu(this@MainMenu))
                 }
+            }
+
+            getSlot(config.towny.index).apply {
+                val useTowny = config.towny.enabled && IntegrationManager[TownyIntegration::class.java]?.ready == true
+
+                setItemTemplate(PlayerHeadItemTemplate { item, _ ->
+                    if (useTowny) item.setLore("View Town")
+                    else item
+                })
+
+                setClickHandler(ConditionalSlot.ConditionalClickHandler({ useTowny }, { player, _ ->
+                    TownyMenu(this@MainMenu, player).get().open(player)
+                }))
             }
         }
     }

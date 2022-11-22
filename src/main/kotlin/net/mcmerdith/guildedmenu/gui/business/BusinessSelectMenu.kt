@@ -1,11 +1,8 @@
-package net.mcmerdith.guildedmenu.gui
+package net.mcmerdith.guildedmenu.gui.business
 
-import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.business.Business
 import net.mcmerdith.guildedmenu.business.BusinessManager
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
-import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
-import net.mcmerdith.guildedmenu.gui.framework.MenuSelectReceiver
 import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
@@ -13,7 +10,10 @@ import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
+import net.mcmerdith.guildedmenu.util.MenuProvider
+import net.mcmerdith.guildedmenu.util.MenuSelectReceiver
 import net.mcmerdith.guildedmenu.util.PlayerUtils.asOfflinePlayer
+import net.mcmerdith.guildedmenu.util.PlayerUtils.getHeadItem
 import net.mcmerdith.guildedmenu.util.PlayerUtils.isAdmin
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.ChatColor
@@ -121,7 +121,7 @@ class BusinessSelectMenu(
                         setClickHandler { player, _ ->
                             GuiUtil.getAnvilGUIBuilder(
                                 "New business",
-                                SkullCreator.itemFromUuid(player.uniqueId),
+                                player.getHeadItem(),
                                 this@BusinessSelectMenu
                             ) { _, input ->
                                 if (input.isBlank()) AnvilGUI.Response.text("Enter a name")

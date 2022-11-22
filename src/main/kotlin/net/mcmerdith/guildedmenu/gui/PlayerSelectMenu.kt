@@ -1,7 +1,11 @@
 package net.mcmerdith.guildedmenu.gui
 
-import net.mcmerdith.guildedmenu.gui.framework.*
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
+import net.mcmerdith.guildedmenu.gui.framework.PaginatedMenu
+import net.mcmerdith.guildedmenu.gui.framework.StaticPlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
+import net.mcmerdith.guildedmenu.util.MenuProvider
+import net.mcmerdith.guildedmenu.util.MenuSelectReceiver
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder

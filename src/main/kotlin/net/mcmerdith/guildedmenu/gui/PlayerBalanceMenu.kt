@@ -2,13 +2,13 @@ package net.mcmerdith.guildedmenu.gui
 
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.BasicMenu
-import net.mcmerdith.guildedmenu.gui.framework.MenuProvider
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.vault.VaultIntegration
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
+import net.mcmerdith.guildedmenu.util.MenuProvider
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player

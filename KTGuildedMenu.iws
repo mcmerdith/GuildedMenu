@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="clean">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/framework/ConditionalSlot.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KTGuildedMenu.iws" beforeDir="false" afterPath="$PROJECT_DIR$/KTGuildedMenu.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/ViewBusinessMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/gui/ViewBusinessMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/EssentialsIntegration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/EssentialsIntegration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/IntegrationManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/IntegrationManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/TownyIntegration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/TownyIntegration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/PlayerUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/util/PlayerUtils.kt" afterDir="false" />
+    <list default="true" id="a7317902-8f84-4d00-a7ff-1cfcf2855c85" name="Changes" comment="Towny Menu, cleanup some integration crap">
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/Integration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/net/mcmerdith/guildedmenu/integration/Integration.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +99,7 @@
       <list>
         <option value="Kotlin Interface" />
         <option value="Kotlin Object" />
+        <option value="Class" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -166,14 +161,16 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="net.mcmerdith.guildedmenu.gui.business" />
       <recent name="net.mcmerdith.guildedmenu.business" />
       <recent name="net.mcmerdith.guildedmenu.integration.vault" />
       <recent name="net.mcmerdith.guildedmenu.gui.framework" />
       <recent name="net.mcmerdith.guildedmenu.gui.util" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
-      <recent name="net.mcmerdith.guildedmenu.gui.framework" />
+      <recent name="net.mcmerdith.guildedmenu.gui.towny" />
       <recent name="net.mcmerdith.guildedmenu.gui" />
+      <recent name="net.mcmerdith.guildedmenu.gui.framework" />
     </key>
     <key name="KotlinExtractSuperclassDialog.RECENT_KEYS">
       <recent name="net.mcmerdith.guildedmenu.gui" />
@@ -309,21 +306,7 @@
       <workItem from="1668461657289" duration="739000" />
       <workItem from="1668540726014" duration="101000" />
       <workItem from="1668541140127" duration="69005000" />
-      <workItem from="1668899353577" duration="55914000" />
-    </task>
-    <task id="LOCAL-00005" summary="logging no longer needed">
-      <created>1668810091943</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1668810091943</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Move some classes, fix pagination glitches and finish implementing baltop">
-      <created>1668833275359</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1668833275359</updated>
+      <workItem from="1668899353577" duration="90787000" />
     </task>
     <task id="LOCAL-00007" summary="readme.md">
       <created>1668833643513</created>
@@ -654,7 +637,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668998950346</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Move ManagerMenu to its own class">
+      <created>1669054890295</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1669054890295</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Towny Menu, cleanup some integration crap">
+      <created>1669135556875</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1669135556875</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -673,8 +670,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <MESSAGE value="Optimize Imports, Formatting" />
-    <MESSAGE value="Refactoring" />
     <MESSAGE value="Remove debug" />
     <MESSAGE value="Add AdminMenu" />
     <MESSAGE value="Change Icon" />
@@ -698,7 +693,9 @@
     <MESSAGE value="Globals is no longer necessary" />
     <MESSAGE value="UI Tweaks" />
     <MESSAGE value="clean" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean" />
+    <MESSAGE value="Move ManagerMenu to its own class" />
+    <MESSAGE value="Towny Menu, cleanup some integration crap" />
+    <option name="LAST_COMMIT_MESSAGE" value="Towny Menu, cleanup some integration crap" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />

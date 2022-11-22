@@ -1,5 +1,7 @@
 package net.mcmerdith.guildedmenu.gui.framework
 
+import net.mcmerdith.guildedmenu.util.MenuProvider
+
 abstract class BasicMenu : MenuProvider {
     /**
      * The builder for this menu
