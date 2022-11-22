@@ -3,9 +3,10 @@ package net.mcmerdith.guildedmenu.gui.towny
 import com.palmergames.bukkit.towny.`object`.Town
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.BasicMenu
+import net.mcmerdith.guildedmenu.gui.framework.ConditionalClickHandler
 import net.mcmerdith.guildedmenu.integration.TownyIntegration
 import net.mcmerdith.guildedmenu.util.MenuProvider
-import net.mcmerdith.guildedmenu.util.PlayerUtils.asTownyResident
+import net.mcmerdith.guildedmenu.util.PlayerUtils.canEdit
 import org.ipvp.canvas.slot.SlotSettings
 
 /**
@@ -38,13 +39,16 @@ class TownSettingsMenu(
     private fun getSettingItem(setting: TownyIntegration.Settings, value: Boolean): SlotSettings {
         return SlotSettings.builder()
             .item(setting.getItem(value))
-            .clickHandler { player, _ ->
-                // Only the mayor can change settings
-                if (town.isMayor(player.asTownyResident())) {
-                    setting.toggle(player, town)
-                    get().open(player)
-                }
-            }
+            .clickHandler(
+                ConditionalClickHandler(
+                    { player -> player.canEdit(town) },
+                    { player, _ ->
+                        // Only the mayor can change settings
+                        setting.toggle(player, town)
+                        get().open(player)
+                    }
+                )
+            )
             .build()
     }
 }

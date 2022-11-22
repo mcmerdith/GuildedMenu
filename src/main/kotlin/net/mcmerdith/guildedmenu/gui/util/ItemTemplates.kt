@@ -18,9 +18,10 @@ object ItemTemplates {
     Items
      */
 
+    private val HOUSE: ItemStack
+        get() = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2Y3Y2RlZWZjNmQzN2ZlY2FiNjc2YzU4NGJmNjIwODMyYWFhYzg1Mzc1ZTlmY2JmZjI3MzcyNDkyZDY5ZiJ9fX0=")
     private val ENCHANTED_STICK: ItemStack
         get() = ItemStack(Material.STICK).apply { addUnsafeEnchantment(Enchantment.DURABILITY, 1) }
-
     private val MONEYBLOCK: ItemStack
         get() = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjg4OWNmY2JhY2JlNTk4ZThhMWNkODYxMGI0OWZjYjYyNjQ0ZThjYmE5ZDQ5MTFkMTIxMTM0NTA2ZDhlYTFiNyJ9fX0=")
     private val REGISTER_GREEN: ItemStack
@@ -30,6 +31,7 @@ object ItemTemplates {
     private val ERROR: ItemStack
         get() = ItemStack(Material.BARRIER)
 
+    fun getHouse(name: String? = null) = getItem(HOUSE, name)
     fun getEnchantedStick(name: String? = null) = getItem(ENCHANTED_STICK, name)
     fun getMoneyBlock(name: String? = null) = getItem(MONEYBLOCK, name)
     fun getGreenRegister(name: String? = null) = getItem(REGISTER_GREEN, name)

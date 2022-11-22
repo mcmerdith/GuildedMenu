@@ -4,7 +4,10 @@ import net.mcmerdith.guildedmenu.GuildedMenu
 import net.mcmerdith.guildedmenu.gui.AdminMenu
 import net.mcmerdith.guildedmenu.gui.MainMenu
 import net.mcmerdith.guildedmenu.gui.framework.MenuSize
+import net.mcmerdith.guildedmenu.integration.Integration
+import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
+import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.MenuProvider
 import net.mcmerdith.guildedmenu.util.PlayerUtils.isAdmin
 import net.wesjd.anvilgui.AnvilGUI
@@ -77,6 +80,26 @@ object GuiUtil : CommandExecutor {
             if (rightClick != null && type.isRightClick) rightClick.get().open(player)
             else click.get().open(player)
         }
+    }
+
+    fun Slot.ifPluginAvailable(vararg plugins: Class<out Integration>, setup: Slot.() -> Unit): Slot {
+        val missing = mutableListOf<String>()
+
+        for (plugin in plugins) {
+            val registered = IntegrationManager[plugin]
+
+            if (registered?.ready != true) missing.add(registered?.pluginName ?: "Invalid")
+        }
+
+        if (missing.isEmpty()) {
+            setup()
+        } else {
+            item = ItemTemplates.getError(
+                "Missing plugin${if (missing.size > 1) "s" else ""}"
+            ).setLore(missing)
+        }
+
+        return this
     }
 
     /**

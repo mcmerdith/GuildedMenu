@@ -1,6 +1,7 @@
 package net.mcmerdith.guildedmenu.util
 
 import com.palmergames.bukkit.towny.`object`.Resident
+import com.palmergames.bukkit.towny.`object`.Town
 import dev.dbassett.skullcreator.SkullCreator
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.TownyIntegration
@@ -24,6 +25,13 @@ object PlayerUtils {
      * Get this players head as an ItemStack
      */
     fun OfflinePlayer.getHeadItem(): ItemStack = uniqueId.getPlayerHead()
+
+    /**
+     * If the player can edit [town]
+     */
+    fun OfflinePlayer.canInherentlyEdit(town: Town): Boolean = town.isMayor(asTownyResident())
+
+    fun Player.canEdit(town: Town): Boolean = canInherentlyEdit(town) || isTownyAdmin()
 
     /**
      * Get the players head as an item
@@ -57,4 +65,10 @@ object PlayerUtils {
      * If the player is either OP or has the admin permission
      */
     fun CommandSender.isAdmin() = isOp || hasPermission(Permissions.ADMIN)
+
+    /**
+     * If the player meets conditions for [isAdmin] or has the towny admin permission
+     */
+    fun CommandSender.isTownyAdmin() =
+        isAdmin() || hasPermission(Permissions.TOWNYADMIN) || hasPermission(Permissions.TOWNYPLUGINADMIN)
 }

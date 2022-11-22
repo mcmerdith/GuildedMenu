@@ -5,10 +5,11 @@ import com.palmergames.bukkit.towny.`object`.TownyPermission.ActionType
 import com.palmergames.bukkit.towny.`object`.TownyPermission.PermLevel
 import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.framework.BasicMenu
+import net.mcmerdith.guildedmenu.gui.framework.ConditionalClickHandler
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
 import net.mcmerdith.guildedmenu.integration.TownyIntegration
 import net.mcmerdith.guildedmenu.util.MenuProvider
-import net.mcmerdith.guildedmenu.util.PlayerUtils.asTownyResident
+import net.mcmerdith.guildedmenu.util.PlayerUtils.canEdit
 import org.ipvp.canvas.slot.SlotSettings
 
 /**
@@ -40,13 +41,16 @@ class TownPermissionsMenu(
     private fun getPermissionItem(level: PermLevel): SlotSettings {
         return SlotSettings.builder()
             .item(towny.getPermissionItem(action, level, town))
-            .clickHandler { player, _ ->
-                // Only the mayor can change settings
-                if (town.isMayor(player.asTownyResident())) {
-                    towny.townSetPerm(player, action, level, !town.permissions.getPerm(level, action), town)
-                    get().open(player)
-                }
-            }
+            .clickHandler(
+                ConditionalClickHandler(
+                    { player -> player.canEdit(town) },
+                    { player, _ ->
+                        // Only the mayor can change settings
+                        towny.townSetPerm(player, action, level, !town.permissions.getPerm(level, action), town)
+                        get().open(player)
+                    }
+                )
+            )
             .build()
     }
 }

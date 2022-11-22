@@ -1,11 +1,12 @@
 package net.mcmerdith.guildedmenu
 
 import net.mcmerdith.guildedmenu.business.BusinessManager
-import net.mcmerdith.guildedmenu.configuration.MenuConfig
+import net.mcmerdith.guildedmenu.configuration.MainMenuConfig
 import net.mcmerdith.guildedmenu.configuration.PluginConfig
 import net.mcmerdith.guildedmenu.gui.business.BusinessLocationMenu
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.integration.IntegrationManager
+import net.mcmerdith.guildedmenu.integration.SignShopIntegration
 import net.mcmerdith.guildedmenu.util.GMLogger
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -21,7 +22,7 @@ class GuildedMenu : JavaPlugin() {
     }
 
     lateinit var config: PluginConfig
-    lateinit var menuConfig: MenuConfig
+    lateinit var mainMenuConfig: MainMenuConfig
 
     override fun onLoad() {
         super.onLoad()
@@ -41,7 +42,7 @@ class GuildedMenu : JavaPlugin() {
 
         // Load the configuration
         config = PluginConfig.create(dataFolder)
-        menuConfig = MenuConfig.create(dataFolder)
+        mainMenuConfig = MainMenuConfig.create(dataFolder)
 
         // Enable integrations
         IntegrationManager.enable()
@@ -68,7 +69,8 @@ class GuildedMenu : JavaPlugin() {
             registerEvents(MenuFunctionListener(), this@GuildedMenu)
 
             // Add Business Location
-            registerEvents(BusinessLocationMenu.EventPlayerInteract(), this@GuildedMenu)
+            if (IntegrationManager[SignShopIntegration::class.java]?.ready == true)
+                registerEvents(BusinessLocationMenu.EventPlayerInteract(), this@GuildedMenu)
         }
     }
 }

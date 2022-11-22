@@ -13,6 +13,8 @@ import com.palmergames.bukkit.towny.utils.MoneyUtil
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
+import net.mcmerdith.guildedmenu.util.PlayerUtils.canInherentlyEdit
+import net.mcmerdith.guildedmenu.util.PlayerUtils.isTownyAdmin
 import net.mcmerdith.guildedmenu.util.capitalize
 import org.bukkit.ChatColor
 import org.bukkit.Material
@@ -163,7 +165,7 @@ class TownyIntegration : Integration("Towny") {
      * Set [town]'s board to [board]
      */
     fun townSetBoard(player: Player, town: Town, board: String) {
-        TownCommand.townSet(player, arrayOf("board", *board.split(" ").toTypedArray()), false, town)
+        townSet(town, player, "board", *board.split(" ").toTypedArray())
     }
 
     /**
@@ -171,12 +173,30 @@ class TownyIntegration : Integration("Towny") {
      *
      * Set [town]'s [action] permission for [level] to [value]
      */
-    fun townSetPerm(player: Player, action: ActionType, level: PermLevel, value: Boolean, town: Town) {
+    fun townSetPerm(player: Player, action: ActionType, level: PermLevel, value: Boolean, town: Town) =
+        townSet(town, player, "perm", level.name, action.name, if (value) "on" else "off")
+
+    /**
+     * [player]: The calling player
+     *
+     * Set [town]'s mayor to [mayor]
+     */
+    fun townSetMayor(player: Player, mayor: Resident, town: Town) =
+        townSet(town, player, "mayor", mayor.name)
+
+
+    /**
+     * Set [key] to [value] on [town]
+     *
+     * [player] is the calling player.
+     * If [player] is not inherently able to edit [town] but is an admin the set will be run as the mayor
+     */
+    fun townSet(town: Town, player: Player, key: String, vararg value: String) {
         TownCommand.townSet(
-            player, arrayOf(
-                "perm", level.name, action.name,
-                if (value) "on" else "off"
-            ), false, town
+            player,
+            arrayOf(key, *value),
+            !player.canInherentlyEdit(town) && player.isTownyAdmin(),
+            town
         )
     }
 

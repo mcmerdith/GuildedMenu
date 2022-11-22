@@ -30,11 +30,9 @@ object IntegrationManager {
     }
 
     /**
-     * Gets an integration
+     * Gets the [integration] instance
      *
-     * @param integration The integration to retrieve
-     * @param <T>   something...
-     * @return The integration, if available, otherwise null
+     * Returns the integration (or null if no instance is registered)
     </T> */
     @Suppress("UNCHECKED_CAST")
     operator fun <T : Integration> get(integration: Class<T>): T? {

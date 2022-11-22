@@ -19,6 +19,8 @@ import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import net.mcmerdith.guildedmenu.util.MenuProvider
 import net.mcmerdith.guildedmenu.util.PlayerUtils.asTownyResident
+import net.mcmerdith.guildedmenu.util.PlayerUtils.canEdit
+import net.mcmerdith.guildedmenu.util.PlayerUtils.getHeadItem
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.ChatColor
 import org.bukkit.Material
@@ -70,13 +72,12 @@ class TownyMenu(
                 val item = ItemStack(Material.OAK_SIGN).setName("Town Board").setLore(town.board)
 
                 // Only the mayor can update the board
-                if (town.isMayor(player.asTownyResident())) // TODO better conditional
-                    item.addLore("${ChatColor.GOLD}Click to update message")
+                if (player.canEdit(town)) item.addLore("${ChatColor.GOLD}Click to update message")
 
                 item
             }
             setClickHandler(ConditionalClickHandler(
-                { player -> town.isMayor(player.asTownyResident()) },
+                { player -> player.canEdit(town) },
                 { player, _ ->
                     // Get text input
                     GuiUtil.getAnvilGUIBuilder(
@@ -143,8 +144,28 @@ class TownyMenu(
         }
 
         // Founding date
-        menu.getSlot(3, 5).item =
-            ItemTemplates.UI.getInfo("Founded ${TownyFormatter.registeredFormat.format(town.registered)}")
+        menu.getSlot(3, 5).apply {
+            setItemTemplate { player ->
+                val item = (town.mayor.player?.getHeadItem()
+                    ?: SkullCreator.createSkull()).setName("Mayor: ${town.mayor.name}")
+
+                item.setLore("Founded ${TownyFormatter.registeredFormat.format(town.registered)}")
+                if (player.canEdit(town)) item.addLore("${ChatColor.RED}Transfer Ownership")
+
+                item
+            }
+            setClickHandler(
+                ConditionalClickHandler(
+                    { player -> player.canEdit(town) },
+                    { player, _ ->
+                        TownResidentViewer(this@TownyMenu, town) { p, resident ->
+                            towny.townSetMayor(p, resident, town)
+                            true
+                        }.get().open(player)
+                    }
+                )
+            )
+        }
 
         // View town plots
         menu.getSlot(5, 2).apply {

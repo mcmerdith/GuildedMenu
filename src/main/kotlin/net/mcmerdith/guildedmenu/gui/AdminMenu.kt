@@ -10,15 +10,15 @@ import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
  * Admin GUI
  */
 class AdminMenu(private val main: MainMenu) : BasicMenu() {
-    private val config = GuildedMenu.plugin.menuConfig
+    private val config = GuildedMenu.plugin.mainMenuConfig
 
     override fun getBuilder() =
-        BaseMenu.Builder(5).title(GuildedMenu.plugin.menuConfig.title + " (Admin)").previous(main)
+        BaseMenu.Builder(5).title(GuildedMenu.plugin.mainMenuConfig.title + " (Admin)").previous(main)
 
     override fun setup(menu: BaseMenu) {
         // Switch view
         menu.getSlot(config.admin.mainButton.index).apply {
-            item = ItemTemplates.UI.getExclamation("Player View")
+            item = ItemTemplates.UI.getInfo("Switch to Player View")
             openOnClick(main)
         }
 

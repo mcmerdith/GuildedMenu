@@ -25,3 +25,7 @@ permissions:
   guildedmenu.admin:
     description: User is able to do all GuildedMenu admin commands.
     default: op
+    children:
+      guildedmenu.admin.towny:
+        description: User is able to manage all towns
+        default: op
