@@ -8,6 +8,7 @@ import net.mcmerdith.guildedmenu.gui.util.GuiUtil
 import net.mcmerdith.guildedmenu.gui.util.GuiUtil.openOnClick
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
+import net.mcmerdith.guildedmenu.util.Filter
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import net.mcmerdith.guildedmenu.util.MenuProvider
@@ -15,13 +16,13 @@ import net.mcmerdith.guildedmenu.util.MenuSelectReceiver
 import net.mcmerdith.guildedmenu.util.PlayerUtils.asOfflinePlayer
 import net.mcmerdith.guildedmenu.util.PlayerUtils.getHeadItem
 import net.mcmerdith.guildedmenu.util.PlayerUtils.isAdmin
+import net.mcmerdith.guildedmenu.util.getHandler
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.ChatColor
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 import org.ipvp.canvas.slot.SlotSettings
-import java.util.function.Predicate
 
 /**
  * Menu to view businesses that match [filter] (all by default)
@@ -32,7 +33,7 @@ import java.util.function.Predicate
  */
 class BusinessSelectMenu(
     private val previous: MenuProvider? = null,
-    private val filter: Predicate<Business> = Predicate<Business> { true },
+    private val filter: Filter<Business> = { true },
     private val delete: Boolean = false,
     private val selectReceiver: MenuSelectReceiver<Business>? = null
 ) : PaginatedMenu() {
@@ -79,27 +80,26 @@ class BusinessSelectMenu(
 
     override fun setup(builder: PaginatedMenuBuilder) {
         builder.apply {
-            BusinessManager.allBusinesses().stream().filter(filter).forEach { business ->
+            BusinessManager.allBusinesses().filter(filter).forEach { business ->
                 // Add each business
-                addItem(SlotSettings.builder()
-                    .clickHandler { clickPlayer, clickInfo ->
-                        if (clickInfo.clickType.isRightClick && !delete) {
-                            // Filter by owner when right-clicked (not available in delete mode)
-                            BusinessSelectMenu(
-                                previous,
-                                { it.owner == business.owner },
-                                false,
-                                selectReceiver
+                addItem(
+                    SlotSettings.builder()
+                        .clickHandler { clickPlayer, clickInfo ->
+                            if (clickInfo.clickType.isRightClick && !delete) {
+                                // Filter by owner when right-clicked (not available in delete mode)
+                                BusinessSelectMenu(
+                                    previous,
+                                    { it.owner == business.owner },
+                                    false,
+                                    selectReceiver
                             ).get().open(clickPlayer)
                         } else {
                             // Execute the callback when left-clicked (or default behavior)
-                            selectReceiver?.apply {
-                                if (invoke(clickPlayer, business)) clickPlayer.closeInventory()
-                            } ?: defaultBehavior(
-                                this@BusinessSelectMenu,
-                                clickPlayer,
-                                business
-                            )
+                                selectReceiver?.getHandler(business)?.click(clickPlayer, clickInfo) ?: defaultBehavior(
+                                    this@BusinessSelectMenu,
+                                    clickPlayer,
+                                    business
+                                )
                         }
                     }
                     .item(

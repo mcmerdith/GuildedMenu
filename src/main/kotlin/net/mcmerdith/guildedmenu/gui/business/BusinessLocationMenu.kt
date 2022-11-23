@@ -19,6 +19,7 @@ import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import net.mcmerdith.guildedmenu.util.MenuProvider
 import net.mcmerdith.guildedmenu.util.MenuSelectReceiver
 import net.mcmerdith.guildedmenu.util.capitalize
+import net.mcmerdith.guildedmenu.util.getHandler
 import net.wesjd.anvilgui.AnvilGUI
 import org.bukkit.ChatColor
 import org.bukkit.Material
@@ -58,10 +59,7 @@ class BusinessLocationMenu(
 
                             if (delete) addLore("${ChatColor.RED}Remove this location")
                         }
-                    ).clickHandler { clickPlayer, _ ->
-                        // Execute the callback when clicked
-                        if (selectReceiver?.invoke(clickPlayer, location) == true) clickPlayer.closeInventory()
-                    }.build()
+                    ).clickHandler(selectReceiver?.getHandler(location)).build()
                 )
             }
 

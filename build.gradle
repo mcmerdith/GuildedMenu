@@ -1,5 +1,5 @@
-import org.apache.tools.ant.filters.ReplaceTokens
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.7.21'
@@ -26,6 +26,8 @@ repositories {
     maven { url "https://repo.essentialsx.net/releases/" }
     maven { url "https://papermc.io/repo/repository/maven-public/" }
     maven { url "https://repo.codemc.io/repository/maven-snapshots/" }
+    maven { url "https://nexus.phoenixdvpt.fr/repository/maven-public/" }
+    maven { url "https://mvn.lumine.io/repository/maven-public/" }
 }
 
 dependencies {
@@ -46,7 +48,9 @@ dependencies {
     compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
     compileOnly 'com.palmergames.bukkit.towny:towny:0.98.1.0'
     compileOnly 'org.wargamer2010:SignShop:3.6.1'
-
+    compileOnly 'net.Indyuce:MMOItems-API:6.7.5-SNAPSHOT'
+    compileOnly 'io.lumine:Mythic-Dist:5.1.4'
+    compileOnly 'io.lumine:MythicLib-dist:1.4.3-SNAPSHOT'
 }
 
 task relocateShadowJar(type: ConfigureShadowRelocation) {

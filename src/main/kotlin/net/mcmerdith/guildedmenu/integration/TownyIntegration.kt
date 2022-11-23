@@ -3,6 +3,8 @@ package net.mcmerdith.guildedmenu.integration
 import com.palmergames.bukkit.towny.Towny
 import com.palmergames.bukkit.towny.TownyAPI
 import com.palmergames.bukkit.towny.command.TownCommand
+import com.palmergames.bukkit.towny.confirmations.ConfirmationHandler
+import com.palmergames.bukkit.towny.`object`.Nation
 import com.palmergames.bukkit.towny.`object`.Resident
 import com.palmergames.bukkit.towny.`object`.Town
 import com.palmergames.bukkit.towny.`object`.TownyPermission
@@ -10,9 +12,13 @@ import com.palmergames.bukkit.towny.`object`.TownyPermission.ActionType
 import com.palmergames.bukkit.towny.`object`.TownyPermission.PermLevel
 import com.palmergames.bukkit.towny.permissions.TownyPerms
 import com.palmergames.bukkit.towny.utils.MoneyUtil
+import dev.dbassett.skullcreator.SkullCreator
+import net.mcmerdith.guildedmenu.gui.framework.BaseMenu
 import net.mcmerdith.guildedmenu.gui.util.ItemTemplates
+import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
+import net.mcmerdith.guildedmenu.util.MenuProvider
 import net.mcmerdith.guildedmenu.util.PlayerUtils.canInherentlyEdit
 import net.mcmerdith.guildedmenu.util.PlayerUtils.isTownyAdmin
 import net.mcmerdith.guildedmenu.util.capitalize
@@ -46,6 +52,44 @@ class TownyIntegration : Integration("Towny") {
      * Get all nation ranks
      */
     fun getNationRanks(): List<String> = TownyPerms.getNationRanks()
+
+    fun getTowns(): List<Town> = api.towns
+
+    fun getNations(): List<Nation> = getTowns().mapNotNull { town -> town.nationOrNull }.distinct()
+
+    fun townJoin(player: Player, town: Town) {
+        TownCommand.parseTownJoin(player, arrayOf(town.name))
+    }
+
+    fun townInitiateLeave(player: Player, menu: MenuProvider? = null) {
+        townCommand.townLeave(player)
+
+        // Build the confirmation menu
+        BaseMenu.Builder(3).title("Are you sure?").previous(menu).build().apply {
+            getSlot(2, 4).apply {
+                item = ItemTemplates.UI.getCheckMark("Yes, leave town")
+                setClickHandler { p, _ ->
+                    if (ConfirmationHandler.hasConfirmation(p)) {
+                        ConfirmationHandler.acceptConfirmation(p)
+                    } else {
+                        p.sendErrorMessage("Could not leave town")
+                    }
+                    p.closeInventory()
+                }
+            }
+
+            getSlot(2, 6).apply {
+                item = ItemTemplates.UI.getXMark("No, cancel")
+                setClickHandler { p, _ ->
+                    if (ConfirmationHandler.hasConfirmation(p)) {
+                        ConfirmationHandler.revokeConfirmation(p)
+                    }
+
+                    p.closeInventory()
+                }
+            }
+        }.open(player)
+    }
 
     /**
      * Claim [count] town blocks for [player]
@@ -240,7 +284,7 @@ class TownyIntegration : Integration("Towny") {
         EXPLOSION("Explosions"),
         FIRE("Fire Spread"),
         MOBS("Mob Spawning"),
-        PUBLIC("Public Spawn TP and Visible Coordinates"),
+        PUBLIC("Public Spawn"),
         PVP("PVP"),
         TAXPERCENT("Taxation (percent)"),
         NATIONZONE("Nation Zone?"),
@@ -264,6 +308,13 @@ class TownyIntegration : Integration("Towny") {
          */
         fun toggle(player: Player, town: Town) {
             TownCommand.townToggle(player, arrayOf(name), false, town)
+        }
+    }
+
+    companion object {
+        fun Town.getIcon(): ItemStack {
+            // TODO read icon from metadata
+            return SkullCreator.itemFromUuid(mayor.uuid).setName(name).setLore("Mayor: ${mayor.name}")
         }
     }
 }

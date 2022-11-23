@@ -45,5 +45,7 @@ object IntegrationManager {
         register(VaultIntegration::class.java, VaultIntegration())
         register(SignShopIntegration::class.java, SignShopIntegration())
         register(TownyIntegration::class.java, TownyIntegration())
+        register(MMOItemsIntegration::class.java, MMOItemsIntegration())
+        register(MythicMobsIntegration::class.java, MythicMobsIntegration())
     }
 }

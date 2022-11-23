@@ -44,30 +44,78 @@ class TownyMenu(
     private val town
         get() = targetTown ?: resident?.townOrNull
 
+    private fun getTitle(): String {
+        val t = town
+        val pName = player.displayName
+
+        return if (t == null) "$pName (nomad)"
+        else if (t.hasResident(player)) "$pName (${t.name})"
+        else t.name
+    }
+
     override fun getBuilder() = BaseMenu.Builder(5)
-        .title("${player.displayName} (${town?.name ?: "nomad"})")
+        .title(getTitle())
         .previous(previous)
 
     override fun setup(menu: BaseMenu) {
+        /*
+        Sidebar
+         */
+
+        menu.getSlot(2, 2).apply {
+            item = ItemTemplates.getHouse("View All Towns")
+            openOnClick(TownBrowserMenu(this@TownyMenu) { p, town ->
+                TownyMenu(this@TownyMenu, p, town).get().open(p)
+                false
+            })
+        }
+
+        // Validate that we have a town to display before continuing
         val town = this.town ?: run {
             // Player does not have a town and one was not selected
             menu.getSlot(3, 5).apply {
                 item = ItemTemplates.UI.getExclamation("You are not a member of a town")
-                    .setLore("Click to browse public towns")
-                setClickHandler { player, click ->
-                    // TODO Add town browser
-                }
+                    .setLore("Click to browse open towns")
+                openOnClick(TownBrowserMenu(this@TownyMenu, { town -> town.isOpen }) { p, town ->
+                    towny.townJoin(p, town)
+                    true
+                })
             }
             return
         }
 
+        if (town.hasResident(player)) {
+            menu.getSlot(4, 2).apply {
+                item = ItemTemplates.UI.getXMark("Leave Town")
+                setClickHandler { player, _ ->
+                    towny.townInitiateLeave(player, this@TownyMenu)
+                }
+            }
+        }
+
+        /*
+        UI
+         */
+
         // Current player
-        menu.getSlot(1, 2).setItemTemplate(PlayerHeadItemTemplate { item, _ ->
-            item.setLore(town.name)
-        })
+        menu.getSlot(1, 4).apply {
+            setItemTemplate(PlayerHeadItemTemplate { item, p ->
+                if (p != null && town.hasResident(p)) item.setLore(town.name)
+                else item.setLore("Click to View Your Town")
+            })
+
+            setClickHandler(
+                ConditionalClickHandler(
+                    { player -> !town.hasResident(player) },
+                    { player, _ ->
+                        TownyMenu(this@TownyMenu, player).get().open(player)
+                    }
+                )
+            )
+        }
 
         // Town board
-        menu.getSlot(1, 5).apply {
+        menu.getSlot(1, 6).apply {
             setItemTemplate { player ->
                 val item = ItemStack(Material.OAK_SIGN).setName("Town Board").setLore(town.board)
 
@@ -76,8 +124,9 @@ class TownyMenu(
 
                 item
             }
-            setClickHandler(ConditionalClickHandler(
-                { player -> player.canEdit(town) },
+            setClickHandler(
+                ConditionalClickHandler(
+                    { player -> player.canEdit(town) },
                 { player, _ ->
                     // Get text input
                     GuiUtil.getAnvilGUIBuilder(
@@ -94,7 +143,7 @@ class TownyMenu(
         }
 
         // Town bank
-        menu.getSlot(3, 2).apply {
+        menu.getSlot(3, 4).apply {
             setItemTemplate { player ->
                 ItemTemplates.getMoneyBlock("Town Bank")
                     .setLore(
@@ -144,7 +193,7 @@ class TownyMenu(
         }
 
         // Founding date
-        menu.getSlot(3, 5).apply {
+        menu.getSlot(3, 6).apply {
             setItemTemplate { player ->
                 val item = (town.mayor.player?.getHeadItem()
                     ?: SkullCreator.createSkull()).setName("Mayor: ${town.mayor.name}")
@@ -168,13 +217,13 @@ class TownyMenu(
         }
 
         // View town plots
-        menu.getSlot(5, 2).apply {
+        menu.getSlot(5, 4).apply {
             item = ItemStack(Material.GRASS_BLOCK).setName("View Plots")
             // TODO plot viewer
         }
 
         // View residents
-        menu.getSlot(5, 5).apply {
+        menu.getSlot(5, 6).apply {
             item = SkullCreator.createSkull().setName("View Residents")
             openOnClick(TownResidentViewer(this@TownyMenu, town))
         }

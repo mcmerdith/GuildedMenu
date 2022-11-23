@@ -34,9 +34,7 @@ abstract class Integration constructor(
     /**
      * Load the integration
      */
-    open fun setup() {
-
-    }
+    open fun setup() {}
 
     /**
      * Run when server is loading. A

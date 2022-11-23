@@ -5,13 +5,13 @@ import net.mcmerdith.guildedmenu.gui.framework.StaticPlayerHeadItemTemplate
 import net.mcmerdith.guildedmenu.integration.Integration
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendErrorMessage
 import net.mcmerdith.guildedmenu.util.ChatUtils.sendSuccessMessage
+import net.mcmerdith.guildedmenu.util.Filter
 import net.mcmerdith.guildedmenu.util.ItemStackUtils.setLore
 import net.milkbowl.vault.economy.Economy
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.bukkit.plugin.RegisteredServiceProvider
-import java.util.stream.Collectors
 
 class VaultIntegration : Integration("Vault") {
     private lateinit var econ: Economy
@@ -40,7 +40,7 @@ class VaultIntegration : Integration("Vault") {
      *
      * Sorted high -> low
      */
-    fun topBalances(): BalanceTop {
+    fun topBalances(filter: Filter<PlayerBalance> = { true }): BalanceTop {
         val players = Bukkit.getOfflinePlayers()
         val balances = mutableListOf<PlayerBalance>()
 
@@ -48,11 +48,7 @@ class VaultIntegration : Integration("Vault") {
             balances.add(PlayerBalance(player, econ.getBalance(player)))
         }
 
-        return BalanceTop(
-            balances.stream()
-                .sorted(Comparator.comparing({ o: PlayerBalance -> o.balance }, Comparator.reverseOrder()))
-                .collect(Collectors.toList())
-        )
+        return BalanceTop(balances.filter(filter).sortedBy { it.balance })
     }
 
     /**

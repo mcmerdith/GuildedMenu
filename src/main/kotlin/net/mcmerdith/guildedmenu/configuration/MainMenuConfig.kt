@@ -9,6 +9,12 @@ class MainMenuConfig : BaseConfiguration() {
     class AdminMenuConfig {
         @Comment("Icon to switch between admin and player menu")
         var mainButton = MenuIcon(true, 1, 1)
+
+        @Comment("MythicMob Spawn Menu")
+        var mythic = MenuIcon(true, 3, 3)
+
+        @Comment("MMOItems Menu")
+        var mmoitems = MenuIcon(true, 3, 7)
     }
 
     companion object {

@@ -5,7 +5,7 @@ api-version: 1.13
 author: mcmerdith
 website: 'https://github.com/mcmerdith/GuildedCraftMenu'
 prefix: GuildedMenu
-softdepend: [ SignShop,Towny,TownyResources,Vault ]
+softdepend: [ SignShop,Towny,TownyResources,Vault,MMOItems,MythicMobs ]
 
 description: Custom Player Menu for GuildedCraft (https://discord.gg/tkahcfHKuz)
 commands:

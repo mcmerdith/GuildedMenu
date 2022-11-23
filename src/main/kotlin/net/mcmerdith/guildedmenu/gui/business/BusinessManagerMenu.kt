@@ -12,6 +12,7 @@ import net.mcmerdith.guildedmenu.util.ItemStackUtils.addLore
 import net.mcmerdith.guildedmenu.util.MenuProvider
 import net.mcmerdith.guildedmenu.util.MenuSelectReceiver
 import net.mcmerdith.guildedmenu.util.PlayerUtils.asOfflinePlayer
+import net.mcmerdith.guildedmenu.util.getHandler
 import org.bukkit.ChatColor
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 import org.ipvp.canvas.slot.SlotSettings
@@ -39,10 +40,7 @@ class BusinessManagerMenu(
                         StaticPlayerHeadItemTemplate.of(manager.asOfflinePlayer()) { item ->
                             if (delete) item.addLore("${ChatColor.RED}Remove this manager")
                         }
-                    ).clickHandler { clickPlayer, _ ->
-                        // Execute the callback when clicked
-                        if (selectReceiver?.invoke(clickPlayer, manager) == true) clickPlayer.closeInventory()
-                    }.build()
+                    ).clickHandler(selectReceiver?.getHandler(manager)).build()
                 )
             }
 

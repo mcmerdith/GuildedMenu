@@ -265,6 +265,16 @@
       <option name="name" value="maven7" />
       <option name="url" value="https://repo.codemc.io/repository/maven-snapshots/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven8" />
+      <option name="name" value="maven8" />
+      <option name="url" value="https://nexus.phoenixdvpt.fr/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven9" />
+      <option name="name" value="maven9" />
+      <option name="url" value="https://mvn.lumine.io/repository/maven-public/" />
+    </remote-repository>
   </component>
   <component name="SvnBranchConfigurationManager">
     <option name="mySupportsUserInfoFilter" value="true" />
@@ -419,6 +429,22 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/dev.dbassett/skullcreator/3.0.1/a3a8d56a0d96317fe8c1424b47744ffe0c1d3c0a/skullcreator-3.0.1-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Gradle: io.lumine:Mythic-Dist:5.1.4">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.lumine/Mythic-Dist/5.1.4/c7f254c4ef02dc6647a619f60c17685f869a9424/Mythic-Dist-5.1.4.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="https://www.mythicmobs.net/javadocs/" />
+      </JAVADOC>
+      <SOURCES />
+    </library>
+    <library name="Gradle: io.lumine:MythicLib-dist:1.4.3-SNAPSHOT">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/io/lumine/MythicLib-dist/1.4.3-SNAPSHOT/MythicLib-dist-1.4.3-SNAPSHOT.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="Gradle: io.papermc:paperlib:1.0.6">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/io/papermc/paperlib/1.0.6/paperlib-1.0.6.jar!/" />
@@ -438,6 +464,15 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.10/6c98d6766e72d5575f96c9479d1c1d3b865c6e25/junit-4.10-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: net.Indyuce:MMOItems-API:6.7.5-SNAPSHOT">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/Indyuce/MMOItems-API/6.7.5-SNAPSHOT/MMOItems-API-6.7.5-SNAPSHOT.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/../mmoitems/MMOItems-API/src/main/java" />
       </SOURCES>
     </library>
     <library name="Gradle: net.essentialsx:1_8Provider:2.19.0">

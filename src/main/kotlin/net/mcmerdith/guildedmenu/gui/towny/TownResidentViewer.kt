@@ -12,6 +12,7 @@ import net.mcmerdith.guildedmenu.util.ItemStackUtils.setName
 import net.mcmerdith.guildedmenu.util.MenuProvider
 import net.mcmerdith.guildedmenu.util.MenuSelectReceiver
 import net.mcmerdith.guildedmenu.util.PlayerUtils.getHeadItem
+import net.mcmerdith.guildedmenu.util.getHandler
 import org.ipvp.canvas.paginate.PaginatedMenuBuilder
 import org.ipvp.canvas.slot.SlotSettings
 
@@ -41,9 +42,7 @@ class TownResidentViewer(
                         )
                 )
 
-                clickHandler { player, _ ->
-                    if (selectReceiver?.invoke(player, resident) == true) player.closeInventory()
-                }
+                clickHandler(selectReceiver?.getHandler(resident))
             }.build())
         }
     }
